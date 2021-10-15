@@ -2,56 +2,56 @@ DROP SCHEMA IF EXISTS AMT_SQL;
 CREATE SCHEMA AMT_SQL DEFAULT CHARSET = utf8mb4;
 USE AMT_SQL;
 
-CREATE TABLE Utilisateur (
-	 idUtilisateur INTEGER AUTO_INCREMENT,
-     email VARCHAR(50) NOT NULL,
-     motDePasse VARCHAR(255) NOT NULL, 
-     nom VARCHAR(50) NOT NULL,
-     prenom VARCHAR(50) NOT NULL,
-     CONSTRAINT PK_Utilisateur PRIMARY KEY (idUtilisateur)
+CREATE TABLE User (
+     idUser INTEGER AUTO_INCREMENT,
+     emailAddress VARCHAR(50) NOT NULL,
+     password VARCHAR(255) NOT NULL, 
+     firstName VARCHAR(50) NOT NULL,
+     lastName VARCHAR(50) NOT NULL,
+     CONSTRAINT PK_User PRIMARY KEY (idUser)
 );
 
-CREATE TABLE UtilisateurAdresse (
-	 idUtilisateurAdresse INTEGER AUTO_INCREMENT,
-     idUtilisateur INTEGER, 
-     rue VARCHAR(50) NOT NULL,
-     numero INTEGER NOT NULL, 
-     npa INTEGER NOT NULL,
-     ville VARCHAR(50) NOT NULL,
-     pays VARCHAR(50) NOT NULL,
-     CONSTRAINT PK_UtilisateurAdresse PRIMARY KEY (idUtilisateurAdresse)
+CREATE TABLE UserAddress (
+     idUserAddress INTEGER AUTO_INCREMENT,
+     idUser INTEGER, 
+     street VARCHAR(50) NOT NULL,
+     houseNumber INTEGER NOT NULL, 
+     zipCode INTEGER NOT NULL,
+     city VARCHAR(50) NOT NULL,
+     country VARCHAR(50) NOT NULL,
+     CONSTRAINT PK_UserAddress PRIMARY KEY (idUserAddress)
 );
 
-CREATE TABLE Article (
-     idArticle INTEGER AUTO_INCREMENT,
-     nom VARCHAR(50) NOT NULL,
+CREATE TABLE Product (
+     idProduct INTEGER AUTO_INCREMENT,
+     name VARCHAR(50) NOT NULL,
      description VARCHAR(255) NOT NULL,
-     prix INTEGER NOT NULL,
-     CONSTRAINT PK_Article PRIMARY KEY (idArticle)
+     price FLOAT NOT NULL,
+     CONSTRAINT PK_Product PRIMARY KEY (idProduct)
 );
 
-CREATE TABLE Commande (
-     idCommande INTEGER AUTO_INCREMENT,
-     CONSTRAINT PK_Commande PRIMARY KEY (idCommande)
+CREATE TABLE Order (
+     idOrder INTEGER AUTO_INCREMENT,
+     CONSTRAINT PK_Order PRIMARY KEY (idOrder)
 );
 
 ALTER TABLE Adresse
-	ADD CONSTRAINT FK_Adresse_idUtilisateur
-		FOREIGN KEY (idUtilisateur)
-		REFERENCES Utilisateur (idUtilisateur)
+	ADD CONSTRAINT FK_UserAddress_idUser
+		FOREIGN KEY (idUser)
+		REFERENCES User (idUser)
         ON DELETE CASCADE
         ON UPDATE CASCADE;
 
 /*CREATE TABLE Quantite (
 );
 
-CREATE TABLE Paiement (
+CREATE TABLE Payment (
 );
 
-CREATE TABLE Carte (
+CREATE TABLE CreditCard (
 );
 
-CREATE TABLE Facture (
+CREATE TABLE Invoice (
 );
 
 */

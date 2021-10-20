@@ -3,7 +3,12 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 import javax.persistence.Entity;
 
-@Entity(name="User")
+@NamedQueries({
+        @NamedQuery(name="selectUserEmail", query = "SELECT emailAddress from User")
+})
+
+@Entity
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,6 +22,7 @@ public class User {
     private String firstName;
     @Column(name = "lastName", length=50)
     private String lastName;
+
 
     public User() {}
 

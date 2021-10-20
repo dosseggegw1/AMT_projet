@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.shop_els;
 
+import ch.heigvd.amt.projet.shop_els.model.User;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.UnknownServiceException;
 import java.util.List;
 
 @WebServlet(name = "helloDatabase", value = "/hello-database")
@@ -21,7 +23,7 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.createQuery("SELECT emailAddress from User");
+        Query query = session.getNamedQuery("selectUserEmail");
         List results = query.getResultList();
         String email = results.get(0).toString();
         session.close();

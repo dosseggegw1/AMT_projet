@@ -16,4 +16,14 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Account</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Account</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Account</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -58,10 +58,10 @@
                 <!-- / header top left -->
                 <div class="aa-header-top-right">
                   <ul class="aa-head-top-nav-right">
-                    <li><a href="account.jsp">My Account</a></li>
-                    <li class="hidden-xs"><a href="wishlist.jsp">Wishlist</a></li>
-                    <li class="hidden-xs"><a href="cart.jsp">My Cart</a></li>
-                    <li class="hidden-xs"><a href="checkout.jsp">Checkout</a></li>
+                    <li><a href="account">My Account</a></li>
+                    <li class="hidden-xs"><a href="wishlist">Wishlist</a></li>
+                    <li class="hidden-xs"><a href="cart">My Cart</a></li>
+                    <li class="hidden-xs"><a href="checkout">Checkout</a></li>
                     <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                   </ul>
                 </div>
@@ -81,12 +81,12 @@
                 <!-- logo  -->
                 <div class="aa-logo">
                   <!-- Text based logo -->
-                  <a href="index.jsp">
+                  <a href="index">
                     <span class="fa fa-shopping-cart"></span>
                     <p>eLS<strong>Shop</strong> <span>Get the best merchandising</span></p>
                   </a>
                   <!-- img based logo -->
-                  <!-- <a href="index.jsp"><img src="img/logo.jpg" alt="logo img"></a> -->
+                  <!-- <a href="index"><img src="img/logo.jpg" alt="logo img"></a> -->
                 </div>
                 <!-- / logo  -->
                  <!-- cart box -->
@@ -123,7 +123,7 @@
                         </span>
                       </li>
                     </ul>
-                    <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.jsp">Checkout</a>
+                    <a class="aa-cartbox-checkout aa-primary-btn" href="checkout">Checkout</a>
                   </div>
                 </div>
                 <!-- / cart box -->
@@ -160,7 +160,7 @@
             <div class="navbar-collapse collapse">
               <!-- Left nav -->
               <ul class="nav navbar-nav">
-                <li><a href="index.jsp">Home</a></li>
+                <li><a href="index">Home</a></li>
                 <li><a href="#">Men <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Casual</a></li>
@@ -252,12 +252,11 @@
                   </ul>
                 </li>
                 <li><a href="#">Furniture</a></li>
-                <li><a href="contact.jsp">Contact</a></li>
+                <li><a href="contact">Contact</a></li>
                 <li><a href="#">Pages <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="product.jsp">Shop Page</a></li>
-                    <li><a href="product-detail.jsp">Shop Single</a></li>
-                    <li><a href="404.jsp">404 Page</a></li>
+                    <li><a href="product">Shop Page</a></li>
+                    <li><a href="product-detail">Shop Single</a></li>
                   </ul>
                 </li>
               </ul>

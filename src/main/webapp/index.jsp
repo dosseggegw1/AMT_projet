@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="en">
-<jsp:include page="head.jsp"/>
+<jsp:include page="/WEB-INF/includes/head.jsp"/>
 <body>
-  <jsp:include page="header.jsp"/>
+  <jsp:include page="/WEB-INF/includes/header.jsp"/>
   <!-- Start slider -->
   <section id="aa-slider">
     <div class="aa-slider-area">
@@ -1316,11 +1316,11 @@
   <!-- / popular section -->
 
 
- <jsp:include page="footer.jsp"/>
+ <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
-  <jsp:include page="login.jsp"/>
+  <jsp:include page="/WEB-INF/includes/login.jsp"/>
 
-  <jsp:include page="plugins.jsp"/>
+  <jsp:include page="/WEB-INF/includes/plugins.jsp"/>
 
   </body>
 </html>

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="en">
-<jsp:include page="head.jsp"/>
+<jsp:include page="../includes/head.jsp"/>
 <body>
-  <jsp:include page="header.jsp"/>
+  <jsp:include page="../includes/header.jsp"/>
  
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
@@ -429,10 +429,10 @@
   </section>
   <!-- / product category -->
 
- <jsp:include page="footer.jsp"/>
+ <jsp:include page="../includes/footer.jsp"/>
 
-  <jsp:include page="login.jsp"/>
+  <jsp:include page="../includes/login.jsp"/>
 
-  <jsp:include page="plugins.jsp"/>
+  <jsp:include page="../includes/plugins.jsp"/>
   </body>
 </html>

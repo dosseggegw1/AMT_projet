@@ -3,4 +3,87 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <display-name>Shop eLS | AMT Project</display-name>
+
+    <servlet>
+        <servlet-name>Accueil</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Index</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Account</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Account</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Account</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Cart</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Checkout</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Contact</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Product</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Product</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Product</servlet-name>
+        <url-pattern>/product</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProductDetail</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.ProductDetail</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProductDetail</servlet-name>
+        <url-pattern>/productDetail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Wishlist</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Wishlist</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Wishlist</servlet-name>
+        <url-pattern>/wishlist</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -5,7 +5,7 @@
   <jsp:include page="../includes/header.jsp"/>
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-   <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+   <img src="assets/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -56,7 +56,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-1.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">This is Title</a></h4>
@@ -75,7 +75,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-2.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-2.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -94,7 +94,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-3.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-3.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -111,7 +111,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-4.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-4.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -130,7 +130,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-5.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-5.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -147,7 +147,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-6.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-6.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -164,7 +164,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-7.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-7.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -183,7 +183,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-1.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -202,7 +202,7 @@
                  <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-1.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">This is Title</a></h4>
@@ -221,7 +221,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-2.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-2.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -240,7 +240,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-3.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-3.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -257,7 +257,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-4.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-4.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -276,7 +276,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-5.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-5.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -294,7 +294,7 @@
                 <!-- start single product item -->
                 <li>
                   <figure>
-                    <a class="aa-product-img" href="#"><img src="img/women/girl-6.png" alt="polo shirt img"></a>
+                    <a class="aa-product-img" href="#"><img src="assets/img/women/girl-6.png" alt="polo shirt img"></a>
                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                     <figcaption>
                       <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
@@ -322,27 +322,27 @@
                             <div class="simpleLens-gallery-container" id="demo-1">
                               <div class="simpleLens-container">
                                   <div class="simpleLens-big-image-container">
-                                      <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
-                                          <img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                      <a class="simpleLens-lens-image" data-lens-image="assets/img/view-slider/large/polo-shirt-1.png">
+                                          <img src="assets/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
                                       </a>
                                   </div>
                               </div>
                               <div class="simpleLens-thumbnails-container">
                                   <a href="#" class="simpleLens-thumbnail-wrapper"
-                                     data-lens-image="img/view-slider/large/polo-shirt-1.png"
-                                     data-big-image="img/view-slider/medium/polo-shirt-1.png">
-                                      <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                     data-lens-image="assets/img/view-slider/large/polo-shirt-1.png"
+                                     data-big-image="assets/img/view-slider/medium/polo-shirt-1.png">
+                                      <img src="assets/img/view-slider/thumbnail/polo-shirt-1.png">
                                   </a>                                    
                                   <a href="#" class="simpleLens-thumbnail-wrapper"
-                                     data-lens-image="img/view-slider/large/polo-shirt-3.png"
-                                     data-big-image="img/view-slider/medium/polo-shirt-3.png">
-                                      <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                     data-lens-image="assets/img/view-slider/large/polo-shirt-3.png"
+                                     data-big-image="assets/img/view-slider/medium/polo-shirt-3.png">
+                                      <img src="assets/img/view-slider/thumbnail/polo-shirt-3.png">
                                   </a>
 
                                   <a href="#" class="simpleLens-thumbnail-wrapper"
-                                     data-lens-image="img/view-slider/large/polo-shirt-4.png"
-                                     data-big-image="img/view-slider/medium/polo-shirt-4.png">
-                                      <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                     data-lens-image="assets/img/view-slider/large/polo-shirt-4.png"
+                                     data-big-image="assets/img/view-slider/medium/polo-shirt-4.png">
+                                      <img src="assets/img/view-slider/thumbnail/polo-shirt-4.png">
                                   </a>
                               </div>
                             </div>
@@ -480,21 +480,21 @@
               <div class="aa-recently-views">
                 <ul>
                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="assets/img/woman-small-2.jpg"></a>
                     <div class="aa-cartbox-info">
                       <h4><a href="#">Product Name</a></h4>
                       <p>1 x $250</p>
                     </div>                    
                   </li>
                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-1.jpg"></a>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="assets/img/woman-small-1.jpg"></a>
                     <div class="aa-cartbox-info">
                       <h4><a href="#">Product Name</a></h4>
                       <p>1 x $250</p>
                     </div>                    
                   </li>
                    <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="assets/img/woman-small-2.jpg"></a>
                     <div class="aa-cartbox-info">
                       <h4><a href="#">Product Name</a></h4>
                       <p>1 x $250</p>
@@ -509,21 +509,21 @@
               <div class="aa-recently-views">
                 <ul>
                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="assets/img/woman-small-2.jpg"></a>
                     <div class="aa-cartbox-info">
                       <h4><a href="#">Product Name</a></h4>
                       <p>1 x $250</p>
                     </div>                    
                   </li>
                   <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-1.jpg"></a>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="assets/img/woman-small-1.jpg"></a>
                     <div class="aa-cartbox-info">
                       <h4><a href="#">Product Name</a></h4>
                       <p>1 x $250</p>
                     </div>                    
                   </li>
                    <li>
-                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
+                    <a href="#" class="aa-cartbox-img"><img alt="img" src="assets/img/woman-small-2.jpg"></a>
                     <div class="aa-cartbox-info">
                       <h4><a href="#">Product Name</a></h4>
                       <p>1 x $250</p>

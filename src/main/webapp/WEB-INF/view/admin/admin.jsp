@@ -184,21 +184,21 @@
                 <h5 class="centered">Marcel Newman</h5>
 
                 <li class="mt">
-                    <a class="active" href="admin.jsp">
+                    <a class="active" href="admin">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="admin/categories">
+                    <a href="categories">
                         <i class="fa fa-th-list"></i>
                         <span>Gestion des catérogies</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="admin/articles">
+                    <a href="articles">
                         <i class="fa fa-shopping-bag"></i>
                         <span>Gestion des articles</span>
                     </a>

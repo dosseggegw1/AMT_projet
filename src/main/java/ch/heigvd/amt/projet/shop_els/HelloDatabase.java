@@ -21,16 +21,16 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectUserEmail");
+        Query query = session.getNamedQuery("selectUserID");
         List results = query.getResultList();
-        String email = results.get(0).toString();
+        String id = results.get(0).toString();
         session.close();
 
         // Hello
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
-        out.println("<h1>" + "Hi my email is: " + "</h1>");
-        out.println("<h2>" + email + "</h2>");
+        out.println("<h1>" + "Hi my id is: " + "</h1>");
+        out.println("<h2>" + id + "</h2>");
         out.println("</body></html>");
     }
 

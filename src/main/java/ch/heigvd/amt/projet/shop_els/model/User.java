@@ -15,7 +15,7 @@ public class User {
     private int idUser;
 
     @OneToOne(optional = false)
-    @JoinColumn(name="cart_id", unique = true, nullable = false, foreignKey = @ForeignKey(name = "fk_cart"))
+    @JoinColumn(name="fk_cart", unique = true, nullable = false, foreignKey = @ForeignKey(name = "idCart"))
     private Cart fk_cart;
 
     public User() {}

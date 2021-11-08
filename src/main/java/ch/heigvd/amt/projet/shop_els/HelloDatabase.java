@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet.shop_els;
 
-import ch.heigvd.amt.projet.shop_els.model.User;
+import ch.heigvd.amt.projet.shop_els.Model.User;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 

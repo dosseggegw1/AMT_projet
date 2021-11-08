@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>Accueil</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Index</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Index</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -18,7 +18,7 @@
 
     <servlet>
         <servlet-name>Account</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Account</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Account</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>Cart</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Cart</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Cart</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -38,7 +38,7 @@
 
     <servlet>
         <servlet-name>Checkout</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Checkout</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Checkout</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -48,7 +48,7 @@
 
     <servlet>
         <servlet-name>Contact</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Contact</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Contact</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -58,7 +58,7 @@
 
     <servlet>
         <servlet-name>Product</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Product</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Product</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -68,7 +68,7 @@
 
     <servlet>
         <servlet-name>ProductDetail</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.ProductDetail</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.ProductDetail</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -78,12 +78,42 @@
 
     <servlet>
         <servlet-name>Wishlist</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Wishlist</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Wishlist</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Wishlist</servlet-name>
         <url-pattern>/wishlist</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Administrator</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Administrator</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Administrator</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Categories</servlet-name>
+        <url-pattern>/categories</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Categories</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Category</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Articles</servlet-name>
+        <url-pattern>/articles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Articles</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.Controller.Article</servlet-class>
+    </servlet>
 
 </web-app>

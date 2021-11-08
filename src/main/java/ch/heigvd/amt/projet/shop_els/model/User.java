@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 
 @NamedQueries({
-        @NamedQuery(name="selectUserID", query = "SELECT idUser from User")
+        @NamedQuery(name="selectUserID", query = "SELECT idUser, fk_cart from User")
 })
 
 @Entity

@@ -3,6 +3,10 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name="selectArticle", query = "SELECT idArticle, name from Article")
+})
+
 @Entity
 @Table(name = "Article")
 public class Article {

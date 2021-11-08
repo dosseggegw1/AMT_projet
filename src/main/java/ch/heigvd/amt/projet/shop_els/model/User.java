@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.Model;
+package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
 import javax.persistence.Entity;

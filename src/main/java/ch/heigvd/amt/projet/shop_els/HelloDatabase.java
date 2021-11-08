@@ -1,6 +1,5 @@
 package ch.heigvd.amt.projet.shop_els;
 
-import ch.heigvd.amt.projet.shop_els.Model.User;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.UnknownServiceException;
 import java.util.List;
 
 @WebServlet(name = "helloDatabase", value = "/hello-database")

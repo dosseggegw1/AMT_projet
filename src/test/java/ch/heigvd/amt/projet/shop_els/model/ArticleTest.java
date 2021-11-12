@@ -36,6 +36,7 @@ public class ArticleTest {
 
         String hql = "SELECT LAST_INSERT_ID()";
 
+
         session.close();
 
         /**

@@ -72,7 +72,6 @@
                                     <h3><c:out value="${cat[1]}"/></h3>
                                     <!-- À mettre le lien pour supprimer la catégorie -->
                                     <button type="button" class="btn btn-danger" id="${cat[0]}" onclick="alert('Supprimer ${cat[0]}')">Supprimer</button>
-
                                 </div>
                             </div>
                         </c:forEach>

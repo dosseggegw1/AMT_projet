@@ -8,8 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.Query;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ArticleTest {
+    Logger logger = Logger.getLogger(ArticleTest.class.getName());
     private Session session;
 
     @Test
@@ -18,6 +22,7 @@ public class ArticleTest {
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
+        // Query to insert a new article in the table Article
         Article article = new Article();
         article.setName("Top");
         article.setDescription("Top avec le logo du club. Taille unique.");
@@ -26,19 +31,22 @@ public class ArticleTest {
         article.setStock(15);
 
         session.save(article);
+
+        // Query to get the id of the last inserted article
+        String hql = "FROM Article ORDER BY idArticle DESC";
+        Query query_select = session.createQuery(hql).setMaxResults(1);
+        List<Article> results = query_select.getResultList();
+        int artID = results.get(0).getIdArticle();
+
         session.getTransaction().commit();
-
-        /**
-         * String hql = "SELECT E.firstName FROM Employee E";
-         * Query query = session.createQuery(hql);
-         * List results = query.list();
-         */
-
-        String hql = "SELECT LAST_INSERT_ID()";
-
-
         session.close();
 
+        assertEquals(article.getIdArticle(), artID);
+    }
+
+    @Test
+    @Order(2)
+    void shouldDeleteArticleData() throws Exception {
         /**
          * String hql = "DELETE FROM Employee "  +
          *              "WHERE id = :employee_id";
@@ -48,4 +56,5 @@ public class ArticleTest {
          * System.out.println("Rows affected: " + result);
          */
     }
+
 }

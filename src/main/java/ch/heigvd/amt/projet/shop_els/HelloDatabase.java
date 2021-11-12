@@ -22,16 +22,15 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-       /* Query query = session.getNamedQuery("selectAllArticles");
-        List<Object[]> results = query.getResultList();
-        for(Object[] result : results) {
-            Category art = (Category) result[0];
+        Query query = session.getNamedQuery("selectAllArticles");
+        List<Article> results = query.getResultList();
+        for(Article result : results) {
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
             out.println("<h1>" + "Hi my id is: " + "</h1>");
-            out.println("<h2>" + "first id " + art + "</h2>");
+            out.println("<h2>" + "first id " + result.getName() + "</h2>");
             out.println("</body></html>");
-        }*/
+        }
         session.close();
     }
 

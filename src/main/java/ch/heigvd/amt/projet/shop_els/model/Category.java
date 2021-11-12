@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category ")
+        @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category "),
+        @NamedQuery(name="selectAllArticles", query="SELECT cat from Category cat join Category.articles")
 })
 @Entity
 @Table(name = "Category")

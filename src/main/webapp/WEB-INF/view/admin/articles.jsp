@@ -62,14 +62,15 @@
     <section id="main-content">
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Pannel de gestion des articles</h3>
+            <button type="button" class="btn btn-primary" id="addArticle" onclick="alert('Ajouter article')"><i class="fa fa-plus" aria-hidden="true"></i></button>
             <div class="row mt">
                 <div class="col-lg-12">
-
                     <div class="row">
                         <c:forEach var="article" items="${articles}">
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                <div class="panel pn">
-                                    <img src="${article[4]}" alt="${article[1]}">
+                                <div class="panel pn text-center">
+                                    <!--  <img src="${article[4]}" alt="${article[1]}" class="img-circle" width="60"> -->
+                                    <img src="assets/img/woman-small-1.jpg" alt="${article[1]}" width="100">
                                     <h4>${article[1]}</h4>
                                     <p>${article[2]}</p>
                                     <p>Qté : ${article[5]}</p>

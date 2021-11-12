@@ -20,8 +20,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
-            <p class="centered"><a href="profile.html"><img src="assets/img/default-avatar.png" class="img-circle"
-                                                            width="60"></a></p>
+            <p class="centered"><a href="profile.html"><img src="assets/img/default-avatar.png" class="img-circle" width="60"></a></p>
             <h5 class="centered">USERNAME</h5>
 
             <li class="mt">

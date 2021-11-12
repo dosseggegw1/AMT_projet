@@ -25,8 +25,7 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="assets/img/default-avatar.png" class="img-circle"
-                                                                width="60"></a></p>
+                <p class="centered"><a href="profile.html"><img src="assets/img/default-avatar.png" class="img-circle" width="60"></a></p>
                 <h5 class="centered">USERNAME</h5>
 
                 <li class="mt">
@@ -62,16 +61,18 @@
     <section id="main-content">
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Pannel de gestion des catégories</h3>
+            <button type="button" class="btn btn-primary" id="addCategory" onclick="alert('Ajouter une catégorie')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
             <div class="row mt">
                 <div class="col-lg-12">
-
                     <div class="row">
                         <c:forEach var="cat" items="${categories}">
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                <div class="panel pn">
+                                <div class="panel pn text-center">
                                     <h3><c:out value="${cat[1]}"/></h3>
                                     <!-- À mettre le lien pour supprimer la catégorie -->
-                                    <button type="button" id="${cat[0]}" onclick="alert('Supprimer ${cat[0]}')">Supprimer</button>
+                                    <button type="button" class="btn btn-danger" id="${cat[0]}" onclick="alert('Supprimer ${cat[0]}')">Supprimer</button>
+
                                 </div>
                             </div>
                         </c:forEach>

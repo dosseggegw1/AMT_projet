@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 
 @NamedQueries({
-        @NamedQuery(name="selectUserID", query = "SELECT idUser, fk_cart from User")
+        @NamedQuery(name="selectAllUser", query = "SELECT idUser, fk_cart from User")
 })
 
 @Entity
@@ -14,8 +14,8 @@ public class User {
     @Column(name = "idUser")
     private int idUser;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name="fk_cart", unique = true, nullable = false, foreignKey = @ForeignKey(name = "idCart"))
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_cart", referencedColumnName = "idCart")
     private Cart fk_cart;
 
     public User() {}

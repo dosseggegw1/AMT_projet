@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.shop_els;
 
+import ch.heigvd.amt.projet.shop_els.model.*;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -21,17 +22,17 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectUserID");
-        List results = query.getResultList();
-        String id = results.get(0).toString();
+       /* Query query = session.getNamedQuery("selectAllArticles");
+        List<Object[]> results = query.getResultList();
+        for(Object[] result : results) {
+            Category art = (Category) result[0];
+            PrintWriter out = response.getWriter();
+            out.println("<html><body>");
+            out.println("<h1>" + "Hi my id is: " + "</h1>");
+            out.println("<h2>" + "first id " + art + "</h2>");
+            out.println("</body></html>");
+        }*/
         session.close();
-
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + "Hi my id is: " + "</h1>");
-        out.println("<h2>" + id + "</h2>");
-        out.println("</body></html>");
     }
 
     public void destroy() {

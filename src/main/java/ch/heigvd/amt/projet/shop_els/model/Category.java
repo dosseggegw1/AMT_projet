@@ -3,8 +3,11 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category ")
+})
 @Entity
-@Table(name = "Catgory")
+@Table(name = "Category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +17,7 @@ public class Category {
     @Column(name = "name", length = 50)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "categories")
     private List<Article> articles;
 
     public Category() {}

@@ -4,36 +4,47 @@ import javax.persistence.*;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name="selectCartID", query = "SELECT idCart from Cart")
+        @NamedQuery(name="selectCartID", query = "SELECT idCart FROM Cart"),
+        @NamedQuery(name="selectAllCart", query="SELECT idCart, user FROM Cart")
 })
 
 @Entity
 @Table(name = "Cart")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idCart")
     private int idCart;
 
-    @OneToOne(mappedBy = "Cart")
+    @OneToOne(mappedBy = "fk_cart", cascade = CascadeType.ALL)
     private User user;
 
-    @ManyToMany()
-    private List<Article> articles;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<Article_Cart> article_carts;
 
     public Cart() { }
 
-    public int getIdCart() { return idCart; }
+    public int getIdCart() {
+        return idCart;
+    }
 
-    public void setIdCart(int idCart) { this.idCart = idCart; }
+    public void setIdCart(int idCart) {
+        this.idCart = idCart;
+    }
 
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 
-    public void setUser(User user) { this.user = user; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public List<Article> getArticles() {  return articles; }
+    public List<Article_Cart> getArticle_carts() {
+        return article_carts;
+    }
 
-    public void setArticles(List<Article> article) { this.articles = article;  }
-
+    public void setArticle_carts(List<Article_Cart> article_carts) {
+        this.article_carts = article_carts;
+    }
 
 }

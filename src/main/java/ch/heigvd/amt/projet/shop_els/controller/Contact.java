@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.Controller;
+package ch.heigvd.amt.projet.shop_els.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

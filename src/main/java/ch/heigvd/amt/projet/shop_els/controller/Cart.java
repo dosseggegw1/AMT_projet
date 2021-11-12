@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.Controller;
+package ch.heigvd.amt.projet.shop_els.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/product")
-public class Product extends HttpServlet{
+@WebServlet("/cart")
+public class Cart extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/product.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
 
     }
 }

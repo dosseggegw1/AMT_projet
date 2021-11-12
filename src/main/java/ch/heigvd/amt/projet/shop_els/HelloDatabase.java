@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet.shop_els;
 
-import ch.heigvd.amt.projet.shop_els.Model.User;
+import ch.heigvd.amt.projet.shop_els.model.*;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.UnknownServiceException;
 import java.util.List;
 
 @WebServlet(name = "helloDatabase", value = "/hello-database")
@@ -23,17 +22,26 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectUserEmail");
-        List results = query.getResultList();
-        String email = results.get(0).toString();
-        session.close();
+        Query query = session.getNamedQuery("selectAllArticle");
+        List<Object[]> results = query.getResultList();
+        for(Object[] result : results) {
+            String name = (String) result[0];
+            String description = (String) result[1];
+            float price = (float) result[2];
+            String imageURL = (String) result[3];
+            int stock = (int) result[4];
 
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + "Hi my email is: " + "</h1>");
-        out.println("<h2>" + email + "</h2>");
-        out.println("</body></html>");
+            PrintWriter out = response.getWriter();
+            out.println("<html><body>");
+            out.println("<h1>" + "Article: " + "</h1>");
+            out.println("<h2>" + "name " + name + "</h2>");
+            out.println("<h2>" + "description " + description + "</h2>");
+            out.println("<h2>" + "price " + price + "</h2>");
+            out.println("<h2>" + "imageURL " + imageURL + "</h2>");
+            out.println("<h2>" + "stock " + stock + "</h2>");
+            out.println("</body></html>");
+        }
+        session.close();
     }
 
     public void destroy() {

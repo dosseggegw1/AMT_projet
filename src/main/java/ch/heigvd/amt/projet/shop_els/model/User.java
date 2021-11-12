@@ -4,28 +4,21 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 
 @NamedQueries({
-        @NamedQuery(name="selectUserEmail", query = "SELECT emailAddress from User")
+        @NamedQuery(name="selectAllUser", query = "SELECT idUser, fk_cart from User")
 })
 
 @Entity
 @Table(name = "User")
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "idUser")
     private int idUser;
-    @Column(name = "emailAddress", length=50)
-    private String emailAddress;
-    @Column(name = "password")
-    private String password;
-    @Column(name = "firstName", length=50)
-    private String firstName;
-    @Column(name = "lastName", length=50)
-    private String lastName;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_cart", referencedColumnName = "idCart")
+    private Cart fk_cart;
 
     public User() {}
-
 
     public int getIdUser() {
         return idUser;
@@ -35,35 +28,8 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
+    public Cart getFk_cart() { return fk_cart; }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
+    public void setFk_cart(Cart cart) { this.fk_cart = cart; }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

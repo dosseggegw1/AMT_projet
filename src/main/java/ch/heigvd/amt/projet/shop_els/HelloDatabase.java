@@ -22,13 +22,23 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticles");
-        List<Article> results = query.getResultList();
-        for(Article result : results) {
+        Query query = session.getNamedQuery("selectAllArticle");
+        List<Object[]> results = query.getResultList();
+        for(Object[] result : results) {
+            String name = (String) result[0];
+            String description = (String) result[1];
+            float price = (float) result[2];
+            String imageURL = (String) result[3];
+            int stock = (int) result[4];
+
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
-            out.println("<h1>" + "Hi my id is: " + "</h1>");
-            out.println("<h2>" + "first id " + result.getName() + "</h2>");
+            out.println("<h1>" + "Article: " + "</h1>");
+            out.println("<h2>" + "name " + name + "</h2>");
+            out.println("<h2>" + "description " + description + "</h2>");
+            out.println("<h2>" + "price " + price + "</h2>");
+            out.println("<h2>" + "imageURL " + imageURL + "</h2>");
+            out.println("<h2>" + "stock " + stock + "</h2>");
             out.println("</body></html>");
         }
         session.close();

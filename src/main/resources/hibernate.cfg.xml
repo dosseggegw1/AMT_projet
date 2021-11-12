@@ -15,5 +15,10 @@
         <property name="hbm2ddl.auto">update </property>
         <property name="hibernate.current_session_context_class">thread</property>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.User"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.model.Cart"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.model.Category"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Cart"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Cart_Id"/>
     </session-factory>
 </hibernate-configuration>

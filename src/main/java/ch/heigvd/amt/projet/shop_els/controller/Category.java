@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.Controller;
+package ch.heigvd.amt.projet.shop_els.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/articles")
-public class Article extends HttpServlet{
+@WebServlet("/categories")
+public class Category extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.setContentType("text/html");
         //session = HibUtil.getSessionFactory().getCurrentSession();
         //session.beginTransaction();
@@ -19,11 +20,10 @@ public class Article extends HttpServlet{
         //String email = results.get(0).toString();
         //session.close();
 
-        String[][] articles = new String[][]{ {"1","T-Shirt","Description blabla", "10", "url", "qté"} , {"2","Jogging","Description blabla", "15.50", "url", "qté"}, {"3","Bonnet","Description blabla", "15.50", "url", "qté"}};
-        request.setAttribute("articles", articles);
+        String[][] categories = new String[][]{ {"1","Vetement"} , {"2","Accessoires"}, {"3", "Jeux"}};
+        request.setAttribute("categories", categories);
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
-
+        request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
 
     }
 }

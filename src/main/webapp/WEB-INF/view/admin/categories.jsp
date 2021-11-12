@@ -68,7 +68,7 @@
                     <div class="row">
                         <c:forEach var="cat" items="${categories}">
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                <div class="panel pn text-center">
+                                <div class="panel pn pnCategory text-center">
                                     <h3><c:out value="${cat[1]}"/></h3>
                                     <!-- À mettre le lien pour supprimer la catégorie -->
                                     <button type="button" class="btn btn-danger" id="${cat[0]}" onclick="alert('Supprimer ${cat[0]}')">Supprimer</button>

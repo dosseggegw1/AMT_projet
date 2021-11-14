@@ -5,15 +5,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
 import javax.persistence.Query;
 import java.util.List;
 import java.util.logging.Logger;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ArticleTest {
-    Logger logger = Logger.getLogger(ArticleTest.class.getName());
     private Session session;
 
     @Test
@@ -47,14 +45,33 @@ public class ArticleTest {
     @Test
     @Order(2)
     void shouldDeleteArticleData() throws Exception {
-        /**
-         * String hql = "DELETE FROM Employee "  +
-         *              "WHERE id = :employee_id";
-         * Query query = session.createQuery(hql);
-         * query.setParameter("employee_id", 10);
-         * int result = query.executeUpdate();
-         * System.out.println("Rows affected: " + result);
-         */
+        session = HibUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        // Query to get the id of the last inserted article
+        String hql = "FROM Article ORDER BY idArticle DESC";
+        Query querySelect = session.createQuery(hql).setMaxResults(1);
+        List<Article> results = querySelect.getResultList();
+        int artID = results.get(0).getIdArticle();
+
+        // Query to delete the last inserted article from the Article table
+        String hqlDelete = "DELETE FROM Article WHERE idArticle = :art_id";
+        Query queryDelete = session.createQuery(hqlDelete);
+        queryDelete.setParameter("art_id", artID);
+        queryDelete.executeUpdate();
+
+        // Query to find the id of the last article in the table
+        String hqlToCompare = "FROM Article ORDER BY idArticle DESC";
+        Query query_select = session.createQuery(hqlToCompare).setMaxResults(1);
+        List<Article> resultsToCompare = query_select.getResultList();
+        int lastArticleID = resultsToCompare.get(0).getIdArticle();
+
+        session.getTransaction().commit();
+        session.close();
+
+        // The id of the deleted article should not be found in the table again
+        // We compare it with the biggest id found after deletion
+        assertNotEquals(artID, lastArticleID);
     }
 
 }

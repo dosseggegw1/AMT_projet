@@ -32,7 +32,6 @@ public class CartTest {
         session.save(user);
         session.save(cart);
 
-
         // Select
         Query query = session.createQuery("FROM User ORDER BY idUser DESC").setMaxResults(1);
         List<User> result = query.getResultList();
@@ -45,7 +44,6 @@ public class CartTest {
     @Test
     @Order(2)
     public void shouldDeleteCartData() {
-
         Session session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
@@ -65,7 +63,6 @@ public class CartTest {
         query = session.createQuery("DELETE Cart where idCart=:idCart")
                 .setParameter("idCart", cartToDel.getIdCart());
         query.executeUpdate();
-
 
         // Select last row of User and Cart to see if the datas were successfully deleted
         query = session.createQuery("FROM User ORDER BY idUser DESC").setMaxResults(1);

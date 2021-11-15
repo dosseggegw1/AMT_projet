@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("/index")
 public class Index extends HttpServlet {
     private Session session;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.getNamedQuery("selectAllArticle");
         List<Object[]> results = query.getResultList();

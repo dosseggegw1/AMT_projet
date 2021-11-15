@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @WebServlet("/cookie")
 public class Cart_cookie extends HttpServlet {
 
-    private ArrayList<ArrayList<String>> cart = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> cart;
     private String cartAsString;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
@@ -23,12 +23,13 @@ public class Cart_cookie extends HttpServlet {
         //String description = request.getParameter("description");
         //String quantity = request.getParameter("quantity");
         //String price = request.getParameter("price");
+        cart = new ArrayList<ArrayList<String>>();
 
         String productCode = "1";
         String description = "yolo";
         String quantity = "2";
         String price = "3";
-        cartAsString = productCode + "," + description + ", " + quantity + ", " + price + ";";
+        cartAsString = productCode + "," + description + "," + quantity + "," + price;
         //add those parameters to the cart
         ArrayList<String> item = new ArrayList<String>();
         item.add(productCode);
@@ -43,6 +44,7 @@ public class Cart_cookie extends HttpServlet {
 
     private void create_cookie(HttpServletResponse response) throws IOException {
         Cookie cook = new Cookie("cartItems", cartAsString);
+        cook.setPath("/shop");
         response.addCookie(cook);
         response.getWriter().println("Cookie created");
     }

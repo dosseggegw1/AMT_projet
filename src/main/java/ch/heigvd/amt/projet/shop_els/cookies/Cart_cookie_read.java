@@ -12,36 +12,32 @@ import java.util.ArrayList;
 @WebServlet("/cookie_read")
 public class Cart_cookie_read extends HttpServlet {
 
-    private ArrayList<ArrayList<String>> cart = new ArrayList<ArrayList<String>>();
-    private String cartAsString;
+    private ArrayList<ArrayList<String>> cart;
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-        // Get parameters for the cart items
-        //String productCode = request.getParameter("productCode");
-        //String description = request.getParameter("description");
-        //String quantity = request.getParameter("quantity");
-        //String price = request.getParameter("price");
+        cart = new ArrayList<ArrayList<String>>();
 
-
-        read_cookie(request, response);
-        response.getWriter().flush();
+        read_cookie(request);
     }
 
-    private void read_cookie(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void read_cookie(HttpServletRequest request)  {
         Cookie[] cookies = request.getCookies();
-        response.getWriter().println(cookies);
-        if (cookies == null) {
-            response.getWriter().println("No cookies found");
-        } else {
-            response.getWriter().println("Number of cookies: " + cookies.length);
-
-            for (Cookie aCookie : cookies) {
-                String name = aCookie.getName();
+        for (Cookie aCookie : cookies) {
+            if(aCookie.getName().equals("cartItems")){
                 String value = aCookie.getValue();
-                response.getWriter().println(name + " = " + value);
+
+                String[] parts = value.split("#");
+                for(String s : parts){
+                    String[] params = s.split("&");
+                    ArrayList<String> item = new ArrayList<String>();
+                    item.add(params[0]);
+                    item.add(params[1]);
+                    item.add(params[2]);
+                    item.add(params[3]);
+                    cart.add(item);
+                }
             }
         }
     }
-
 }

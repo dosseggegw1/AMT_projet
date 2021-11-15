@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "Category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCategory")
     private int idCategory;
 
@@ -24,15 +24,9 @@ public class Category {
     public Category() {}
 
     public int getIdCategory() { return idCategory; }
-
     public void setIdCategory(int idCategory) { this.idCategory = idCategory; }
-
     public String getName() { return name; }
-
     public void setName(String name) { this.name = name; }
-
     public List<Article> getArticles() { return articles; }
-
     public void setArticles(List<Article> articles) { this.articles = articles; }
-
 }

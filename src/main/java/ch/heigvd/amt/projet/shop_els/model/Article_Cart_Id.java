@@ -15,19 +15,15 @@ public class Article_Cart_Id implements Serializable {
 
     public Article_Cart_Id() {}
 
-
     public int getCart() {
         return fk_idCart;
     }
-
     public void setCart(int cart) {
         this.fk_idCart = cart;
     }
-
     public int getArticle() {
         return fk_idArticle;
     }
-
     public void setArticle(int article) {
         this.fk_idArticle = article;
     }

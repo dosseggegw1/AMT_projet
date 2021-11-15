@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name ="Article_Cart")
 public class Article_Cart {
-
     @EmbeddedId
     private Article_Cart_Id article_cart_id;
 
@@ -31,25 +30,19 @@ public class Article_Cart {
     public Article_Cart_Id getArticle_cart_id() {
         return article_cart_id;
     }
-
     public void setArticle_cart_id(Article_Cart_Id article_cart_id) {
         this.article_cart_id = article_cart_id;
     }
-
     public Article getArticle() {
         return article;
     }
-
     public void setArticle(Article article) {
         this.article = article;
     }
-
     public Cart getCart() {
         return cart;
     }
-
     public void setCart(Cart cart) {
         this.cart = cart;
     }
-
 }

@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.shop_els;
 
+import ch.heigvd.amt.projet.shop_els.model.*;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -21,7 +22,7 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticles");
+        Query query = session.getNamedQuery("selectAllArticle");
         List<Object[]> results = query.getResultList();
         for(Object[] result : results) {
             String name = (String) result[0];

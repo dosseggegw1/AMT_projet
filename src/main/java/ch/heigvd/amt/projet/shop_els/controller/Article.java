@@ -1,4 +1,5 @@
 package ch.heigvd.amt.projet.shop_els.controller;
+import ch.heigvd.amt.projet.shop_els.model.*;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -21,7 +22,7 @@ public class Article extends HttpServlet{
         response.setContentType("text/html");
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticles");
+        Query query = session.getNamedQuery("selectAllArticle");
         List<Object[]> results = query.getResultList();
         session.close();
 

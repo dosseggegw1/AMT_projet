@@ -5,7 +5,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name="selectArticleIdName", query = "SELECT idArticle, name FROM Article"),
-        @NamedQuery(name= "selectAllArticles", query = "SELECT idArticle, name, description, price, imageURL, stock FROM Article"),
+        @NamedQuery(name="selectAllArticle", query = "SELECT name, description, price, imageURL, stock FROM Article"),
         @NamedQuery(name="selectImageURL", query="SELECT imageURL FROM Article")
 })
 

@@ -61,7 +61,7 @@
     <section id="main-content">
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Pannel de gestion des catégories</h3>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="addCategory"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-primary"><a href="/addCategory"><i class="fa fa-plus"></i></a></button>
 
             <div class="row mt">
                 <div class="col-lg-12">
@@ -97,55 +97,24 @@
     <!--footer end-->
 </section>
 
-<!-- The Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                Modal body..
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="asset/js/jquery.js"></script>
-<script src="asset/js/bootstrap.js"></script>
-<script class="include" type="text/javascript" src="asset/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="asset/js/jquery.scrollTo.min.js"></script>
-<script src="asset/js/jquery.nicescroll.js" type="text/javascript"></script>
-<script src="asset/js/jquery.sparkline.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="assets/js/jquery.scrollTo.min.js"></script>
+<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="assets/js/jquery.sparkline.js"></script>
 
 <!--common script for all pages-->
-<script src="asset/js/common-scripts.js"></script>
-
+<script src="assets/js/common-scripts.js"></script>
 <!--script for this page-->
-<script src="asset/js/sparkline-chart.js"></script>
+<script src="assets/js/sparkline-chart.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     //custom select box
-
     $(function () {
         $('select.styled').customSelect();
     });
-
 </script>
 
 </body>

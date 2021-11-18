@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/articles")
+@WebServlet("/admin/articles")
 public class Article extends HttpServlet{
     private Session session;
 

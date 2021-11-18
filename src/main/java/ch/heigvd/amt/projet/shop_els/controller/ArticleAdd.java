@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/articleAdd")
+@WebServlet("/admin/articleAdd")
 public class ArticleAdd extends HttpServlet {
     private Session session;
 

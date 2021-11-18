@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/categories")
+@WebServlet("/admin/categories")
 public class Category extends HttpServlet{
     private Session session;
 

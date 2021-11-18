@@ -5,16 +5,16 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DASHGUM - Bootstrap Admin Template</title>
+    <title>ELS Shop - Admin pannel</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/shop/assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/shop/assets/css/font-awesome.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
-    <link href="assets/css/admin/style.css" rel="stylesheet">
-    <link href="assets/css/admin/style-responsive.css" rel="stylesheet">
+    <link href="/shop/assets/css/admin/style.css" rel="stylesheet">
+    <link href="/shop/assets/css/admin/style-responsive.css" rel="stylesheet">
 
 
     <!-- HTM5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -25,25 +25,25 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="assets/img/default-avatar.png" class="img-circle" width="60"></a></p>
+                <p class="centered"><a href="profile.html"><img src="/shop/assets/img/default-avatar.png" class="img-circle" width="60"></a></p>
                 <h5 class="centered">USERNAME</h5>
 
                 <li class="mt">
-                    <a href="admin">
+                    <a href="/shop/admin">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a class="active" href="categories">
+                    <a class="active" href="/shop/admin/categories">
                         <i class="fa fa-th-list"></i>
                         <span>Gestion des catérogies</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="articles">
+                    <a href="/shop/admin/articles">
                         <i class="fa fa-shopping-bag"></i>
                         <span>Gestion des articles</span>
                     </a>
@@ -61,7 +61,7 @@
     <section id="main-content">
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Pannel de gestion des catégories</h3>
-            <button type="button" class="btn btn-primary"><a href="/addCategory"><i class="fa fa-plus"></i></a></button>
+            <a href="/shop/admin/categoryAdd" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
             <div class="row mt">
                 <div class="col-lg-12">

@@ -98,7 +98,7 @@
 
     <servlet-mapping>
         <servlet-name>Categories</servlet-name>
-        <url-pattern>/categories</url-pattern>
+        <url-pattern>/admin/categories</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -108,7 +108,7 @@
 
     <servlet-mapping>
         <servlet-name>Articles</servlet-name>
-        <url-pattern>/articles</url-pattern>
+        <url-pattern>/admin/articles</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -118,7 +118,7 @@
 
     <servlet-mapping>
         <servlet-name>ArticleAdd</servlet-name>
-        <url-pattern>/articleAdd</url-pattern>
+        <url-pattern>/admin/articleAdd</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -17,8 +17,9 @@
             <div class="aa-product-inner">
               <!-- start prduct navigation -->
               <ul class="nav nav-tabs aa-products-tab">
-                <li class="active"><a href="#men" data-toggle="tab">Men</a></li>
-                <li><a href="#women" data-toggle="tab">Women</a></li>
+                  <c:forEach var="cat" items="${categories}">
+                      <li><a href="#${cat[1]}" data-toggle="tab">${cat[1]}</a></li>
+                  </c:forEach>
               </ul>
               <!-- Tab panes -->
               <div class="tab-content">

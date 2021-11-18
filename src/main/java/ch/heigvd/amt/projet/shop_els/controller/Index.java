@@ -1,6 +1,5 @@
 
 package ch.heigvd.amt.projet.shop_els.controller;
-import ch.heigvd.amt.projet.shop_els.model.*;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -22,11 +21,15 @@ public class Index extends HttpServlet {
         response.setContentType("text/html");
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticle");
-        List<Object[]> results = query.getResultList();
+        Query query = session.getNamedQuery("selectAllArticles");
+        List<Object[]> resultsArticles = query.getResultList();
+
+        Query second = session.getNamedQuery("selectAllCategory");
+        List<Object[]> resultsCategories = second.getResultList();
         session.close();
 
-        request.setAttribute("articles", results);
+        request.setAttribute("articles", resultsArticles);
+        request.setAttribute("categories", resultsCategories);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

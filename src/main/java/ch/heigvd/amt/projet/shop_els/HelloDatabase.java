@@ -22,7 +22,7 @@ public class HelloDatabase extends HttpServlet {
 
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticle");
+        Query query = session.getNamedQuery("selectAllArticles");
         List<Object[]> results = query.getResultList();
         for(Object[] result : results) {
             String name = (String) result[0];

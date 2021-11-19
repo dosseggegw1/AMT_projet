@@ -98,19 +98,18 @@
 </section>
 
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="/shop/asset/js/jquery.js"></script>
-<script src="/shop/asset/js/bootstrap.js"></script>
-<script class="include" type="text/javascript" src="/shop/asset/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="/shop/asset/js/jquery.scrollTo.min.js"></script>
-<script src="/shop/asset/js/jquery.nicescroll.js" type="text/javascript"></script>
-<script src="/shop/asset/js/jquery.sparkline.js"></script>
+<script src="/shop/assets/js/jquery.js"></script>
+<script src="/shop/assets/js/bootstrap.js"></script>
+<script class="include" type="text/javascript" src="/shop/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/shop/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/shop/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="/shop/assets/js/jquery.sparkline.js"></script>
 
 <!--common script for all pages-->
-<script src="/shop/asset/js/common-scripts.js"></script>
+<script src="/shop/assets/js/common-scripts.js"></script>
 
 <!--script for this page-->
-<script src="/shop/asset/js/sparkline-chart.js"></script>
-
+<script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
     //custom select box

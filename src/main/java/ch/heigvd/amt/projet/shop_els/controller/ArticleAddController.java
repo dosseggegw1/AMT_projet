@@ -19,7 +19,7 @@ public class ArticleAddController extends HttpServlet {
     private Session session;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();

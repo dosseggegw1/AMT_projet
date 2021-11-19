@@ -113,7 +113,7 @@
 
     <servlet>
         <servlet-name>Articles</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.Article</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -123,7 +123,7 @@
 
     <servlet>
         <servlet-name>ArticleAdd</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleAdd</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleAddController</servlet-class>
     </servlet>
 
 </web-app>

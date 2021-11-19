@@ -61,11 +61,45 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Pannel de gestion des articles</h3>
-            <button type="button" class="btn btn-primary" id="addArticle" onclick="alert('Ajouter article')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <h3><i class="fa fa-angle-right"></i> Ajout d'un article </h3>
 
+            <form action="/shop/admin/articleAdd" method="post">
+                <div class="form-group">
+                    <label for="name">Nom d'article</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Chaussette">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description de l'article</label>
+                    <textarea type="text-area" class="form-control" id="description" placeholder="Chaussette jaune en velour. (Taille unique)"></textarea>
+                </div>
+
+                <div class="form-check form-check-inline">
+                <c:forEach var="cat" items="${categories}">
+                    <input class="form-check-input" type="checkbox" value="${cat[0]}">
+                    <label class="form-check-label"><c:out value="${cat[1]}"/></label>
+                </c:forEach>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Prix de l'article (en CHF)</label>
+                    <input type="text" class="form-control" id="price" placeholder="15.50">
+                </div>
+
+                <div class="form-group">
+                    <label for="stock">Nombre de pièces en stock</label>
+                    <input type="text" class="form-control" id="stock" placeholder="20">
+                </div>
+
+                <div class="form-group">
+                    <label for="imageURL">Image de l'article</label>
+                    <input type="file" class="form-control-file" aria-describedby="imageHelp" id="imageURL">
+                    <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
         </section>
-        <!--/wrapper -->
     </section><!-- /MAIN CONTENT -->
 
     <!--main content end-->

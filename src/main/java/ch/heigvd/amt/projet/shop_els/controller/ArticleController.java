@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.shop_els.controller;
-
+import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -12,27 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/articleAdd")
-public class ArticleAdd extends HttpServlet {
+@WebServlet("/admin/articles")
+public class ArticleController extends HttpServlet{
     private Session session;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Query query = session.getNamedQuery("selectAllArticles");
-        List<Object[]> results = query.getResultList();
+        List<Article> results = query.getResultList();
         session.close();
 
+        //List<Category> categories = results.get(1).getCategories();
+
         request.setAttribute("articles", results);
+        //request.setAttribute("cat",categories);
 
         request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
     }

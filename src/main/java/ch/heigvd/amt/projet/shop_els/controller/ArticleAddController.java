@@ -35,14 +35,46 @@ public class ArticleAddController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
+
+
+
+        String name = (String) request.getParameter("name");
+        String description = (String) request.getParameter("description");
+        String[] categories = request.getParameterValues("categories");
+        String price = request.getParameter("price");
+        String imageURL = (String)  request.getParameter("imageURL");
+        String stock = request.getParameter("stock");
+
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h1>" + "Article: " + "</h1>");
+        out.println("<h2>" + "name " + name + "</h2>");
+        out.println("<h2>" + "description " + description + "</h2>");
+        out.println("<h2>" + "price " + price + "</h2>");
+        out.println("<h2>" + "imageURL " + imageURL + "</h2>");
+        out.println("<h2>" + "stock " + stock + "</h2>");
+        out.println("</body></html>");
+
+        /*
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticles");
+        Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:valor1,:valor2)");
+        session = HibUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:name,:valor2)");
+        query.setParameter("name",name );
+        query.setParameter("description", description);
+        query.setParameter("price", price);
+        query.setParameter("imageURL", imageURL);
+        query.setParameter("stock", stock);
+        query.executeUpdate();
+
+        /*Query query = session.getNamedQuery("selectAllArticles");
         List<Object[]> results = query.getResultList();
         session.close();
+*/
+        //request.setAttribute("articles", results);
 
-        request.setAttribute("articles", results);
-
-        request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+        //request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
     }
 }

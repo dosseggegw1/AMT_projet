@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @WebServlet("/admin/categories")
-public class Category extends HttpServlet{
+public class CategoryController extends HttpServlet{
     private Session session;
 
     @Override

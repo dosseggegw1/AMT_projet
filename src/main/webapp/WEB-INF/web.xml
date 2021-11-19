@@ -102,7 +102,7 @@
 
        <servlet>
            <servlet-name>Categories</servlet-name>
-           <servlet-class>ch.heigvd.amt.projet.shop_els.controller.Category</servlet-class>
+           <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CategoryController</servlet-class>
        </servlet>
 
        <servlet-mapping>
@@ -124,4 +124,14 @@
            <servlet-name>ArticleAdd</servlet-name>
            <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleAddController</servlet-class>
        </servlet>
+
+        <servlet-mapping>
+            <servlet-name>CategoryAdd</servlet-name>
+            <url-pattern>/admin/categoryAdd</url-pattern>
+        </servlet-mapping>
+
+        <servlet>
+            <servlet-name>CategoryAdd</servlet-name>
+            <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CategoryAddController</servlet-class>
+        </servlet>
 </web-app>

@@ -19,7 +19,7 @@
               <ul class="nav nav-tabs aa-products-tab">
                 <button class="btn active" onclick="filterSelection('all')"> Show all</button>
                   <c:forEach var="cat" items="${categories}">
-                    <li><button class="btn active" onclick="filterSelection('${cat[1]}')"><c:out value="${cat[1]}"/></button></li>
+                    <li><button class="btn active" onclick="filterSelection('${cat[0]}')"><c:out value="${cat[1]}"/></button></li>
                   </c:forEach>
               </ul>
               <!-- Tab panes -->
@@ -29,7 +29,7 @@
                   <ul class="aa-product-catg">
                     <!-- start single product item -->
                     <c:forEach var="article" items="${articles}">
-                      <li class="filterDiv">
+                      <li class="filterDiv ${article[6]}">
                       <figure>
                         <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
                         <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>

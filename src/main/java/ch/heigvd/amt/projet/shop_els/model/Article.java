@@ -7,8 +7,10 @@ import java.util.List;
         @NamedQuery(name="selectArticleIdName", query = "SELECT idArticle, name FROM Article"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT idArticle, name, description, price, imageURL, stock FROM Article"),
         @NamedQuery(name="selectImageURL", query="SELECT imageURL FROM Article"),
-       // @NamedQuery(name="selectArticleCategory", query="SELECT cat.name FROM Category cat join cat.articles")
-       // @NamedQuery(name="selectArticleCategory", query="SELECT cat.name FROM Article join cat.articles on WHERE idArticle = 1 ")
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT idArticle, name, description, price, imageURL, stock, " +
+                "GROUP_CONCAT(Article_Category.fk_idCategory) AS categories FROM Article " +
+                "LEFT JOIN Article_Category ON Article_Category.fk_idArticle = Article.idArticle\n" +
+                "GROUP BY Article.idArticle")
 })
 
 @Entity

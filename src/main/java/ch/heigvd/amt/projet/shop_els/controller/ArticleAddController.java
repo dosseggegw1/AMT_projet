@@ -36,8 +36,6 @@ public class ArticleAddController extends HttpServlet {
 
         response.setContentType("text/html");
 
-
-
         String name = (String) request.getParameter("name");
         String description = (String) request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
@@ -54,6 +52,16 @@ public class ArticleAddController extends HttpServlet {
         out.println("<h2>" + "imageURL " + imageURL + "</h2>");
         out.println("<h2>" + "stock " + stock + "</h2>");
         out.println("</body></html>");
+
+        // TODO:
+        //  possible d'attribuer 1 ou plusieurs catégories à un article
+        //      (impossible d'avoir des doublons dans les catégories attribuées à un article)
+        //  cas simple : nom, une description, prix, visuel => insertion ok
+        //  sans visuel : nom, description, prix mais aucune image => insertion ok avec image par défaut
+        //  préannonce : nom, description, pas de prix (possible image par obligatoire) => ok mais impossible dans panier
+        //  stock : doit être >= à 0
+        //  Si on a pas : nom, description => impossible d'ajouter un article
+        //  Si le nom doit être unique => s'il existe deja, impossible de créer et affiche l'article existant (info)
 
         /*
         session = HibUtil.getSessionFactory().getCurrentSession();

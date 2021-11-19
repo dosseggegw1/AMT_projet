@@ -61,7 +61,7 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Ajout d'un article</h3>
+            <h3><i class="fa fa-angle-right"></i> Pannel de gestion des articles </h3>
             <a href="/shop/admin/articleAdd" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
             <div class="row mt">
                 <div class="col-lg-12">

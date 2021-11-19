@@ -13,18 +13,38 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/admin/categoryAdd")
 public class CategoryAddController extends HttpServlet {
     private Session session;
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        session = HibUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.getNamedQuery("selectAllCategory");
+        List<Category> results = query.getResultList();
+        session.close();
 
+        request.setAttribute("categories", results);
+        request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        // TODO: à remove (uniquement pour tester) :)
+        String name = (String) request.getParameter("name");
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h1>" + "Category: " + "</h1>");
+        out.println("<h2>" + "name " + name + "</h2>");
 
+        // TODO:
+        //  Il faut vérifier que le nom n'existe pas deja => sinon indique erreur à l'utilisateur
+        //  Insertion dans la base de données
+        //  Une fois enregistrement dans la DB, retourner sur la page des categories
+            //request.setAttribute("categories", results);
+            //request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
     }
 }

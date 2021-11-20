@@ -61,20 +61,16 @@
   <section id="main-content">
     <section class="wrapper site-min-height">
       <h3><i class="fa fa-angle-right"></i>  Ajout d'une catégorie </h3>
-      <form action="/shop/admin/categoryAdd" method="POST">
+      <form action="/shop/admin/categoryAdd" method="POST" name="addForm" onsubmit="return validateform()">
         <div class="form-group col-sm5">
           <label for="name">Nom d'article</label>
-          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp">
+          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" required>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
       </form>
 
         <h3><i class="fa fa-angle-right"></i> Catégories existantes</h3>
-        <ul>
-          <c:forEach var="category" items="${categories}">
-              <li><c:out value="${category[1]}"/></li>
-          </c:forEach>
-        </ul>
+        <p><c:out value="${categories}"/></p>
     </section>
     <! --/wrapper -->
 
@@ -108,8 +104,20 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-
+  function validateform() {
+    let name = document.addForm.name.value;
+    const cate = new Set(${categories});
+    if (name == null || name === "" || name.length > 50) {
+        alert("Le nombre de caractères doit être compris entre 1 et 50");
+      return false;
+  }else if (cate.has(name)){
+      //Vérifier si le nom est présent dans la liste des catégories
+        alert("La catégorie " + name + " existe deja");
+        return false;
+      }
+  return true;
+}
 </script>
 
 </body>
-</html>--%>
+</html>

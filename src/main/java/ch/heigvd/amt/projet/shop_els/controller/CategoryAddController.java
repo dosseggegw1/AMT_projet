@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import com.google.gson.Gson;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -22,11 +23,12 @@ public class CategoryAddController extends HttpServlet {
         response.setContentType("text/html");
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllCategory");
+        Query query = session.getNamedQuery("selectCategoryName");
         List<Category> results = query.getResultList();
+        Gson g = new Gson();
+        request.setAttribute("categories",g.toJson(results));
         session.close();
 
-        request.setAttribute("categories", results);
         request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
     }
 

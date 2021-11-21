@@ -9,7 +9,15 @@ import java.util.Set;
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
         @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
-        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, GROUP(Article_Category.idCategory) AS categories FROM Article a LEFT JOIN Article_Category ON Article_Category.idArticle = a.idArticle GROUP BY a.idArticle")
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle")
+/*
+Original SQL query :
+SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock,
+GROUP_CONCAT(Article_Category.idCategory) AS categories
+FROM Article a
+LEFT JOIN Article_Category ON Article_Category.idArticle = a.idArticle
+GROUP BY a.idArticle
+ */
 })
 
 @Entity
@@ -35,23 +43,6 @@ public class Article {
     @Column(name = "stock")
     private int stock;
 
-    /*
-    @OneToMany
-    @JoinTable(
-            name = "Article_Category",
-            joinColumns = @JoinColumn(name = "idArticle"),
-            inverseJoinColumns = @JoinColumn(name = "idCategory"))
-    private List<Category> categories;
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-    */
-
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Article_Cart> article_carts;
 
@@ -67,6 +58,14 @@ public class Article {
 
     public void setIdArticle(int idArticle) {
         this.idArticle = idArticle;
+    }
+
+    public Set<Article_Category> getArticleCategories() {
+        return articleCategories;
+    }
+
+    public void setArticleCategories(Set<Article_Category> articleCategories) {
+        this.articleCategories = articleCategories;
     }
 
     public String getName() {

@@ -113,7 +113,7 @@
 
     <servlet>
         <servlet-name>Articles</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.Article</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleController</servlet-class>
     </servlet>
 
 </web-app>

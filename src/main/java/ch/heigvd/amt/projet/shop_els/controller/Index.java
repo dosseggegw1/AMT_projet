@@ -23,19 +23,18 @@ public class Index extends HttpServlet {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        //Query query = session.createNamedQuery("selectAllArticles");
-        Query query = session.getNamedQuery("selectArticleAndCategory");
-        List<Object[]> resultsArticles = query.getResultList();
+        // We get the all the articles & the categories they are in
+        Query articleAndCategory = session.createNamedQuery("selectArticleAndCategory");
+        List<Object[]> resultsArticles = articleAndCategory.getResultList();
 
-
-        Query second = session.getNamedQuery("selectAllCategory");
-        List<Object[]> resultsCategories = second.getResultList();
+        // We get the categories (ids and names)
+        Query cat = session.getNamedQuery("selectAllCategory");
+        List<Object[]> resultsCategories = cat.getResultList();
 
         session.close();
 
         request.setAttribute("articles", resultsArticles);
         request.setAttribute("categories", resultsCategories);
-
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

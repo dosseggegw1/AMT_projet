@@ -1,22 +1,22 @@
 package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name="selectArticleIdName", query = "SELECT idArticle, name FROM Article"),
-        @NamedQuery(name= "selectAllArticles", query = "SELECT idArticle, name, description, price, imageURL, stock FROM Article"),
-        @NamedQuery(name="selectImageURL", query="SELECT imageURL FROM Article"),
-        @NamedQuery(name="selectArticleAndCategory", query="SELECT idArticle, name, description, price, imageURL, stock, " +
-                "GROUP_CONCAT(Article_Category.fk_idCategory) AS categories FROM Article " +
-                "LEFT JOIN Article_Category ON Article_Category.fk_idArticle = Article.idArticle\n" +
-                "GROUP BY Article.idArticle")
+        @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
+        @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
+        @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, GROUP(Article_Category.idCategory) AS categories FROM Article a LEFT JOIN Article_Category ON Article_Category.idArticle = a.idArticle GROUP BY a.idArticle")
 })
 
 @Entity
 @Table(name = "Article")
 public class Article {
     @Id
+    @Column(name = "idArticle")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idArticle;
 
@@ -35,18 +35,13 @@ public class Article {
     @Column(name = "stock")
     private int stock;
 
-    @ManyToMany
+    /*
+    @OneToMany
     @JoinTable(
             name = "Article_Category",
             joinColumns = @JoinColumn(name = "idArticle"),
             inverseJoinColumns = @JoinColumn(name = "idCategory"))
     private List<Category> categories;
-
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<Article_Cart> article_carts;
-
-    public Article() {
-    }
 
     public List<Category> getCategories() {
         return categories;
@@ -54,6 +49,16 @@ public class Article {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+    */
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Article_Cart> article_carts;
+
+    @OneToMany(mappedBy = "article")
+    private Set<Article_Category> articleCategories = new HashSet<>();
+
+    public Article() {
     }
 
     public int getIdArticle() {

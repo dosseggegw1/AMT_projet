@@ -13,11 +13,8 @@
     });
 
     function postData(){
-
-      
-
       $.ajax({
-        url: server_url + '/ws_report',
+        url: 'http://localhost:8080/shop/create_cookie',
         timeout:30000,
         type: "POST",
         data: {

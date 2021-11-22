@@ -31,10 +31,9 @@ public class Cart_cookie_read extends HttpServlet {
                 for(String s : parts){
                     String[] params = s.split("&");
                     ArrayList<String> item = new ArrayList<String>();
-                    item.add(params[0]);
-                    item.add(params[1]);
-                    item.add(params[2]);
-                    item.add(params[3]);
+                    for(String p : params){
+                        item.add(p);
+                    }
                     cart.add(item);
                 }
             }

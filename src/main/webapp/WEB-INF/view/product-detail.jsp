@@ -3,7 +3,41 @@
 <jsp:include page="../includes/head.jsp"/>
 <body>
   <jsp:include page="../includes/header.jsp"/>
- 
+
+  <script>
+    $(document).ready(function(){
+      $('#addToCart').on('click', function(){
+        alert('onclick is working.');
+        postData(); //Your function
+      });
+    });
+
+    function postData(){
+
+      
+
+      $.ajax({
+        url: server_url + '/ws_report',
+        timeout:30000,
+        type: "POST",
+        data: {
+
+        },
+        success: function(msg){
+          if (msg.ws_resultat.result_ok==true)
+          {
+            alert('success!');
+            window.open("account_details.html");
+          }
+        },
+        error: function(jqXHR, textStatus)
+        {
+          //Manage your error.
+        }
+      });
+    }
+  </script>
+
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
    <img src="assets/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
@@ -91,7 +125,7 @@
                       </p>
                     </div>
                     <div class="aa-prod-view-bottom">
-                      <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
+                      <a id="addToCart" class="aa-add-to-cart-btn" href="#">Add To Cart</a>
                       <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                       <a class="aa-add-to-cart-btn" href="#">Compare</a>
                     </div>

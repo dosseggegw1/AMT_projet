@@ -43,8 +43,8 @@ public class Article {
     @Column(name = "stock")
     private int stock;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<Article_Cart> article_carts;
+    @OneToMany(mappedBy = "article")
+    private Set<Article_Cart> article_carts = new HashSet<>();
 
     @OneToMany(mappedBy = "article")
     private Set<Article_Category> articleCategories = new HashSet<>();
@@ -107,13 +107,13 @@ public class Article {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
-    public List<Article_Cart> getArticle_carts() {
+    public Set<Article_Cart> getArticle_carts() {
         return article_carts;
     }
 
-    public void setArticle_carts(List<Article_Cart> article_carts) {
+    public void setArticle_carts(Set<Article_Cart> article_carts) {
         this.article_carts = article_carts;
     }
+
 
 }

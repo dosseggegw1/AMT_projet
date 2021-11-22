@@ -9,7 +9,6 @@
         <class>ch.heigvd.amt.projet.shop_els.model.Category</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article_Cart</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Article_Cart_Id</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article_Category</class>
         <properties>
             <!-- Properties for Hibernate -->

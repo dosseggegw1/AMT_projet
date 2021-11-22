@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -20,7 +21,7 @@ public class Index extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        session = HibUtil.getSessionFactory().openSession();
+        session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         // We get the all the articles & the categories they are in
@@ -30,8 +31,6 @@ public class Index extends HttpServlet {
         // We get the categories (ids and names)
         Query cat = session.getNamedQuery("selectAllCategory");
         List<Object[]> resultsCategories = cat.getResultList();
-
-        session.close();
 
         request.setAttribute("articles", resultsArticles);
         request.setAttribute("categories", resultsCategories);

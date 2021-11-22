@@ -17,21 +17,24 @@
             <div class="aa-product-inner">
               <!-- start prduct navigation -->
               <ul class="nav nav-tabs aa-products-tab">
-                <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-                  <c:forEach var="cat" items="${categories}">
-                    <li><button class="btn active" onclick="filterSelection('${cat[0]}')"><c:out value="${cat[1]}"/></button></li>
-                  </c:forEach>
+                <!-- Control buttons -->
+                <div id="myBtnContainer">
+                  <button class="btn active" onclick="filterSelection('cat-all')">Tous les articles</button>
+                    <c:forEach var="cat" items="${categories}">
+                      <button class="btn" onclick="filterSelection('${cat[1]}')"><c:out value="${cat[1]}"/></button>
+                    </c:forEach>
+                </div>
               </ul>
               <!-- Tab panes -->
-              <div class="tab-content">
-                <!-- Start men product category -->
-                <div class="tab-pane fade in active" id="men">
+              <div class="container">
+                <!-- Start product category -->
+                <div class="tab-pane fade in active" id="all">
                   <ul class="aa-product-catg">
                     <!-- start single product item -->
-                    <% int id = -1; %>
+                    <c:set var="id" value="-1" scope="session"/>
                     <c:forEach var="article" items="${articles}">
                       <c:if test="id < ${article[0]}">
-                        <li class="filterDiv cat-all">
+                        <li class="filterDiv cat-all ">
                           <figure>
                             <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
                             <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
@@ -44,7 +47,7 @@
                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                           </div>
                         </li>
-                        <% id = article[0] ; %>
+                        <c:set var="id" value="${article[0]}"/>
                       </c:if>
                       <li class="filterDiv ${article[7]}">
                       <figure>
@@ -149,17 +152,67 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 <!-- / Products section -->
-<script>
 
+<script>
+  filterSelection("cat-all")
+  function filterSelection(c) {
+    var x, i;
+    // Getting all element with class "filterDiv" (basically all articles)
+    x = document.getElementsByClassName("filterDiv");
+    // If the parameter given is "cat-all" we want to print all articles
+    if (c == "cat-all") {
+      c = "";
+    }
+    // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+    // We iterate on all elements
+    for (i = 0; i < x.length; i++) {
+      removeClass(x[i], "show");
+      if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
+    }
+  }
+
+  // Show filtered elements
+  function addClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {
+        element.className += " " + arr2[i];
+      }
+    }
+  }
+
+  // Hide elements that are not selected
+  function removeClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      while (arr1.indexOf(arr2[i]) > -1) {
+        arr1.splice(arr1.indexOf(arr2[i]), 1);
+      }
+    }
+    element.className = arr1.join(" ");
+  }
+
+  // Add active class to the current control button (highlight it)
+  var btnContainer = document.getElementById("myBtnContainer");
+  var btns = btnContainer.getElementsByClassName("btn");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
 </script>
 
-
 <jsp:include page="WEB-INF/includes/footer.jsp"/>
-
 <jsp:include page="WEB-INF/includes/login.jsp"/>
-
 <jsp:include page="WEB-INF/includes/plugins.jsp"/>
 
 </body>

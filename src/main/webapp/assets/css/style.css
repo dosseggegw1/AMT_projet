@@ -4183,6 +4183,10 @@ img {
     padding: 5px 2px;
   }
 
+  .container {
+    overflow: hidden;
+  }
+
   .filterDiv {
     float: left;
     background-color: #2196F3;
@@ -4203,6 +4207,11 @@ img {
   .btn.active {
     background-color: #666;
     color: white;
+  }
+
+  /* The "show" class is added to the filtered elements */
+  .show {
+    display: block;
   }
 }
 

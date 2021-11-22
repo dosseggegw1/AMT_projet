@@ -6,7 +6,8 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category "),
-        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories")
+        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories"),
+        @NamedQuery(name="selectCategoryName", query = "SELECT name FROM Category ")
 })
 @Entity
 @Table(name = "Category")

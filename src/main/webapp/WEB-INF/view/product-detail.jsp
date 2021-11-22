@@ -122,6 +122,7 @@
                       </p>
                     </div>
                     <div class="aa-prod-view-bottom">
+                      <c:out value="${article[0]}"/>
                       <a id="addToCart" class="aa-add-to-cart-btn" href="#">Add To Cart</a>
                       <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                       <a class="aa-add-to-cart-btn" href="#">Compare</a>

@@ -13,7 +13,7 @@ public class Cart_cookie_create extends HttpServlet {
 
     private String cartAsString;
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
         create_cookie(request, response);
     }
@@ -25,11 +25,13 @@ public class Cart_cookie_create extends HttpServlet {
                 cartAsString += aCookie.getValue();
             }
         }
-        String productCode = "1";
-        String description = "yolo";
-        String quantity = "2";
-        String price = "3";
-        cartAsString = productCode + "&" + description + "&" + quantity + "&" + price + "#";
+        String productCode = request.getParameter("id");
+        String name = request.getParameter("name");
+        String quantity = request.getParameter("quantity");
+        String price = request.getParameter("price");
+
+        cartAsString = productCode + "&" + name + "&" + quantity + "&" + price + "#";
+
         Cookie cook = new Cookie("cartItems", cartAsString);
         cook.setPath("/shop");
         response.addCookie(cook);

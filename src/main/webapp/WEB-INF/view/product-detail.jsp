@@ -6,31 +6,33 @@
 
   <script>
     $(document).ready(function(){
-      $('#addToCart').on('click', function(){
-        alert('onclick is working.');
+      $('#addToCart').click(function(){
         postData(); //Your function
       });
     });
 
     function postData(){
+      var article = "${article}";
+      var id = article[0][0];
+      var name = article[0][1];
+      var quantity = article[0][5];
+      var price = article[0][3];
       $.ajax({
         url: 'http://localhost:8080/shop/create_cookie',
         timeout:30000,
         type: "POST",
         data: {
-
+            id,
+            name,
+            quantity,
+            price
         },
-        success: function(msg){
-          if (msg.ws_resultat.result_ok==true)
-          {
-            alert('success!');
-            window.open("account_details.html");
-          }
+        success: function (data) {
+          //what to do in success
         },
-        error: function(jqXHR, textStatus)
-        {
-          //Manage your error.
-        }
+        error: function(xhr, ajaxOptions, thrownError){
+          //what to do in error
+        },
       });
     }
   </script>
@@ -122,8 +124,7 @@
                       </p>
                     </div>
                     <div class="aa-prod-view-bottom">
-                      <c:out value="${article[0]}"/>
-                      <a id="addToCart" class="aa-add-to-cart-btn" href="#">Add To Cart</a>
+                      <a id="addToCart" class="aa-add-to-card-btn" href="#">Add To Cart</a>
                       <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                       <a class="aa-add-to-cart-btn" href="#">Compare</a>
                     </div>

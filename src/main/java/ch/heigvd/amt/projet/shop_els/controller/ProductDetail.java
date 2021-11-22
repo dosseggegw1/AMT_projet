@@ -19,9 +19,9 @@ public class ProductDetail extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
 
-        String paramId = request.getParameter("id");
+        int paramId = Integer.parseInt(request.getParameter("id"));
 
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Query article = session.createNamedQuery("selectArticleById");
@@ -29,7 +29,7 @@ public class ProductDetail extends HttpServlet{
         List resultArticle = article.getResultList();
 
         request.setAttribute("article", resultArticle);
-        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+
         session.close();
     }
 }

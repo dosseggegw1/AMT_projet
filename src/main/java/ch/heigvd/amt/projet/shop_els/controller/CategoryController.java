@@ -12,22 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/articles")
-public class Article extends HttpServlet{
+
+@WebServlet("/admin/categories")
+public class CategoryController extends HttpServlet{
     private Session session;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticle");
+        Query query = session.getNamedQuery("selectAllCategory");
         List<Object[]> results = query.getResultList();
         session.close();
 
-        request.setAttribute("articles", results);
+        request.setAttribute("categories", results);
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
     }
 }

@@ -27,7 +27,6 @@ public class CategoryAddController extends HttpServlet {
         List<Category> results = query.getResultList();
         Gson g = new Gson();
         request.setAttribute("categories",g.toJson(results));
-        session.close();
 
         request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
     }
@@ -35,18 +34,23 @@ public class CategoryAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        // TODO: à remove (uniquement pour tester) :)
-        String name = (String) request.getParameter("name");
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + "Category: " + "</h1>");
-        out.println("<h2>" + "name " + name + "</h2>");
+        String category = (String) request.getParameter("name");
 
         // TODO:
         //  Il faut vérifier que le nom n'existe pas deja => sinon indique erreur à l'utilisateur
-        //  Insertion dans la base de données
-        //  Une fois enregistrement dans la DB, retourner sur la page des categories
-            //request.setAttribute("categories", results);
-            //request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
+        // Verify if category already exist
+        Query query = session.createQuery("SELECT name FROM Category c WHERE c.name in :cat")
+                .setParameter("cat", category);
+        if(query.getResultList().size() != 0 && (category.length() > 50)) {
+           //erreur
+        } else {
+            Category newCategory = new Category();
+            newCategory.setName(category);
+            session.save(newCategory);
+        }
+
+        // Redirection to the main page of all categories
+        response.sendRedirect("/shop/admin/categories");
+        session.getTransaction().commit();
     }
 }

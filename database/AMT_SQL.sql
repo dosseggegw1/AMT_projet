@@ -46,7 +46,8 @@ CREATE TABLE `Article` (
 INSERT INTO `Article` (`idArticle`, `name`, `description`, `price`, `imageURL`, `stock`) VALUES
 (1, 'T-Shirt', 'T-shirt avec le logo du club. Taille unique.', '15.50', 'default.jpg', 15),
 (2, 'Jogging noir', 'Jogging de couleur noire avec le logo du club. Taille unique', '20.00', 'jogging.jpg', 15),
-(3, 'Porte-clés', 'Porte-clés en forme du logo du club. Dimension : 10 mm x 12 mm x 5 mm', '5.15', 'keychain.jpg', 5);
+(3, 'Porte-clés', 'Porte-clés en forme du logo du club. Dimension : 10 mm x 12 mm x 5 mm', '5.15', 'keychain.jpg', 5),
+(4, 'Bonnet', 'Bonnet noir avec le logo du club. Taille unique', '10.00', 'hat.jpg', 10);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,9 @@ CREATE TABLE `Article_Category` (
 INSERT INTO `Article_Category` (`idArticle`, `idCategory`) VALUES
 (1, 1),
 (2, 1),
-(3, 2);
+(3, 2),
+(4, 1),
+(4, 2);
 
 -- --------------------------------------------------------
 

@@ -43,7 +43,7 @@ public class ArticleAddController extends HttpServlet {
         String imageURL = (String)  request.getParameter("imageURL");
         String stock = request.getParameter("stock");
 
-        PrintWriter out = response.getWriter();
+        /*PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("<h1>" + "Article: " + "</h1>");
         out.println("<h2>" + "name " + name + "</h2>");
@@ -51,7 +51,7 @@ public class ArticleAddController extends HttpServlet {
         out.println("<h2>" + "price " + price + "</h2>");
         out.println("<h2>" + "imageURL " + imageURL + "</h2>");
         out.println("<h2>" + "stock " + stock + "</h2>");
-        out.println("</body></html>");
+        out.println("</body></html>");*/
 
         // TODO:
         //  possible d'attribuer 1 ou plusieurs catégories à un article
@@ -61,21 +61,42 @@ public class ArticleAddController extends HttpServlet {
         //  préannonce : nom, description, pas de prix (possible image par obligatoire) => ok mais impossible dans panier
         //  stock : doit être >= à 0
         //  Si on a pas : nom, description => impossible d'ajouter un article
-        //  Si le nom doit être unique => s'il existe deja, impossible de créer et affiche l'article existant (info)
+        //  le nom doit être unique => s'il existe deja, impossible de créer et affiche l'article existant (info)
 
-        /*
-        session = HibUtil.getSessionFactory().getCurrentSession();
+
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:valor1,:valor2)");
-        session = HibUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:name,:valor2)");
-        query.setParameter("name",name );
+        Query query = session.createQuery("SELECT name FROM Article c WHERE c.name in :art")
+                .setParameter("art", name);
+
+        // Validation of the input
+        // If name or description are null, error
+        // If article's name already exist, error
+        // If the length of the name > 50, error
+        // If the length of the description > 255, error
+        // If price < 0, error
+        // If stock < 0, error
+        // If URL of the image is the URL of the default image, error
+        if(name == null || description == null || query.getResultList().size() != 0 ||
+                name.length() > 50 || description.length() > 255 || price.contains("-") ||
+                stock.contains("-")|| imageURL.equals("default.png")) {
+            query = session.getNamedQuery("selectAllCategory");
+            request.setAttribute("categories", query.getResultList());
+            request.setAttribute("error", true);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
+        } else {
+
+        }
+
+        //Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:valor1,:valor2)");
+
+        //Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:name,:valor2)");
+       /* query.setParameter("name",name );
         query.setParameter("description", description);
         query.setParameter("price", price);
         query.setParameter("imageURL", imageURL);
         query.setParameter("stock", stock);
-        query.executeUpdate();
+        query.executeUpdate();*/
 
         /*Query query = session.getNamedQuery("selectAllArticles");
         List<Object[]> results = query.getResultList();

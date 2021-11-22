@@ -154,5 +154,15 @@
     }
 </script>
 
+<script>
+    document.onload(errorDuplicateData())
+    function errorDuplicateData() {
+        const error = ${error};
+        if(error) {
+            alert("Une erreur est survenue dans le formulaire.\nVeuillez resaisir les informations.")
+        }
+    }
+</script>
+
 </body>
 </html>

@@ -1,6 +1,5 @@
 package ch.heigvd.amt.projet.shop_els;
 
-import ch.heigvd.amt.projet.shop_els.model.*;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -33,7 +32,7 @@ public class HelloDatabase extends HttpServlet {
 
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
-            out.println("<h1>" + "Article: " + "</h1>");
+            out.println("<h1>" + "ArticleController: " + "</h1>");
             out.println("<h2>" + "name " + name + "</h2>");
             out.println("<h2>" + "description " + description + "</h2>");
             out.println("<h2>" + "price " + price + "</h2>");

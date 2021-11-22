@@ -1,37 +1,29 @@
 package ch.heigvd.amt.projet.shop_els.controller;
-import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.model.Category;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
 
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/admin/articles")
+@WebServlet("/articles")
 public class ArticleController extends HttpServlet{
-    private Session session;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticles");
-        List<Article> results = query.getResultList();
-        session.close();
+        //session = HibUtil.getSessionFactory().getCurrentSession();
+        //session.beginTransaction();
+        //Query query = session.getNamedQuery("selectCategories");
+        //List results = query.getResultList();
+        //String email = results.get(0).toString();
+        //session.close();
 
-        //List<Category> categories = results.get(1).getCategories();
-
-        request.setAttribute("articles", results);
-        //request.setAttribute("cat",categories);
+        String[][] articles = new String[][]{ {"1","T-Shirt","Description blabla", "10", "url", "qté"} , {"2","Jogging","Description blabla", "15.50", "url", "qté"}, {"3","Bonnet","Description blabla", "15.50", "url", "qté"}};
+        request.setAttribute("articles", articles);
 
         request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+
+
     }
 }

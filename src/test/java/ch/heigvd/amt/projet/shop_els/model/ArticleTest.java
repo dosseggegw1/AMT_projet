@@ -20,7 +20,7 @@ public class ArticleTest {
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
-        // Query to insert a new article in the table Article
+        // Query to insert a new article in the table ArticleController
         Article article = new Article();
         article.setName("Top");
         article.setDescription("Top avec le logo du club. Taille unique.");
@@ -54,7 +54,7 @@ public class ArticleTest {
         List<Article> results = querySelect.getResultList();
         int artID = results.get(0).getIdArticle();
 
-        // Query to delete the last inserted article from the Article table
+        // Query to delete the last inserted article from the ArticleController table
         String hqlDelete = "DELETE FROM Article WHERE idArticle = :art_id";
         Query queryDelete = session.createQuery(hqlDelete);
         queryDelete.setParameter("art_id", artID);

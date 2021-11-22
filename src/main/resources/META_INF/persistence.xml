@@ -9,7 +9,7 @@
         <class>ch.heigvd.amt.projet.shop_els.model.Category</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article_Cart</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Article_Cart_Id</class>
+        <class>ch.heigvd.amt.projet.shop_els.model.Article_Category</class>
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
@@ -19,6 +19,8 @@
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.metadata_builder_contributor" value="ch.heigvd.amt.projet.shop_els.util.MySQLCustomDialect"/>
         </properties>
     </persistence-unit>
 </persistence>

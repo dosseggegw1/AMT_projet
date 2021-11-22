@@ -119,5 +119,15 @@
 }
 </script>
 
+<script>
+  document.onload(errorDuplicateData())
+  function errorDuplicateData() {
+    const error = ${error};
+    if(error) {
+      alert("La catégorie existe déjà")
+    }
+  }
+</script>
+
 </body>
 </html>

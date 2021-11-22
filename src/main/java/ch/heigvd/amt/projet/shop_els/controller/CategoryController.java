@@ -21,7 +21,7 @@ public class CategoryController extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.getNamedQuery("selectAllCategory");
         List<Object[]> results = query.getResultList();

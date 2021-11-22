@@ -21,11 +21,13 @@ public class CategoryAddController extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.getNamedQuery("selectCategoryName");
         List<Category> results = query.getResultList();
+        session.close();
         Gson g = new Gson();
+        request.setAttribute("error", false);
         request.setAttribute("categories",g.toJson(results));
 
         request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
@@ -35,22 +37,26 @@ public class CategoryAddController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String category = (String) request.getParameter("name");
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
 
-        // TODO:
-        //  Il faut vérifier que le nom n'existe pas deja => sinon indique erreur à l'utilisateur
         // Verify if category already exist
         Query query = session.createQuery("SELECT name FROM Category c WHERE c.name in :cat")
                 .setParameter("cat", category);
-        if(query.getResultList().size() != 0 && (category.length() > 50)) {
-           //erreur
+        if(query.getResultList().size() != 0 || (category.length() > 50)) {
+            query = session.getNamedQuery("selectCategoryName");
+            request.setAttribute("categories", query.getResultList());
+            request.setAttribute("error", true);
+            request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
         } else {
             Category newCategory = new Category();
             newCategory.setName(category);
             session.save(newCategory);
-        }
 
-        // Redirection to the main page of all categories
-        response.sendRedirect("/shop/admin/categories");
-        session.getTransaction().commit();
+            // Redirection to the main page of all categories
+            response.sendRedirect("/shop/admin/categories");
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

@@ -8,17 +8,19 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/AMT_SQL?characterEncoding=utf8&amp;allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">rootroot</property>
+        <property name="hibernate.connection.password">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <property name="hbm2ddl.auto">update </property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.current_session_context_class">thread</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.metadata_builder_contributor">ch.heigvd.amt.projet.shop_els.util.MySQLCustomDialect</property>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.User"/>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Cart"/>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Category"/>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Article"/>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Cart"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Cart_Id"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Category"/>
     </session-factory>
 </hibernate-configuration>

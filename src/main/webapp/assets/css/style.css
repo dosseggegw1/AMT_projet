@@ -4182,5 +4182,27 @@ img {
   #aa-header .aa-header-top .aa-header-top-right .aa-head-top-nav-right li a {   
     padding: 5px 2px;
   }
+
+  .filterDiv {
+    float: left;
+    background-color: #2196F3;
+    color: #ffffff;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 2px;
+    display: none; /* Hidden by default */
+  }
+
+  /* Add a light grey background on mouse-over */
+  .btn:hover {
+    background-color: #ddd;
+  }
+
+  /* Add a dark background to the active button */
+  .btn.active {
+    background-color: #666;
+    color: white;
+  }
 }
 

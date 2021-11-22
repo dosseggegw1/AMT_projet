@@ -26,25 +26,26 @@ USE `AMT_SQL`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Article`
+-- Structure de la table `ArticleController`
 --
 
 CREATE TABLE `Article` (
-  `idArticle` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `idArticle` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL UNIQUE,
   `description` text NOT NULL,
   `price` decimal(10,2) UNSIGNED DEFAULT NULL,
   `imageURL` varchar(255) DEFAULT 'default.jpg',
-  `stock` smallint(6) UNSIGNED DEFAULT NULL
+  `stock` smallint(6) UNSIGNED DEFAULT NULL,
+  primary key (`idArticle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `Article`
+-- Déchargement des données de la table `ArticleController`
 --
 
 INSERT INTO `Article` (`idArticle`, `name`, `description`, `price`, `imageURL`, `stock`) VALUES
 (1, 'T-Shirt', 'T-shirt avec le logo du club. Taille unique.', '15.50', 'default.jpg', 15),
-(2, 'Jogging noire', 'Jogging de couleur noir avec le logo du club. Taille unique', '20.00', 'jogging.jpg', 15),
+(2, 'Jogging noir', 'Jogging de couleur noire avec le logo du club. Taille unique', '20.00', 'jogging.jpg', 15),
 (3, 'Porte-clés', 'Porte-clés en forme du logo du club. Dimension : 10 mm x 12 mm x 5 mm', '5.15', 'keychain.jpg', 5);
 
 -- --------------------------------------------------------
@@ -54,8 +55,9 @@ INSERT INTO `Article` (`idArticle`, `name`, `description`, `price`, `imageURL`, 
 --
 
 CREATE TABLE `Article_Cart` (
-  `fk_idArticle` int(11) DEFAULT NULL,
-  `fk_idCart` int(11) DEFAULT NULL,
+  `idArticleCart` int(11) NOT NULL AUTO_INCREMENT,
+  `article` int(11) DEFAULT NULL AUTO_INCREMENT,
+  `cart` int(11) DEFAULT NULL,
   `quantity` smallint(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -63,9 +65,9 @@ CREATE TABLE `Article_Cart` (
 -- Déchargement des données de la table `Article_Cart`
 --
 
-INSERT INTO `Article_Cart` (`fk_idArticle`, `fk_idCart`, `quantity`) VALUES
-(5, 1, 2),
-(2, 1, 1);
+INSERT INTO `Article_Cart` (`idArticleCart`, `article`, `cart`, `quantity`) VALUES
+(1, 5, 1, 2),
+(2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -74,17 +76,20 @@ INSERT INTO `Article_Cart` (`fk_idArticle`, `fk_idCart`, `quantity`) VALUES
 --
 
 CREATE TABLE `Article_Category` (
-  `fk_idArticle` int(11) DEFAULT '0',
-  `fk_idCategory` int(11) DEFAULT '0'
+  `idArticleCategory` int(11) NOT NULL AUTO_INCREMENT,
+  `idArticle` int(11) DEFAULT '0',
+  `idCategory` int(11) DEFAULT '0',
+  primary key (`idArticleCategory`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `Article_Category`
 --
 
-INSERT INTO `Article_Category` (`fk_idArticle`, `fk_idCategory`) VALUES
+INSERT INTO `Article_Category` (`idArticle`, `idCategory`) VALUES
 (1, 1),
-(2, 1);
+(2, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -93,7 +98,8 @@ INSERT INTO `Article_Category` (`fk_idArticle`, `fk_idCategory`) VALUES
 --
 
 CREATE TABLE `Cart` (
-  `idCart` int(11) NOT NULL
+  `idCart` int(11) NOT NULL AUTO_INCREMENT,
+  primary key (`idCart`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -110,8 +116,9 @@ INSERT INTO `Cart` (`idCart`) VALUES
 --
 
 CREATE TABLE `Category` (
-  `idCategory` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `idCategory` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL UNIQUE,
+  primary key (`idCategory`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -119,8 +126,8 @@ CREATE TABLE `Category` (
 --
 
 INSERT INTO `Category` (`idCategory`, `name`) VALUES
-(2, 'Accessoire'),
-(1, 'Vêtement');
+(2, 'Accessoires'),
+(1, 'Vêtements');
 
 -- --------------------------------------------------------
 
@@ -129,8 +136,9 @@ INSERT INTO `Category` (`idCategory`, `name`) VALUES
 --
 
 CREATE TABLE `User` (
-  `idUser` int(11) NOT NULL,
-  `fk_cart` int(11) DEFAULT NULL
+  `idUser` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_cart` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -139,17 +147,6 @@ CREATE TABLE `User` (
 
 INSERT INTO `User` (`idUser`, `fk_cart`) VALUES
 (1, 1);
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `Article`
---
-ALTER TABLE `Article`
-  ADD PRIMARY KEY (`idArticle`),
-  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Index pour la table `Article_Cart`
@@ -162,56 +159,19 @@ ALTER TABLE `Article_Cart`
 -- Index pour la table `Article_Category`
 --
 ALTER TABLE `Article_Category`
-  ADD KEY `fk_idArticle` (`fk_idArticle`,`fk_idCategory`),
-  ADD KEY `fk_idCategory` (`fk_idCategory`);
+  ADD FOREIGN KEY (`idCategory`)
+      REFERENCES Category (`idCategory`);
 
---
--- Index pour la table `Cart`
---
-ALTER TABLE `Cart`
-  ADD PRIMARY KEY (`idCart`);
-
---
--- Index pour la table `Category`
---
-ALTER TABLE `Category`
-  ADD PRIMARY KEY (`idCategory`),
-  ADD UNIQUE KEY `name` (`name`);
+ALTER TABLE `Article_Category`
+  ADD FOREIGN KEY (`idArticle`)
+      REFERENCES Article (`idArticle`);
 
 --
 -- Index pour la table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`idUser`),
   ADD KEY `fk_cart` (`fk_cart`);
 
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `Article`
---
-ALTER TABLE `Article`
-  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT pour la table `Cart`
---
-ALTER TABLE `Cart`
-  MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `Category`
---
-ALTER TABLE `Category`
-  MODIFY `idCategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT pour la table `User`
---
-ALTER TABLE `User`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

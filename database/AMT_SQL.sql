@@ -33,9 +33,9 @@ CREATE TABLE `Article` (
   `idArticle` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL UNIQUE,
   `description` text NOT NULL,
-  `price` decimal(10,2) UNSIGNED DEFAULT NULL,
+  `price` decimal(10,2) UNSIGNED DEFAULT 0,
   `imageURL` varchar(255) DEFAULT 'default.jpg',
-  `stock` smallint(6) UNSIGNED DEFAULT NULL,
+  `stock` smallint(6) UNSIGNED DEFAULT 0,
   primary key (`idArticle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

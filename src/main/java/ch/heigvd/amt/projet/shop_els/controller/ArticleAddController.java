@@ -1,5 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
@@ -66,7 +68,7 @@ public class ArticleAddController extends HttpServlet {
 
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("SELECT name FROM Article c WHERE c.name in :art")
+        Query query = session.createQuery("SELECT name FROM Article a WHERE a.name in :art")
                 .setParameter("art", name);
 
         // Validation of the input
@@ -77,7 +79,7 @@ public class ArticleAddController extends HttpServlet {
         // If price < 0, error
         // If stock < 0, error
         // If URL of the image is the URL of the default image, error
-        if(name == null || description == null || query.getResultList().size() != 0 ||
+        if(name == "" || description == "" || query.getResultList().size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
                 stock.contains("-")|| imageURL.equals("default.png")) {
             query = session.getNamedQuery("selectAllCategory");
@@ -85,6 +87,31 @@ public class ArticleAddController extends HttpServlet {
             request.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
         } else {
+            // Add article to database
+            Article article = new Article();
+            article.setName(name);
+            article.setDescription(description);
+            article.setImageURL(imageURL);
+            if(!price.equals("")) article.setPrice(Float.parseFloat(price));
+            if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
+            session.save(article);
+
+            // Link an article to all the categories
+            for(String id : categories) {
+                Article_Category ac = new Article_Category();
+                ac.setArticle(article);
+                query = session.createQuery("SELECT idCategory, name FROM Category c WHERE c.idCategory in :cat")
+                        .setParameter("cat", Integer.parseInt(id));
+                List<Category[]> category = query.getResultList(); //List<Category[]> ?
+                for(Category[] result : category)
+                int i = category.get(0).;
+                String n = category.get(0).getName();
+                //ac.setCategory(c);
+                session.save(ac);
+            }
+
+            session.getTransaction().commit();
+            session.close();
 
         }
 

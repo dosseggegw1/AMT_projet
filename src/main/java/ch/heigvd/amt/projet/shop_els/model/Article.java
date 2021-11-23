@@ -34,13 +34,13 @@ public class Article {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price", precision = 10, scale = 2)
+    @Column(name = "price", columnDefinition="Decimal(10,2) default '0'")
     private float price;
 
-    @Column(name = "imageURL")
+    @Column(name = "imageURL", columnDefinition="varchar(255) default 'default.png'")
     private String imageURL;
 
-    @Column(name = "stock")
+    @Column(name = "stock", columnDefinition="smallint(6) default '0'")
     private int stock;
 
     @OneToMany(mappedBy = "article")

@@ -76,8 +76,8 @@
 
                 <div class="form-check form-check-inline">
                     <c:forEach var="cat" items="${categories}">
-                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]} ml-3">
-                        <label class="form-check-label" ><c:out value="${cat[1]}"/></label>
+                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                        <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>
 

@@ -33,7 +33,7 @@
                     <!-- start single product item -->
                     <c:set var="id" value="-1" scope="session"/>
                     <c:forEach var="article" items="${articles}">
-                      <c:if test="id < ${article[0]}">
+                      <c:if test="${article[0] > id}">
                         <li class="filterDiv cat-all ">
                           <figure>
                             <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
@@ -163,9 +163,9 @@
     // Getting all element with class "filterDiv" (basically all articles)
     x = document.getElementsByClassName("filterDiv");
     // If the parameter given is "cat-all" we want to print all articles
-    if (c == "cat-all") {
-      c = "";
-    }
+    // if (c == "cat-all") {
+    //   c = "";
+    // }
     // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
     // We iterate on all elements
     for (i = 0; i < x.length; i++) {

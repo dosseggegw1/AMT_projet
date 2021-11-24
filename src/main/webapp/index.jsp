@@ -34,7 +34,7 @@
                     <c:set var="id" value="-1" scope="session"/>
                     <c:forEach var="article" items="${articles}">
                       <c:if test="${article[0] > id}">
-                        <li class="filterDiv cat-all ">
+                        <li class="filterDiv cat-all">
                           <figure>
                             <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
                             <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>

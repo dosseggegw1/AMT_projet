@@ -90,9 +90,7 @@
                 </div>
                 <!-- / logo  -->
                 <div class="aa-all-articles-btn">
-                  <a href="index" class="btn btn-primary">
-                    <p>Tous les articles</p>
-                  </a>
+                  <a href="index" class="btn">Tous les articles</a>
                 </div>
                  <!-- cart box -->
                 <div class="aa-cartbox">

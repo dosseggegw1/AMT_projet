@@ -3949,6 +3949,19 @@ img {
     text-align: left;
   }
 
+  #aa-header .aa-header-bottom .aa-header-bottom-area .aa-all-articles-btn {
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
+  #aa-header .aa-header-bottom .aa-header-bottom-area .aa-all-articles-btn a {
+    display: inline-block;
+  }
+
+  #aa-header .aa-header-bottom .aa-header-bottom-area .aa-all-articles-btn a p {
+    text-align: center;
+  }
+
   #aa-header .aa-header-bottom .aa-cartbox {
     text-align: center;
     width: 100%;
@@ -4187,17 +4200,6 @@ img {
     overflow: hidden;
   }
 
-  .filterDiv {
-    float: left;
-    background-color: #2196F3;
-    color: #ffffff;
-    width: 100px;
-    line-height: 100px;
-    text-align: center;
-    margin: 2px;
-    display: none; /* Hidden by default */
-  }
-
   /* Add a light grey background on mouse-over */
   .btn:hover {
     background-color: #ddd;
@@ -4209,9 +4211,20 @@ img {
     color: white;
   }
 
-  /* The "show" class is added to the filtered elements */
   .show {
     display: block;
+  }
+
+  .filterDiv {
+    float: left;
+    background-color: #2196F3;
+    color: #ffffff;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 2px;
+    visibility: hidden !important;
+    display: none !important; /* Hidden by default */
   }
 }
 

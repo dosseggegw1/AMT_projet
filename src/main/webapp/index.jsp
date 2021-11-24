@@ -28,7 +28,7 @@
               <!-- Tab panes -->
               <div class="container">
                 <!-- Start product category -->
-                <div class="tab-pane fade in active" id="all">
+                <div class="tab-pane fade in active">
                   <ul class="aa-product-catg">
                     <!-- start single product item -->
                     <c:set var="id" value="-1" scope="session"/>
@@ -162,10 +162,6 @@
     var x, i;
     // Getting all element with class "filterDiv" (basically all articles)
     x = document.getElementsByClassName("filterDiv");
-    // If the parameter given is "cat-all" we want to print all articles
-    // if (c == "cat-all") {
-    //   c = "";
-    // }
     // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
     // We iterate on all elements
     for (i = 0; i < x.length; i++) {

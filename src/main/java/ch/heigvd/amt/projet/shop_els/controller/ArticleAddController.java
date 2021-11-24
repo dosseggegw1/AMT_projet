@@ -4,6 +4,7 @@ import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
@@ -13,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet("/admin/articleAdd")
 public class ArticleAddController extends HttpServlet {
@@ -44,16 +46,6 @@ public class ArticleAddController extends HttpServlet {
         String price = request.getParameter("price");
         String imageURL = (String)  request.getParameter("imageURL");
         String stock = request.getParameter("stock");
-
-        /*PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + "Article: " + "</h1>");
-        out.println("<h2>" + "name " + name + "</h2>");
-        out.println("<h2>" + "description " + description + "</h2>");
-        out.println("<h2>" + "price " + price + "</h2>");
-        out.println("<h2>" + "imageURL " + imageURL + "</h2>");
-        out.println("<h2>" + "stock " + stock + "</h2>");
-        out.println("</body></html>");*/
 
         // TODO:
         //  possible d'attribuer 1 ou plusieurs catégories à un article
@@ -96,19 +88,13 @@ public class ArticleAddController extends HttpServlet {
             if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
             session.save(article);
 
-            // Link an article to all the categories
-            for(String id : categories) {
-                Article_Category ac = new Article_Category();
-                ac.setArticle(article);
-                query = session.createQuery("SELECT idCategory, name FROM Category c WHERE c.idCategory in :cat")
-                        .setParameter("cat", Integer.parseInt(id));
-                List<Category[]> category = query.getResultList(); //List<Category[]> ?
-                for(Category[] result : category)
-                int i = category.get(0).;
-                String n = category.get(0).getName();
-                //ac.setCategory(c);
-                session.save(ac);
+            Set<Category> categoryList = new HashSet<>();
+            for(String idCategory : categories) {
+                List<Category> cat = (List<Category>) session.createQuery("SELECT idCategory, name FROM Category WHERE idCategory in :id")
+                        .setParameter("id", Integer.parseInt(idCategory)).list();
+                categoryList.add(cat.get(0));
             }
+
 
             session.getTransaction().commit();
             session.close();

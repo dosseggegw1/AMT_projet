@@ -3,27 +3,22 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="Article_Category")
+@Table(name ="Article_Category", indexes = {
+        @Index(name = "fk_article", columnList = "idArticle"),
+        @Index(name = "fk_article", columnList = "idCategory")
+})
 public class Article_Category {
-    @Id
-    @Column(name = "idArticleCategory")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int article_category_id;
 
-    @ManyToOne
-    @JoinColumn(name = "idArticle")
-    private Article article;
+    @EmbeddedId
+    private Article_Category_Id id;
 
-    @ManyToOne
-    @JoinColumn(name="idCategory")
-    private Category category;
+    public Article_Category_Id getId() {
+        return id;
+    }
+
+    public void setId(Article_Category_Id id ) {
+        this.id = id;
+    }
 
     public Article_Category() {}
-
-    public int getArticle_category_id() { return article_category_id; }
-    public void setArticle_category_id(int article_category_id) { this.article_category_id = article_category_id; }
-    public Article getArticle() { return article; }
-    public void setArticle(Article article) { this.article = article; }
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
 }

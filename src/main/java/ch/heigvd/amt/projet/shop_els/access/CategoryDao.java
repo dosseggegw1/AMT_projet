@@ -11,7 +11,7 @@ public class CategoryDao implements Dao<Category> {
 
     @Override
     public void save(Category category) {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         // Add article to DB
@@ -23,7 +23,7 @@ public class CategoryDao implements Dao<Category> {
 
     @Override
     public void update(Category category) {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         // Get object to update
@@ -36,7 +36,7 @@ public class CategoryDao implements Dao<Category> {
 
     @Override
     public Category get(int id) {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Category category = session.get(Category.class, id);
@@ -46,7 +46,7 @@ public class CategoryDao implements Dao<Category> {
 
     @Override
     public List<Category> getAll() {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List<Category> categories = session.getNamedQuery("selectAllCategories").getResultList();
         session.close();
@@ -55,7 +55,7 @@ public class CategoryDao implements Dao<Category> {
 
     @Override
     public void delete(int id) {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Category category = get(id);
         session.delete(category);
@@ -63,7 +63,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     public List getAllNames() {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List stringList = session.getNamedQuery("selectCategoryName").getResultList();
         session.close();
@@ -71,7 +71,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     public List getNameFromName(String name) {
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         List list = session.getNamedQuery("selectCategoryNameWithName").setParameter("cat", name).getResultList();
         session.close();

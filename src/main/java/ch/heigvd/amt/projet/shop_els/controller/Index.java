@@ -39,7 +39,6 @@ public class Index extends HttpServlet {
         // We get all the categories' names that are linked to at least one article
         Query categoriesLinkedToArticles = session.getNamedQuery("selectCategoriesLinkedToArticles");
         List<String> resultsCategoriesLinked = categoriesLinkedToArticles.getResultList();
-//        String[] array = resultsCategoriesLinked.toArray(new String[0]);
 
         session.close();
 

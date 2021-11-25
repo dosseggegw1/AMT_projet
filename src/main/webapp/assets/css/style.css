@@ -1024,11 +1024,11 @@ img {
 }
 
 #aa-product .aa-product-area .aa-product-inner .aa-product-catg .filterDiv {
-  display: none; /* Hidden by default */
+  display: none;
 }
 
 #aa-product .aa-product-area .aa-product-inner .aa-product-catg .show {
-  display: block !important;
+  display: block;
 }
 #aa-product .aa-product-area .aa-product-inner #men {
   text-align: center;
@@ -4205,22 +4205,6 @@ img {
   .btn.active {
     background-color: #666;
     color: white;
-  }
-
-  .show {
-    display: block;
-  }
-
-  .filterDiv {
-    float: left;
-    background-color: #2196F3;
-    color: #ffffff;
-    width: 100px;
-    line-height: 100px;
-    text-align: center;
-    margin: 2px;
-    visibility: hidden !important;
-    display: none !important; /* Hidden by default */
   }
 }
 

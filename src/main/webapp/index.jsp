@@ -62,9 +62,12 @@
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                       </div>
                     </li>
-                    </c:forEach>
+                   </c:forEach>
                   </ul>
               </div>
+                <div id="tmp" style="display:none">
+                  Désolés, aucun article ne fait actuellement partie de cette catégorie !
+                </div>
               <!-- quick view modal -->
               <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -162,12 +165,21 @@
     var x, i;
     // Getting all element with class "filterDiv" (basically all articles)
     x = document.getElementsByClassName("filterDiv");
-    // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+    // Add the "show" class (display:block) to the filtered elements,
+    // and remove the "show" class from the elements that are not selected
     // We iterate on all elements
     for (i = 0; i < x.length; i++) {
       removeClass(x[i], "show");
       if (x[i].className.indexOf(c) > -1) addClass(x[i], "show");
     }
+
+    const linkedCat = new Set(${categoriesLinked});
+    if (!linkedCat.has(c) && c != "cat-all") {
+      document.getElementById("tmp").style.display = 'block';
+    } else {
+      document.getElementById("tmp").style.display = 'none';
+    }
+
   }
 
   // Show filtered elements

@@ -2,6 +2,10 @@ package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name="selectCategoriesLinkedToArticles", query = "SELECT acat.category.name FROM Article_Category acat"),
+})
+
 @Entity
 @Table(name ="Article_Category")
 public class Article_Category {

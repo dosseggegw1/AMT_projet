@@ -44,39 +44,30 @@ public class ArticleAddController extends HttpServlet {
         String imageURL = request.getParameter("imageURL");
         String stock = request.getParameter("stock");
 
-        // TODO:
-        //  possible d'attribuer 1 ou plusieurs catégories à un article
-        //      (impossible d'avoir des doublons dans les catégories attribuées à un article)
-        //  cas simple : nom, une description, prix, visuel => insertion ok
-        //  sans visuel : nom, description, prix mais aucune image => insertion ok avec image par défaut
-        //  préannonce : nom, description, pas de prix (possible image par obligatoire) => ok mais impossible dans panier
-        //  stock : doit être >= à 0
-        //  Si on a pas : nom, description => impossible d'ajouter un article
-        //  le nom doit être unique => s'il existe deja, impossible de créer et affiche l'article existant (info)
-
 
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         Query query = session.createQuery("SELECT name FROM Article a WHERE a.name in :art")
                 .setParameter("art", name);
+        Query query2 = session.createQuery("SELECT name, description FROM Article a WHERE a.description in :descr")
+                .setParameter("descr", description);
+        List<Object[]> testArticle = query2.getResultList();
 
-        // Validation of the input
-        // If name or description are null, error
-        // If article's name already exist, error
-        // If the length of the name > 50, error
-        // If the length of the description > 255, error
-        // If price < 0, error
-        // If stock < 0, error
-        // If URL of the image is the URL of the default image, error
+        // Validation of the user's inputs
         if(name == "" || description == "" || query.getResultList().size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
                 stock.contains("-")|| imageURL.equals("default.png")) {
             query = session.getNamedQuery("selectAllCategory");
             request.setAttribute("categories", query.getResultList());
-            request.setAttribute("error", true);
+            request.setAttribute("error", 1);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
+        } else if (testArticle.size() != 0) {
+            request.setAttribute("categories", query.getResultList());
+            request.setAttribute("error", 2);
+            request.setAttribute("article", testArticle.get(0)[0]);
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
         } else {
-
             // Add article to database
             Article article = new Article();
             article.setName(name);
@@ -87,6 +78,7 @@ public class ArticleAddController extends HttpServlet {
 
             session.save(article);
 
+            // Search for all categories selected and create an associate object with article
             //Set<Category> categoryList = new HashSet<>();
             for(String idCategory : categories) {
                 Category category = session.get(Category.class, Integer.parseInt(idCategory));
@@ -99,9 +91,10 @@ public class ArticleAddController extends HttpServlet {
             //article.setCategories(categoryList);
 
             response.sendRedirect("/shop/admin/articles");
-            session.getTransaction().commit();
-            session.close();
         }
+        session.getTransaction().commit();
+        session.close();
     }
+
 }
 

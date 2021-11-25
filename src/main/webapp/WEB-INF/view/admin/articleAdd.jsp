@@ -155,13 +155,19 @@
 </script>
 
 <script>
-    document.onload(errorDuplicateData())
     function errorDuplicateData() {
-        const error = ${error};
-        if(error) {
+        let error = "${error}";
+        const article ="${article}"
+        if(error === "1") {
             alert("Une erreur est survenue dans le formulaire.\nVeuillez resaisir les informations.")
+            return
+        }
+        if (error === "2") {
+            alert("Un autre article a déjà la même description - " + article)
+            return
         }
     }
+    document.onload(errorDuplicateData())
 </script>
 
 </body>

@@ -9,15 +9,9 @@ import java.util.Set;
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
         @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
-        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle")
-/*
-Original SQL query :
-SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock,
-GROUP_CONCAT(Article_Category.idCategory) AS categories
-FROM Article a
-LEFT JOIN Article_Category ON Article_Category.idArticle = a.idArticle
-GROUP BY a.idArticle
- */
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle"),
+        @NamedQuery(name="selectArticleName", query="SELECT name FROM Article a WHERE a.name = :art"),
+        @NamedQuery(name="selectArticleNameDescription", query="SELECT name, description FROM Article a WHERE a.description in :descr")
 })
 
 @Entity
@@ -51,7 +45,6 @@ public class Article {
 
     public Article() {
     }
-
     public int getIdArticle() {
         return idArticle;
     }
@@ -107,6 +100,7 @@ public class Article {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
     public Set<Article_Cart> getArticle_carts() {
         return article_carts;
     }
@@ -114,6 +108,4 @@ public class Article {
     public void setArticle_carts(Set<Article_Cart> article_carts) {
         this.article_carts = article_carts;
     }
-
-
 }

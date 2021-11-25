@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +27,7 @@ public class ArticleAddController extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Query query = session.getNamedQuery("selectAllCategory");
         List<Category> results = query.getResultList();
@@ -40,11 +42,11 @@ public class ArticleAddController extends HttpServlet {
 
         response.setContentType("text/html");
 
-        String name = (String) request.getParameter("name");
-        String description = (String) request.getParameter("description");
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
         String price = request.getParameter("price");
-        String imageURL = (String)  request.getParameter("imageURL");
+        String imageURL = request.getParameter("imageURL");
         String stock = request.getParameter("stock");
 
         // TODO:
@@ -71,6 +73,7 @@ public class ArticleAddController extends HttpServlet {
         // If price < 0, error
         // If stock < 0, error
         // If URL of the image is the URL of the default image, error
+
         if(name == "" || description == "" || query.getResultList().size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
                 stock.contains("-")|| imageURL.equals("default.png")) {
@@ -79,6 +82,7 @@ public class ArticleAddController extends HttpServlet {
             request.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
         } else {
+
             // Add article to database
             Article article = new Article();
             article.setName(name);
@@ -86,15 +90,16 @@ public class ArticleAddController extends HttpServlet {
             article.setImageURL(imageURL);
             if(!price.equals("")) article.setPrice(Float.parseFloat(price));
             if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
-            session.save(article);
 
             Set<Category> categoryList = new HashSet<>();
             for(String idCategory : categories) {
-                List<Category> cat = (List<Category>) session.createQuery("SELECT idCategory, name FROM Category WHERE idCategory in :id")
-                        .setParameter("id", Integer.parseInt(idCategory)).list();
-                categoryList.add(cat.get(0));
+                Category cat = session.load(Category.class, Integer.parseInt(idCategory));
+                List category =  session.createQuery("FROM Category").list();
+                //categoryList.add(category);
             }
 
+            article.setCategories(categoryList);
+            session.save(article);
 
             session.getTransaction().commit();
             session.close();
@@ -120,3 +125,4 @@ public class ArticleAddController extends HttpServlet {
         //request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
     }
 }
+

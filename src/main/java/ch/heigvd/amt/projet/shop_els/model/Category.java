@@ -2,8 +2,13 @@ package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.util.HibUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 //        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories"),
 @NamedQueries({
         @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category "),
@@ -12,6 +17,7 @@ import ch.heigvd.amt.projet.shop_els.model.Article;
 @Entity
 @Table(name = "Category")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCategory")
@@ -39,6 +45,21 @@ public class Category {
 
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
+    }
+
+    public static Category fetchOne(int id){
+        Session session = HibUtil.getSessionFactory().openSession();
+        Category cat = (Category) session.load(Category.class,id);
+        session.close();
+        return cat;
+    }
+
+    public static List<Category> getCategoryById(int id) {
+        Session session = HibUtil.getSessionFactory().openSession();
+         List<Category> category = (List<Category>) session.createQuery("SELECT idCategory, name FROM Category WHERE idCategory = :id")
+                .setParameter("id", id).list();
+         session.close();
+         return category;
     }
 
 }

@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-//        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle")
+
 @NamedQueries({
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
         @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle")
 /*
 Original SQL query :
 SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock,
@@ -33,24 +34,20 @@ public class Article {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price", columnDefinition="Decimal(10,2) default '0'")
+    @Column(name = "price", precision = 10, scale = 2)
     private float price;
 
-    @Column(name = "imageURL", columnDefinition="varchar(255) default 'default.png'")
+    @Column(name = "imageURL")
     private String imageURL;
 
-    @Column(name = "stock", columnDefinition="smallint(6) default '0'")
+    @Column(name = "stock")
     private int stock;
 
     @OneToMany(mappedBy = "article")
     private Set<Article_Cart> article_carts = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "Article_Category",
-            joinColumns = @JoinColumn(name = "idArticle"),
-            inverseJoinColumns = @JoinColumn(name = "idCategory"))
-    private Set<Category> categories = new HashSet<>();
+    @OneToMany(mappedBy = "article")
+    private Set<Article_Category> articleCategories = new HashSet<>();
 
     public Article() {
     }
@@ -61,6 +58,14 @@ public class Article {
 
     public void setIdArticle(int idArticle) {
         this.idArticle = idArticle;
+    }
+
+    public Set<Article_Category> getArticleCategories() {
+        return articleCategories;
+    }
+
+    public void setArticleCategories(Set<Article_Category> articleCategories) {
+        this.articleCategories = articleCategories;
     }
 
     public String getName() {
@@ -102,7 +107,6 @@ public class Article {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
     public Set<Article_Cart> getArticle_carts() {
         return article_carts;
     }
@@ -111,12 +115,5 @@ public class Article {
         this.article_carts = article_carts;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
 
 }

@@ -10,7 +10,6 @@
         <class>ch.heigvd.amt.projet.shop_els.model.Article</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article_Cart</class>
         <class>ch.heigvd.amt.projet.shop_els.model.Article_Category</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Article_Category_Id</class>
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

@@ -12,12 +12,12 @@ import org.hibernate.SessionFactory;
 //        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories"),
 @NamedQueries({
         @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category "),
-        @NamedQuery(name="selectCategoryName", query = "SELECT name FROM Category ")
+        @NamedQuery(name="selectCategoryName", query = "SELECT name FROM Category "),
+        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories")
 })
 @Entity
 @Table(name = "Category")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCategory")
@@ -26,40 +26,20 @@ public class Category {
     @Column(name = "name", length = 50)
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Article> articles = new HashSet<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Article_Category> articleCategories = new HashSet<>();
 
     public Category() {}
 
     public int getIdCategory() { return idCategory; }
-
     public void setIdCategory(int idCategory) { this.idCategory = idCategory; }
-
     public String getName() { return name; }
-
     public void setName(String name) { this.name = name; }
-
-    public Set<Article> getArticles() {
-        return articles;
+    public Set<Article_Category> getArticleCategories() {
+        return articleCategories;
     }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
-
-    public static Category fetchOne(int id){
-        Session session = HibUtil.getSessionFactory().openSession();
-        Category cat = (Category) session.load(Category.class,id);
-        session.close();
-        return cat;
-    }
-
-    public static List<Category> getCategoryById(int id) {
-        Session session = HibUtil.getSessionFactory().openSession();
-         List<Category> category = (List<Category>) session.createQuery("SELECT idCategory, name FROM Category WHERE idCategory = :id")
-                .setParameter("id", id).list();
-         session.close();
-         return category;
+    public void setArticleCategories(Set<Article_Category> articleCategories) {
+        this.articleCategories = articleCategories;
     }
 
 }

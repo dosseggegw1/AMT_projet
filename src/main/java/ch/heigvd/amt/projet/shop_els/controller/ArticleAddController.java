@@ -2,10 +2,8 @@ package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
-import ch.heigvd.amt.projet.shop_els.model.Article_Category_Id;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
@@ -15,11 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet("/admin/articleAdd")
 public class ArticleAddController extends HttpServlet {
@@ -74,7 +68,6 @@ public class ArticleAddController extends HttpServlet {
         // If price < 0, error
         // If stock < 0, error
         // If URL of the image is the URL of the default image, error
-
         if(name == "" || description == "" || query.getResultList().size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
                 stock.contains("-")|| imageURL.equals("default.png")) {
@@ -98,38 +91,17 @@ public class ArticleAddController extends HttpServlet {
             for(String idCategory : categories) {
                 Category category = session.get(Category.class, Integer.parseInt(idCategory));
                 //categoryList.add(category);
-                Article_Category_Id aci = new Article_Category_Id();
-                aci.setFk_idArticle(article.getIdArticle());
-                aci.setFk_idCategory(category.getIdCategory());
-                session.save(aci);
                 Article_Category ac = new Article_Category();
-                ac.setId(aci);
+                ac.setCategory(category);
+                ac.setArticle(article);
                 session.save(ac);
             }
             //article.setCategories(categoryList);
 
+            response.sendRedirect("/shop/admin/articles");
             session.getTransaction().commit();
             session.close();
-
         }
-
-        //Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:valor1,:valor2)");
-
-        //Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:name,:valor2)");
-       /* query.setParameter("name",name );
-        query.setParameter("description", description);
-        query.setParameter("price", price);
-        query.setParameter("imageURL", imageURL);
-        query.setParameter("stock", stock);
-        query.executeUpdate();*/
-
-        /*Query query = session.getNamedQuery("selectAllArticles");
-        List<Object[]> results = query.getResultList();
-        session.close();
-*/
-        //request.setAttribute("articles", results);
-
-        //request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
     }
 }
 

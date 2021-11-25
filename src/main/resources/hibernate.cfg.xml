@@ -22,6 +22,5 @@
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Article"/>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Cart"/>
         <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Category"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Category_Id"/>
     </session-factory>
 </hibernate-configuration>

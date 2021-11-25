@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
+import ch.heigvd.amt.projet.shop_els.model.Article_Category_Id;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.SQLQuery;
@@ -91,15 +92,21 @@ public class ArticleAddController extends HttpServlet {
             if(!price.equals("")) article.setPrice(Float.parseFloat(price));
             if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
 
-            Set<Category> categoryList = new HashSet<>();
-            for(String idCategory : categories) {
-                Category cat = session.load(Category.class, Integer.parseInt(idCategory));
-                List category =  session.createQuery("FROM Category").list();
-                //categoryList.add(category);
-            }
-
-            article.setCategories(categoryList);
             session.save(article);
+
+            //Set<Category> categoryList = new HashSet<>();
+            for(String idCategory : categories) {
+                Category category = session.get(Category.class, Integer.parseInt(idCategory));
+                //categoryList.add(category);
+                Article_Category_Id aci = new Article_Category_Id();
+                aci.setFk_idArticle(article.getIdArticle());
+                aci.setFk_idCategory(category.getIdCategory());
+                session.save(aci);
+                Article_Category ac = new Article_Category();
+                ac.setId(aci);
+                session.save(ac);
+            }
+            //article.setCategories(categoryList);
 
             session.getTransaction().commit();
             session.close();

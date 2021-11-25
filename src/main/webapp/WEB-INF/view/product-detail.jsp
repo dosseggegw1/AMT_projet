@@ -3,6 +3,7 @@
 <jsp:include page="../includes/head.jsp"/>
 <body>
   <jsp:include page="../includes/header.jsp"/>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
     $(document).ready(function(){
@@ -13,12 +14,12 @@
 
     function postData(){
       var article = "${article}";
-      var id = article[0][0];
-      var name = article[0][1];
-      var quantity = article[0][5];
-      var price = article[0][3];
+      var id = article[0];
+      var name = article[1];
+      var quantity = article[5];
+      var price = article[3];
       $.ajax({
-        url: 'http://localhost:8080/shop/create_cookie',
+        url: 'http://localhost:8080/shop/cookie_write',
         timeout:30000,
         type: "POST",
         data: {

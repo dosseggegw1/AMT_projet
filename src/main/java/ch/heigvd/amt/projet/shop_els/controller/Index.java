@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import com.google.gson.Gson;
 
 @WebServlet("/index")
 public class Index extends HttpServlet {
@@ -19,19 +20,30 @@ public class Index extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        session = HibUtil.getSessionFactory().getCurrentSession();
+        session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        // We get the all the articles & the categories they are in
+        Gson g = new Gson();
+
+        // We get all the articles & the categories they are in
+        // If an article is in multiple categories, it appears multiple times in the List
         Query articleAndCategory = session.createNamedQuery("selectArticleAndCategory");
         List<Object[]> resultsArticles = articleAndCategory.getResultList();
 
         // We get the categories (ids and names)
-        Query cat = session.getNamedQuery("selectAllCategories");
-        List<Object[]> resultsCategories = cat.getResultList();
+        Query categories = session.getNamedQuery("selectAllCategory");
+        List<Object[]> resultsCategories = categories.getResultList();
+
+        // We get all the categories' names that are linked to at least one article
+        Query categoriesLinkedToArticles = session.getNamedQuery("selectCategoriesLinkedToArticles");
+        List<String> resultsCategoriesLinked = categoriesLinkedToArticles.getResultList();
+
+        session.close();
 
         request.setAttribute("articles", resultsArticles);
         request.setAttribute("categories", resultsCategories);
+        request.setAttribute("categoriesLinked", g.toJson(resultsCategoriesLinked));
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

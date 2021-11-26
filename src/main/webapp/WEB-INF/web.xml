@@ -76,16 +76,6 @@
         <url-pattern>/productDetail</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Wishlist</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.WishlistController</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Wishlist</servlet-name>
-        <url-pattern>/wishlist</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>Administrator</servlet-name>
         <url-pattern>/admin</url-pattern>

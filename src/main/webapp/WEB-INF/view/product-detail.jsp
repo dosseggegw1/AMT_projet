@@ -108,7 +108,6 @@
   <!-- / product category -->
 
   <jsp:include page="../includes/footer.jsp"/>
-  <jsp:include page="../includes/login.jsp"/>
   <jsp:include page="../includes/plugins.jsp"/>
   </body>
 </html>

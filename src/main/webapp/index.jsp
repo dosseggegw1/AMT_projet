@@ -134,7 +134,6 @@
 </script>
 
 <jsp:include page="WEB-INF/includes/footer.jsp"/>
-<jsp:include page="WEB-INF/includes/login.jsp"/>
 <jsp:include page="WEB-INF/includes/plugins.jsp"/>
 
 </body>

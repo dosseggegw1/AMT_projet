@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Console;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,7 +18,6 @@ public class ProductDetail extends HttpServlet{
     private Session session;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
 
         int paramId = Integer.parseInt(request.getParameter("id"));
 
@@ -26,10 +26,13 @@ public class ProductDetail extends HttpServlet{
 
         Query article = session.createNamedQuery("selectArticleById");
         article.setParameter("paramId", paramId);
-        List resultArticle = article.getResultList();
+        List<Object[]> resultArticle = article.getResultList();
 
-        request.setAttribute("article", resultArticle);
+        request.setAttribute("id", (int) resultArticle.get(0)[0]);
+        request.setAttribute("price", (float) resultArticle.get(0)[3]);
 
         session.close();
+
+        request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
     }
 }

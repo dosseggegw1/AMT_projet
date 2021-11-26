@@ -4,8 +4,7 @@
 <body>
   <jsp:include page="../includes/header.jsp"/>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script>
+  <script type="text/javascript">
     $(document).ready(function(){
       $('#addToCart').click(function(){
         postData(); //Your function
@@ -13,18 +12,15 @@
     });
 
     function postData(){
-      var article = "${article}";
-      var id = article[0];
-      var name = article[1];
-      var quantity = article[5];
-      var price = article[3];
+      var id = "${id}";
+      var quantity = $('#quantity option:selected').val();
+      var price = "${price}";
       $.ajax({
-        url: 'http://localhost:8080/shop/cookie_write',
+        url: 'http://localhost:8080/shop/cookie',
         timeout:30000,
         type: "POST",
         data: {
             id,
-            name,
             quantity,
             price
         },
@@ -111,13 +107,14 @@
                     </div>
                     <div class="aa-prod-quantity">
                       <form action="">
-                        <select id="" name="">
-                          <option selected="1" value="0">1</option>
-                          <option value="1">2</option>
-                          <option value="2">3</option>
-                          <option value="3">4</option>
-                          <option value="4">5</option>
-                          <option value="5">6</option>
+                        <select id="quantity" name="quantity">
+                          <option selected="1" value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="-1">-1</option>
                         </select>
                       </form>
                       <p class="aa-prod-category">

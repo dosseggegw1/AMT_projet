@@ -9,8 +9,8 @@ import java.util.Set;
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
         @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
-        @NamedQuery(name="selectArticleName", query="SELECT name FROM Article a WHERE a.name = :art"),
-        @NamedQuery(name="selectArticleNameDescription", query="SELECT name, description FROM Article a WHERE a.description in :descr")
+        @NamedQuery(name="selectArticleName", query="SELECT a.name FROM Article a WHERE a.name = :art"),
+        @NamedQuery(name="selectArticleNameDescription", query="SELECT a.name, a.description FROM Article a WHERE a.description in :descr"),
         @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle"),
         @NamedQuery(name="selectArticleAndCategoryById", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle WHERE acat.article.idArticle = :articleID")
 })

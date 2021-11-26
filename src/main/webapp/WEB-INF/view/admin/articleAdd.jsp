@@ -39,7 +39,7 @@
                 <li class="sub-menu">
                     <a href="/shop/admin/categories">
                         <i class="fa fa-th-list"></i>
-                        <span>Gestion des catérogies</span>
+                        <span>Gestion des catégories</span>
                     </a>
                 </li>
 
@@ -107,7 +107,7 @@
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2021 - 2020 AMT ELS Shop
+            2020 - 2021 AMT ELS Shop
             <a href="admin.jsp#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>

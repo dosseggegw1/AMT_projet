@@ -38,7 +38,7 @@
                 <li class="sub-menu">
                     <a class="active" href="/shop/admin/categories">
                         <i class="fa fa-th-list"></i>
-                        <span>Gestion des catérogies</span>
+                        <span>Gestion des catégories</span>
                     </a>
                 </li>
 
@@ -60,7 +60,7 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Pannel de gestion des catégories</h3>
+            <h3><i class="fa fa-angle-right"></i> Panel de gestion des catégories</h3>
             <a href="/shop/admin/categoryAdd" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
             <div class="row mt">
@@ -108,7 +108,7 @@
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2021 - 2020 AMT ELS Shop
+            2020 - 2021 AMT ELS Shop
             <a href="admin.jsp#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>

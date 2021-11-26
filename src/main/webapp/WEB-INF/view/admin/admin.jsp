@@ -33,7 +33,7 @@
                 <li class="sub-menu">
                     <a href="/shop/admin/categories">
                         <i class="fa fa-th-list"></i>
-                        <span>Gestion des catérogies</span>
+                        <span>Gestion des catégories</span>
                     </a>
                 </li>
 
@@ -55,7 +55,7 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Discover Our Panels</h3>
+            <h3><i class="fa fa-angle-right"></i>Panel Administrateur </h3>
             <div class="row mt">
                 <div class="col-lg-12">
 
@@ -64,11 +64,49 @@
                         <!-- TWITTER PANEL -->
                         <div class="col-lg-4 col-md-4 col-sm-4 mb">
                             <div class="twitter-panel pn">
-                                <i class="fa fa-twitter fa-4x"></i>
-                                <p>Dashgum is here! Take a look and enjoy this new Bootstrap Dashboard theme.</p>
-                                <p class="user">@Alvrz_is</p>
+                                <a href="https://twitter.com/lausanneesports?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+                                    <i class="fa fa-twitter fa-4x"></i>
+                                    <p>Twitter du club</p>
+                                    <p class="user">@lausanneesports</p>
+                                </a>
                             </div>
-                        </div><!-- /col-md-4 -->
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                            <div class="facebook-panel pn">
+                                <a href="https://www.facebook.com/lausanneesports">
+                                    <i class="fa fa-facebook fa-4x"></i>
+                                    <p>Facebook du club</p>
+                                    <p class="user">lausanneesports</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                            <div class="instagram-panel pn">
+                                <a href="https://www.instagram.com/lausanne_esports/">
+                                    <i class="fa fa-instagram fa-4x"></i>
+                                    <p>Instagram du club</p>
+                                    <p class="user">lausanneesports</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                            <div class="youtube-panel pn">
+                                <a href="https://www.youtube.com/channel/UCt0kuaKzKcuWH8AnMzkvRFg">
+                                    <i class="fa fa-youtube fa-4x"></i>
+                                    <p>Youtube du club</p>
+                                    <p class="user">Lausanne-Sport Esports</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                            <div class="twitch-panel pn">
+                                <a href="https://www.twitch.tv/lausannetv">
+                                    <i class="fa fa-twitch fa-4x"></i>
+                                    <p>Twitch du club</p>
+                                    <p class="user">lausannetv</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -82,7 +120,7 @@
     <!--footer start-->
     <footer class="site-footer">
         <div class="text-center">
-            2021 - 2020 AMT ELS Shop
+            2020 - 2021 AMT ELS Shop
             <a href="admin.jsp#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
@@ -104,15 +142,6 @@
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
-
-<script>
-    //custom select box
-
-    $(function () {
-        $('select.styled').customSelect();
-    });
-
-</script>
 
 </body>
 </html>

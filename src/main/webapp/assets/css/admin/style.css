@@ -1300,18 +1300,81 @@ PANELS CONFIGURATIONS
 
 /* Instagram Panel*/
 .instagram-panel {
-	background: url(../img/instagram.jpg) no-repeat center top;
+    background: #833AB4;
 	text-align: center;
 	background-position: center center;
 }
 .instagram-panel i {
 	color: white;
-	margin-top: 35px;
+    margin-top: 40px;
 }
 .instagram-panel p {
-	margin: 5px;
+    margin: 10px;
 	color: white;
 }
+.instagram-panel .user {
+    color: white;
+    font-weight: 900;
+}
+
+/* Facebook Panel*/
+.facebook-panel {
+    text-align: center;
+    background: #4267B2;
+    background-position: center center;
+}
+.facebook-panel i {
+    color: white;
+    margin-top: 40px;
+}
+.facebook-panel p {
+    margin: 10px;
+    color: white;
+}
+.facebook-panel .user {
+    color: white;
+    font-weight: 900;
+}
+
+/* Youtube Panel*/
+.youtube-panel {
+    text-align: center;
+    background: #FF0000;
+    background-position: center center;
+}
+.youtube-panel i {
+    color: white;
+    margin-top: 40px;
+}
+.youtube-panel p {
+    margin: 10px;
+    color: white;
+}
+.youtube-panel .user {
+    color: white;
+    font-weight: 900;
+}
+
+
+/* Twitch Panel*/
+.twitch-panel {
+    text-align: center;
+    background: #6441a5;
+    background-position: center center;
+}
+.twitch-panel i {
+    color: white;
+    margin-top: 40px;
+}
+.twitch-panel p {
+    margin: 10px;
+    color: white;
+}
+.twitch-panel .user {
+    color: white;
+    font-weight: 900;
+}
+
 
 /* Product Panel */
 .product-panel {

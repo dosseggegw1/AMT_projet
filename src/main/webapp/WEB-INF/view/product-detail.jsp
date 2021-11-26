@@ -83,12 +83,12 @@
                     <div class="aa-prod-quantity">
                       <form action="">
                         <select id="quantity" name="quantity">
-                          <option selected="1" value="0">1</option>
-                          <option value="1">2</option>
-                          <option value="2">3</option>
-                          <option value="3">4</option>
-                          <option value="4">5</option>
-                          <option value="5">6</option>
+                          <option selected="1" value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
                         </select>
                       </form>
                       <p class="aa-prod-category">

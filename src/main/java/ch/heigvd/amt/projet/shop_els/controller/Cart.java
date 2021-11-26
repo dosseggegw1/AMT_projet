@@ -30,8 +30,8 @@ public class Cart extends HttpServlet {
         session.beginTransaction();
 
         for(ArrayList<String> item : cart) {
-            Query article = session.createNamedQuery("selectArticleById");
-            article.setParameter("paramId", Integer.parseInt(item.get(0)));
+            Query article = session.createNamedQuery("selectArticleAndCategoryById");
+            article.setParameter("articleID", Integer.parseInt(item.get(0)));
             List<Object[]> resultArticle = article.getResultList();
 
             item.add((String) resultArticle.get(0)[1]);

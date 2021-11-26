@@ -3,8 +3,8 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 
 @NamedQueries({
-        @NamedQuery(name="selectArticleByCategory", query = "SELECT c.article FROM Article_Category c WHERE c.category in :cat")
-        @NamedQuery(name="selectCategoriesLinkedToArticles", query = "SELECT acat.category.name FROM Article_Category acat"),
+        @NamedQuery(name="selectArticleByCategory", query = "SELECT c.article FROM Article_Category c WHERE c.category in :cat"),
+        @NamedQuery(name="selectCategoriesLinkedToArticles", query = "SELECT acat.category.name FROM Article_Category acat")
 })
 
 @Entity

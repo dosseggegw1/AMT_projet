@@ -13,7 +13,8 @@ import org.hibernate.SessionFactory;
         @NamedQuery(name= "selectAllCategories", query = "SELECT idCategory, name FROM Category "),
         @NamedQuery(name="selectCategoryName", query = "SELECT name FROM Category "),
         @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories"),
-        @NamedQuery(name="selectCategoryNameWithName", query="SELECT name FROM Category c WHERE c.name in :cat")
+        @NamedQuery(name="selectCategoryNameWithName", query="SELECT name FROM Category c WHERE c.name in :cat"),
+        @NamedQuery(name="selectCategoryId", query="SELECT idCategory FROM Category c WHERE c.idCategory in :id")
 })
 @Entity
 @Table(name = "Category")

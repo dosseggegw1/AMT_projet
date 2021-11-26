@@ -62,8 +62,8 @@ public class CategoryDao implements Dao<Category> {
         List list = session.getNamedQuery("selectCategoryId").setParameter("id", id).getResultList();
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return true;
-        else return false;
+        if(list.isEmpty()) return false;
+        return true;
     }
 
     public List getAllNames() {

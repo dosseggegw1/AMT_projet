@@ -2,6 +2,10 @@ package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name="selectArticleByCategory", query = "SELECT c.article FROM Article_Category c WHERE c.category in :cat")
+})
+
 @Entity
 @Table(name = "Article_Category")
 public class Article_Category {

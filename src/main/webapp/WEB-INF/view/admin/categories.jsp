@@ -71,7 +71,7 @@
                                 <div class="panel pn pnCategory text-center">
                                     <h3><c:out value="${cat[1]}"/></h3>
                                     <!-- À mettre le lien pour supprimer la catégorie -->
-                                    <button class="btn btn-danger" id="deleteCat" onclick="DeleteCategory(${cat[0]})"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button class="btn btn-danger" id="deleteCat" onclick="DeleteCategory(${cat[0]})"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </c:forEach>
@@ -133,9 +133,9 @@
 <script>
     document.onload(errorDelete())
     function errorDelete() {
-        const error = ${error};
-        if(error) {
-            alert("La catégorie n'a pas pu être supprimée")
+        const error = ${messageError};
+        if(error !== "") {
+            alert(error)
         }
     }
 </script>

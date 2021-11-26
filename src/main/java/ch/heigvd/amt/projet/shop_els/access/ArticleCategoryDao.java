@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
+import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -48,6 +49,19 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
     public List<Article_Category> getAll() {
         //TODO : Implémenter
         return null;
+    }
+
+    public boolean checkIfHasArticles(int idCategory) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Category category = session.get(Category.class, idCategory);
+        List list = session.getNamedQuery("selectArticleByCategory").setParameter("cat", category).getResultList();
+        session.close();
+
+        if(list.isEmpty()) return false;
+
+        return true;
     }
 
     @Override

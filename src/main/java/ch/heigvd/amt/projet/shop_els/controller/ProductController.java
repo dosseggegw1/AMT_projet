@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/contact")
-public class Contact extends HttpServlet{
+@WebServlet("/product")
+public class ProductController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/product.jsp").forward(request, response);
 
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 @WebServlet("/index")
-public class Index extends HttpServlet {
+public class IndexController extends HttpServlet {
     private Session session;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

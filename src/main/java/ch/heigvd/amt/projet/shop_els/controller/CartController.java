@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ch.heigvd.amt.projet.shop_els.controller.Controller_Cookie.read_cookie;
+import static ch.heigvd.amt.projet.shop_els.controller.CookieController.read_cookie;
 
 
 @WebServlet("/cart")
-public class Cart extends HttpServlet {
+public class CartController extends HttpServlet {
     private Session session;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

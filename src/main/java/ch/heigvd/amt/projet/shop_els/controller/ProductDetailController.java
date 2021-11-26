@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/productDetail")
-public class ProductDetail extends HttpServlet{
+public class ProductDetailController extends HttpServlet{
     private Session session;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

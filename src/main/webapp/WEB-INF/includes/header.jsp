@@ -89,6 +89,9 @@
                   <!-- <a href="index"><img src="img/logo.jpg" alt="logo img"></a> -->
                 </div>
                 <!-- / logo  -->
+                <div class="aa-all-articles-btn">
+                  <a href="index" class="btn">Tous les articles</a>
+                </div>
                  <!-- cart box -->
                 <div class="aa-cartbox">
                   <a class="aa-cart-link" href="#">

@@ -9,15 +9,8 @@ import java.util.Set;
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
         @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
-        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle")
-/*
-Original SQL query :
-SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock,
-GROUP_CONCAT(Article_Category.idCategory) AS categories
-FROM Article a
-LEFT JOIN Article_Category ON Article_Category.idArticle = a.idArticle
-GROUP BY a.idArticle
- */
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle"),
+        @NamedQuery(name="selectArticleAndCategoryById", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle WHERE acat.article.idArticle = :articleID")
 })
 
 @Entity

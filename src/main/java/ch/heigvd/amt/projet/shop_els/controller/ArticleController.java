@@ -1,10 +1,8 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
 
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,20 +13,15 @@ import java.util.List;
 
 @WebServlet("/articles")
 public class ArticleController extends HttpServlet{
-    private Session session;
+    private final ArticleDao articleDao = new ArticleDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllArticles");
-        List<Article> results = query.getResultList();
-        session.close();
 
+        List<Article> results = articleDao.getAll();
 
         request.setAttribute("articles", results);
-        //request.setAttribute("cat",categories);
 
         request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
 

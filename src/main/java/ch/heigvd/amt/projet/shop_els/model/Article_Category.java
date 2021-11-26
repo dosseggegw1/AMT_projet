@@ -3,7 +3,7 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="Article_Category")
+@Table(name = "Article_Category")
 public class Article_Category {
     @Id
     @Column(name = "idArticleCategory")

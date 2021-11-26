@@ -76,8 +76,8 @@
 
                 <div class="form-check form-check-inline">
                     <c:forEach var="cat" items="${categories}">
-                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]} ml-3">
-                        <label class="form-check-label" ><c:out value="${cat[1]}"/></label>
+                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                        <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>
 
@@ -152,6 +152,22 @@
         }
         return true;
     }
+</script>
+
+<script>
+    function errorDuplicateData() {
+        let error = "${error}";
+        const article ="${article}"
+        if(error === "1") {
+            alert("Une erreur est survenue dans le formulaire.\nVeuillez resaisir les informations.")
+            return
+        }
+        if (error === "2") {
+            alert("Un autre article a déjà la même description - " + article)
+            return
+        }
+    }
+    document.onload(errorDuplicateData())
 </script>
 
 </body>

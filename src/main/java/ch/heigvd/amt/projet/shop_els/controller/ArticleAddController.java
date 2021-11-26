@@ -1,31 +1,31 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
+import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
 
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/admin/articleAdd")
 public class ArticleAddController extends HttpServlet {
-    private Session session;
+    private final ArticleDao articleDao = new ArticleDao();
+    private final CategoryDao categoryDao = new CategoryDao();
+    private final ArticleCategoryDao articleCategoryDao = new ArticleCategoryDao();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        session = HibUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Query query = session.getNamedQuery("selectAllCategory");
-        List<Category> results = query.getResultList();
-        session.close();
+
+        List<Category> results = categoryDao.getAll();
 
         request.setAttribute("categories", results);
         request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
@@ -36,53 +36,60 @@ public class ArticleAddController extends HttpServlet {
 
         response.setContentType("text/html");
 
-        String name = (String) request.getParameter("name");
-        String description = (String) request.getParameter("description");
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
         String price = request.getParameter("price");
-        String imageURL = (String)  request.getParameter("imageURL");
+        String imageURL = request.getParameter("imageURL");
         String stock = request.getParameter("stock");
 
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + "Article: " + "</h1>");
-        out.println("<h2>" + "name " + name + "</h2>");
-        out.println("<h2>" + "description " + description + "</h2>");
-        out.println("<h2>" + "price " + price + "</h2>");
-        out.println("<h2>" + "imageURL " + imageURL + "</h2>");
-        out.println("<h2>" + "stock " + stock + "</h2>");
-        out.println("</body></html>");
 
-        // TODO:
-        //  possible d'attribuer 1 ou plusieurs catégories à un article
-        //      (impossible d'avoir des doublons dans les catégories attribuées à un article)
-        //  cas simple : nom, une description, prix, visuel => insertion ok
-        //  sans visuel : nom, description, prix mais aucune image => insertion ok avec image par défaut
-        //  préannonce : nom, description, pas de prix (possible image par obligatoire) => ok mais impossible dans panier
-        //  stock : doit être >= à 0
-        //  Si on a pas : nom, description => impossible d'ajouter un article
-        //  Si le nom doit être unique => s'il existe deja, impossible de créer et affiche l'article existant (info)
+        // Validation of the user's inputs
+        if(name == "" || description == "" || articleDao.getNameFromName(name).size() != 0 ||
+                name.length() > 50 || description.length() > 255 || price.contains("-") ||
+                stock.contains("-")|| imageURL.equals("default.png")) {
 
-        /*
-        session = HibUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:valor1,:valor2)");
-        session = HibUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        Query query = session.createSQLQuery("INSERT INTO Article ('name', 'description', 'price', 'imageURL', 'stock' ) VALUES (:name,:valor2)");
-        query.setParameter("name",name );
-        query.setParameter("description", description);
-        query.setParameter("price", price);
-        query.setParameter("imageURL", imageURL);
-        query.setParameter("stock", stock);
-        query.executeUpdate();
+            List<Category> results = categoryDao.getAll();
+            request.setAttribute("categories", results);
+            request.setAttribute("error", 1);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
-        /*Query query = session.getNamedQuery("selectAllArticles");
-        List<Object[]> results = query.getResultList();
-        session.close();
-*/
-        //request.setAttribute("articles", results);
+        } else if (articleDao.getNameDescriptionFromDescription(description).size() != 0) {
 
-        //request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+            List<Category> results = categoryDao.getAll();
+            request.setAttribute("categories", results);
+            request.setAttribute("error", 2);
+            request.setAttribute("article", articleDao.getNameDescriptionFromDescription(description).get(0)[0]);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
+
+        } else {
+
+            // Add article to database
+            Article article = new Article();
+            article.setName(name);
+            article.setDescription(description);
+            article.setImageURL(imageURL);
+            if(!price.equals("")) article.setPrice(Float.parseFloat(price));
+            if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
+
+            articleDao.save(article);
+
+            // Search for all categories selected and create an associate object with article
+            //Set<Category> categoryList = new HashSet<>();
+            for(String idCategory : categories) {
+                Category category = categoryDao.get(Integer.parseInt(idCategory));
+                //categoryList.add(category);
+                Article_Category ac = new Article_Category();
+                ac.setCategory(category);
+                ac.setArticle(article);
+                articleCategoryDao.save(ac);
+            }
+            //article.setCategories(categoryList);
+
+            response.sendRedirect("/shop/admin/articles");
+        }
+
     }
+
 }
+

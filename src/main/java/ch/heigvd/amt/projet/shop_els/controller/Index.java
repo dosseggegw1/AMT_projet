@@ -1,7 +1,5 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -29,7 +27,7 @@ public class Index extends HttpServlet {
         List<Object[]> resultsArticles = articleAndCategory.getResultList();
 
         // We get the categories (ids and names)
-        Query cat = session.getNamedQuery("selectAllCategory");
+        Query cat = session.getNamedQuery("selectAllCategories");
         List<Object[]> resultsCategories = cat.getResultList();
 
         request.setAttribute("articles", resultsArticles);

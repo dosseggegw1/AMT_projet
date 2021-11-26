@@ -13,7 +13,7 @@
 
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -113,7 +113,7 @@
 
     <servlet>
         <servlet-name>Articles</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.Article</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleController</servlet-class>
     </servlet>
 
 </web-app>

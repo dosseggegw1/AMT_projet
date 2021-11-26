@@ -1,7 +1,8 @@
 package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @NamedQueries({
         @NamedQuery(name="selectCartID", query = "SELECT idCart FROM Cart"),
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "Cart")
 public class Cart {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idCart")
     private int idCart;
 
@@ -19,7 +21,7 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<Article_Cart> article_carts;
+    private Set<Article_Cart> article_carts = new HashSet<>();
 
     public Cart() { }
 
@@ -39,12 +41,14 @@ public class Cart {
         this.user = user;
     }
 
-    public List<Article_Cart> getArticle_carts() {
+    public Set<Article_Cart> getArticle_carts() {
         return article_carts;
     }
 
-    public void setArticle_carts(List<Article_Cart> article_carts) {
+    public void setArticle_carts(Set<Article_Cart> article_carts) {
         this.article_carts = article_carts;
     }
+
+
 
 }

@@ -18,7 +18,7 @@ import static ch.heigvd.amt.projet.shop_els.controller.Controller_Cookie.read_co
 
 
 @WebServlet("/cart")
-public class Cart extends HttpServlet{
+public class Cart extends HttpServlet {
     private Session session;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,19 +1,23 @@
 package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name="selectArticleIdName", query = "SELECT idArticle, name FROM Article"),
-        @NamedQuery(name="selectAllArticle", query = "SELECT name, description, price, imageURL, stock FROM Article"),
-        @NamedQuery(name="selectImageURL", query="SELECT imageURL FROM Article"),
-        @NamedQuery(name="selectArticleById", query = "SELECT idArticle, name, description, price, imageURL, stock FROM Article WHERE idArticle = :paramId")
+        @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
+        @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
+        @NamedQuery(name="selectImageURL", query="SELECT a.imageURL FROM Article a"),
+        @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle"),
+        @NamedQuery(name="selectArticleAndCategoryById", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle WHERE acat.article.idArticle = :articleID")
 })
 
 @Entity
 @Table(name = "Article")
 public class Article {
     @Id
+    @Column(name = "idArticle")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idArticle;
 
@@ -32,25 +36,13 @@ public class Article {
     @Column(name = "stock")
     private int stock;
 
-    @ManyToMany
-    @JoinTable(
-            name = "Article_Category",
-            joinColumns = @JoinColumn(name = "idArticle"),
-            inverseJoinColumns = @JoinColumn(name = "idCategory"))
-    private List<Category> categories;
+    @OneToMany(mappedBy = "article")
+    private Set<Article_Cart> article_carts = new HashSet<>();
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<Article_Cart> article_carts;
+    @OneToMany(mappedBy = "article")
+    private Set<Article_Category> articleCategories = new HashSet<>();
 
     public Article() {
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
 
     public int getIdArticle() {
@@ -59,6 +51,14 @@ public class Article {
 
     public void setIdArticle(int idArticle) {
         this.idArticle = idArticle;
+    }
+
+    public Set<Article_Category> getArticleCategories() {
+        return articleCategories;
+    }
+
+    public void setArticleCategories(Set<Article_Category> articleCategories) {
+        this.articleCategories = articleCategories;
     }
 
     public String getName() {
@@ -100,12 +100,11 @@ public class Article {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
-    public List<Article_Cart> getArticle_carts() {
+    public Set<Article_Cart> getArticle_carts() {
         return article_carts;
     }
 
-    public void setArticle_carts(List<Article_Cart> article_carts) {
+    public void setArticle_carts(Set<Article_Cart> article_carts) {
         this.article_carts = article_carts;
     }
 

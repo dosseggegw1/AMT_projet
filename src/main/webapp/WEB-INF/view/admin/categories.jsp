@@ -25,25 +25,25 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="assets/img/default-avatar.png" class="img-circle" width="60"></a></p>
+                <p class="centered"><a href="profile.html"><img src="/shop/assets/img/default-avatar.png" class="img-circle" width="60"></a></p>
                 <h5 class="centered">USERNAME</h5>
 
                 <li class="mt">
-                    <a href="admin">
+                    <a href="/shop/admin">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a class="active" href="categories">
+                    <a class="active" href="/shop/admin/categories">
                         <i class="fa fa-th-list"></i>
                         <span>Gestion des catérogies</span>
                     </a>
                 </li>
 
                 <li class="sub-menu">
-                    <a href="articles">
+                    <a href="/shop/admin/articles">
                         <i class="fa fa-shopping-bag"></i>
                         <span>Gestion des articles</span>
                     </a>
@@ -61,18 +61,17 @@
     <section id="main-content">
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Pannel de gestion des catégories</h3>
-            <button type="button" class="btn btn-primary" id="addCategory" onclick="alert('Ajouter une catégorie')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <a href="/shop/admin/categoryAdd" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
             <div class="row mt">
                 <div class="col-lg-12">
                     <div class="row">
                         <c:forEach var="cat" items="${categories}">
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                <div class="panel pn text-center">
+                                <div class="panel pn pnCategory text-center">
                                     <h3><c:out value="${cat[1]}"/></h3>
                                     <!-- À mettre le lien pour supprimer la catégorie -->
-                                    <button type="button" class="btn btn-danger" id="${cat[0]}" onclick="alert('Supprimer ${cat[0]}')">Supprimer</button>
-
+                                    <button class="btn btn-danger" id="deleteCat" onclick="DeleteCategory(${cat[0]})"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </c:forEach>
@@ -84,6 +83,26 @@
         <! --/wrapper -->
 
     </section><!-- /MAIN CONTENT -->
+
+    <script>
+        function DeleteCategory(id){
+            console.log(id)
+            $.ajax({
+                url: 'http://localhost:8080/shop/admin/categoryDelete',
+                timeout:30000,
+                type: "POST",
+                data: {
+                    id
+                },
+                success: function (data) {
+                    console.log("Request send")
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    console.log("Error")
+                },
+            });
+        }
+    </script>
 
     <!--main content end-->
     <!--footer start-->
@@ -99,27 +118,26 @@
 </section>
 
 <!-- js placed at the end of the document so the pages load faster -->
-<script src="asset/js/jquery.js"></script>
-<script src="asset/js/bootstrap.js"></script>
-<script class="include" type="text/javascript" src="asset/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="asset/js/jquery.scrollTo.min.js"></script>
-<script src="asset/js/jquery.nicescroll.js" type="text/javascript"></script>
-<script src="asset/js/jquery.sparkline.js"></script>
+<script src="/shop/assets/js/jquery.js"></script>
+<script src="/shop/assets/js/bootstrap.js"></script>
+<script class="include" type="text/javascript" src="/shop/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/shop/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/shop/assets/js/jquery.sparkline.js"></script>
 
 <!--common script for all pages-->
-<script src="asset/js/common-scripts.js"></script>
+<script src="/shop/assets/js/common-scripts.js"></script>
 
 <!--script for this page-->
-<script src="asset/js/sparkline-chart.js"></script>
-
+<script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    //custom select box
-
-    $(function () {
-        $('select.styled').customSelect();
-    });
-
+    document.onload(errorDelete())
+    function errorDelete() {
+        const error = ${messageError};
+        if(error !== "") {
+            alert(error)
+        }
+    }
 </script>
 
 </body>

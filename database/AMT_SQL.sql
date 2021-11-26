@@ -11,12 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de données : `AMT_SQL`
 --
@@ -29,13 +23,13 @@ USE `AMT_SQL`;
 -- Structure de la table `Article`
 --
 CREATE TABLE `Article` (
-  `idArticle` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL UNIQUE,
-  `description` text NOT NULL,
-  `price` decimal(10,2) UNSIGNED DEFAULT NULL,
-  `imageURL` varchar(255) DEFAULT 'default.jpg',
-  `stock` smallint(6) UNSIGNED DEFAULT NULL,
-  primary key (`idArticle`)
+                           `idArticle` int(11) NOT NULL AUTO_INCREMENT,
+                           `name` varchar(50) NOT NULL UNIQUE,
+                           `description` text NOT NULL,
+                           `price` decimal(10,2) UNSIGNED DEFAULT NULL,
+                           `imageURL` varchar(255) DEFAULT 'default.jpg',
+                           `stock` smallint(6) UNSIGNED DEFAULT NULL,
+                           primary key (`idArticle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -171,8 +165,6 @@ INSERT INTO `Article_Category` (`idArticle`, `idCategory`) VALUES
 
 -- --------------------------------------------------------
 
-COMMIT;
+-- --------------------------------------------------------
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+COMMIT;

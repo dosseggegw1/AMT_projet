@@ -2,11 +2,19 @@ package ch.heigvd.amt.projet.shop_els.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.util.HibUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 @NamedQueries({
-        @NamedQuery(name="selectAllCategory", query = "SELECT idCategory, name FROM Category "),
-        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories")
+        @NamedQuery(name= "selectAllCategories", query = "SELECT idCategory, name FROM Category "),
+        @NamedQuery(name="selectCategoryName", query = "SELECT name FROM Category "),
+        @NamedQuery(name= "selectAllArticlesCat", query="SELECT cat from Category cat join cat.articleCategories"),
+        @NamedQuery(name="selectCategoryNameWithName", query="SELECT name FROM Category c WHERE c.name in :cat"),
+        @NamedQuery(name="selectCategoryId", query="SELECT idCategory FROM Category c WHERE c.idCategory in :id")
 })
 @Entity
 @Table(name = "Category")
@@ -25,9 +33,13 @@ public class Category {
     public Category() {}
 
     public int getIdCategory() { return idCategory; }
+
     public void setIdCategory(int idCategory) { this.idCategory = idCategory; }
+
     public String getName() { return name; }
+
     public void setName(String name) { this.name = name; }
+
     public Set<Article_Category> getArticleCategories() {
         return articleCategories;
     }

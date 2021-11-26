@@ -1,7 +1,5 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 

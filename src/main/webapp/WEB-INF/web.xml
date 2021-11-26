@@ -13,7 +13,7 @@
 
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
-        <url-pattern></url-pattern>
+        <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -93,22 +93,22 @@
 
     <servlet>
         <servlet-name>Administrator</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.Administrator</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.AdministratorController</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Categories</servlet-name>
-        <url-pattern>/categories</url-pattern>
+        <url-pattern>/admin/categories</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>Categories</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.Category</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CategoryController</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Articles</servlet-name>
-        <url-pattern>/articles</url-pattern>
+        <url-pattern>/admin/articles</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -116,4 +116,33 @@
         <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleController</servlet-class>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>ArticleAdd</servlet-name>
+        <url-pattern>/admin/articleAdd</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ArticleAdd</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ArticleAddController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CategoryAdd</servlet-name>
+        <url-pattern>/admin/categoryAdd</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CategoryAdd</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CategoryAddController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CategoryDelete</servlet-name>
+        <url-pattern>/admin/categoryDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CategoryDelete</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CategoryDeleteController</servlet-class>
+    </servlet>
 </web-app>

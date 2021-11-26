@@ -994,6 +994,33 @@ PANELS CONFIGURATIONS
 	
 }
 
+.pnArticle {
+    height: 300px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pnArticle p{
+    height: 25px;
+    padding-left: 10px;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pnArticle img{
+    padding-top: 10px;
+}
+
+.pnCategory{
+    height: 150px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pnCategory h3{
+    padding-top: 15px;
+}
+
 /*Grey Panel*/
 
 .grey-panel {

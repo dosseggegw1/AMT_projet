@@ -44,7 +44,7 @@
                     <h3>${article[1]}</h3>
                     <div class="aa-price-block">
                       <span class="aa-product-view-price">CHF ${article[3]}</span>
-                      <p class="aa-product-avilability">Availability: <span> ${article[5]} pièces en stock</span>
+                      <p class="aa-product-avilability">Disponibilité: <span> ${article[5]} pièces en stock</span>
                       </p>
                     </div>
                     <p>${article[2]}</p>
@@ -60,11 +60,11 @@
                         </select>
                       </form>
                       <p class="aa-prod-category">
-                        Category: ${article[7]}
+                        Catégorie: ${article[7]}
                       </p>
                     </div>
                     <div class="aa-prod-view-bottom">
-                      <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
+                      <a class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
                     </div>
                   </div>
                 </div>

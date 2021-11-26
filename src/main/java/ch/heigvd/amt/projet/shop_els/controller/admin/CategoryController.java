@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.controller;
+package ch.heigvd.amt.projet.shop_els.controller.admin;
 
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.model.Category;

@@ -31,7 +31,7 @@ public class Index extends HttpServlet {
         List<Object[]> resultsArticles = articleAndCategory.getResultList();
 
         // We get the categories (ids and names)
-        Query categories = session.getNamedQuery("selectAllCategory");
+        Query categories = session.getNamedQuery("selectAllCategories");
         List<Object[]> resultsCategories = categories.getResultList();
 
         // We get all the categories' names that are linked to at least one article

@@ -29,7 +29,10 @@ public class ProductDetail extends HttpServlet{
 
         session.close();
 
+	request.setAttribute("id", (int) resultArticle.get(0)[0]);
+        request.setAttribute("price", (float) resultArticle.get(0)[3]);
         request.setAttribute("article", resultArticle.get(0));
         request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
+
     }
 }

@@ -108,5 +108,4 @@ public class Article {
         this.article_carts = article_carts;
     }
 
-
 }

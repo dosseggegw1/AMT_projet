@@ -3,6 +3,36 @@
 <jsp:include page="../includes/head.jsp"/>
 <body>
   <jsp:include page="../includes/header.jsp"/>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#addToCart').click(function(){
+        postData(); //Your function
+      });
+    });
+
+    function postData(){
+      var id = "${id}";
+      var quantity = $('#quantity option:selected').val();
+      var price = "${price}";
+      $.ajax({
+        url: 'http://localhost:8080/shop/cookie',
+        timeout:30000,
+        type: "POST",
+        data: {
+            id,
+            quantity,
+            price
+        },
+        success: function (data) {
+          //what to do in success
+        },
+        error: function(xhr, ajaxOptions, thrownError){
+          //what to do in error
+        },
+      });
+    }
+  </script>
 
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
@@ -35,6 +65,8 @@
                       <div class="simpleLens-container">
                         <div class="simpleLens-big-image-container"><a data-lens-image="assets/img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="assets/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
                       </div>
+
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -50,7 +82,7 @@
                     <p>${article[2]}</p>
                     <div class="aa-prod-quantity">
                       <form action="">
-                        <select id="" name="">
+                        <select id="quantity" name="quantity">
                           <option selected="1" value="0">1</option>
                           <option value="1">2</option>
                           <option value="2">3</option>
@@ -64,7 +96,7 @@
                       </p>
                     </div>
                     <div class="aa-prod-view-bottom">
-                      <a class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
+                      <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
                     </div>
                   </div>
                 </div>

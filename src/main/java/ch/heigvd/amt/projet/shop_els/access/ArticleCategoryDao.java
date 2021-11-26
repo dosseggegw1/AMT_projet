@@ -73,4 +73,6 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session.close();
         return true;
     }
+
+    //public List<Object[]> getAllArticle
 }

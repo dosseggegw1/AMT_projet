@@ -74,5 +74,19 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         return true;
     }
 
-    //public List<Object[]> getAllArticle
+    public List<Object[]> getAllArticlesCategories() {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<Object[]> resultsArticles = session.createNamedQuery("selectArticleAndCategory").getResultList();
+        session.close();
+        return resultsArticles;
+    }
+
+    public List<String> getCategoriesLinked() {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List<String> resultsCategoriesLinked = session.getNamedQuery("selectCategoriesLinkedToArticles").getResultList();
+        session.close();
+        return resultsCategoriesLinked;
+    }
 }

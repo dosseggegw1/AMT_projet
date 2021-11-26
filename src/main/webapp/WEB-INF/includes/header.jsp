@@ -24,12 +24,11 @@
                   <div class="aa-language">
                     <div class="dropdown">
                       <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <img src="assets/img/flag/english.jpg" alt="english flag">ENGLISH
+                        <img src="assets/img/flag/french.jpg" alt="english flag">FRANCAIS
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li><a href="#"><img src="assets/img/flag/french.jpg" alt="">FRENCH</a></li>
-                        <li><a href="#"><img src="assets/img/flag/english.jpg" alt="">ENGLISH</a></li>
                       </ul>
                     </div>
                   </div>
@@ -39,11 +38,10 @@
                   <div class="aa-currency">
                     <div class="dropdown">
                       <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <i class="fa fa-usd"></i>USD
+                        <i class="fa fa-usd"></i>CHF
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
                         <li><a href="#"><i class="fa fa-chf"></i>CHF</a></li>
                       </ul>
                     </div>
@@ -58,11 +56,10 @@
                 <!-- / header top left -->
                 <div class="aa-header-top-right">
                   <ul class="aa-head-top-nav-right">
-                    <li><a href="account">My Account</a></li>
-                    <li class="hidden-xs"><a href="wishlist">Wishlist</a></li>
-                    <li class="hidden-xs"><a href="cart">My Cart</a></li>
-                    <li class="hidden-xs"><a href="checkout">Checkout</a></li>
-                    <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                    <li><a href="account">Mon compte</a></li>
+                    <li class="hidden-xs"><a href="cart">Mon panier</a></li>
+                    <li class="hidden-xs"><a href="checkout">Passer a la caisse</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#login-modal">S'identifier</a></li>
                   </ul>
                 </div>
               </div>
@@ -83,7 +80,7 @@
                   <!-- Text based logo -->
                   <a href="index">
                     <span class="fa fa-shopping-cart"></span>
-                    <p>eLS<strong>Shop</strong> <span>Get the best merchandising</span></p>
+                    <p>eLS<strong>Shop</strong> <span>One Click Ahead</span></p>
                   </a>
                   <!-- img based logo -->
                   <!-- <a href="index"><img src="img/logo.jpg" alt="logo img"></a> -->

@@ -9,46 +9,8 @@
             <div class="row">
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
-                  <h3>Main Menu</h3>
-                  <ul class="aa-footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Our Products</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Knowledge Base</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">Delivery</a></li>
-                      <li><a href="#">Returns</a></li>
-                      <li><a href="#">Services</a></li>
-                      <li><a href="#">Discount</a></li>
-                      <li><a href="#">Special Offer</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>Useful Links</h3>
-                    <ul class="aa-footer-nav">
-                      <li><a href="#">Search</a></li>
-                      <li><a href="#">Suppliers</a></li>
-                      <li><a href="#">FAQ</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
-                  <div class="aa-footer-widget">
-                    <h3>Contact Us</h3>
+                    <h3>Contactez-nous</h3>
                     <address>
                       <p>Chemin du Trimbandan 51</p>
                       <p>1006 Lausanne</p>
@@ -56,10 +18,10 @@
                       <p><span class="fa fa-envelope"></span>contact@lausanneesports.ch</p>
                     </address>
                     <div class="aa-footer-social">
-                      <a href="#"><span class="fa fa-facebook"></span></a>
-                      <a href="#"><span class="fa fa-twitter"></span></a>
-                      <a href="#"><span class="fa fa-instagram-plus"></span></a>
-                      <a href="#"><span class="fa fa-youtube"></span></a>
+                      <a href="https://www.facebook.com/lausanneesports"><span class="fa fa-facebook"></span></a>
+                      <a href="https://twitter.com/lausanneesports"><span class="fa fa-twitter"></span></a>
+                      <a href="https://www.instagram.com/lausanne_esports/"><span class="fa fa-instagram"></span></a>
+                      <a href="https://www.youtube.com/channel/UCt0kuaKzKcuWH8AnMzkvRFg"><span class="fa fa-youtube"></span></a>
                     </div>
                   </div>
                 </div>

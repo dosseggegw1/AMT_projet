@@ -71,7 +71,7 @@
                                 <div class="panel pn pnCategory text-center">
                                     <h3><c:out value="${cat[1]}"/></h3>
                                     <!-- À mettre le lien pour supprimer la catégorie -->
-                                    <button type="button" class="btn btn-danger" id="${cat[0]}" onclick="alert('Supprimer ${cat[0]}')">Supprimer</button>
+                                    <button class="btn btn-danger" id="deleteCat" onclick="DeleteCategory(${cat[0]})"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </c:forEach>
@@ -83,6 +83,26 @@
         <! --/wrapper -->
 
     </section><!-- /MAIN CONTENT -->
+
+    <script>
+        function DeleteCategory(id){
+            console.log(id)
+            $.ajax({
+                url: 'http://localhost:8080/shop/admin/categoryDelete',
+                timeout:30000,
+                type: "POST",
+                data: {
+                    id
+                },
+                success: function (data) {
+                    console.log("Request send")
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    console.log("Error")
+                },
+            });
+        }
+    </script>
 
     <!--main content end-->
     <!--footer start-->
@@ -102,7 +122,6 @@
 <script src="/shop/assets/js/bootstrap.js"></script>
 <script class="include" type="text/javascript" src="/shop/assets/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="/shop/assets/js/jquery.scrollTo.min.js"></script>
-<script src="/shop/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="/shop/assets/js/jquery.sparkline.js"></script>
 
 <!--common script for all pages-->
@@ -112,10 +131,13 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    //custom select box
-    $(function () {
-        $('select.styled').customSelect();
-    });
+    document.onload(errorDelete())
+    function errorDelete() {
+        const error = ${error};
+        if(error) {
+            alert("La catégorie n'a pas pu être supprimée")
+        }
+    }
 </script>
 
 </body>

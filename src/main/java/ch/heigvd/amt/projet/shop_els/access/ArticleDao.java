@@ -59,12 +59,13 @@ public class ArticleDao implements Dao<Article>{
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Article article = get(id);
         session.delete(article);
         session.close();
+        return true;
     }
 
     public List getNameFromName(String name) {

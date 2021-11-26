@@ -54,12 +54,16 @@ public class CategoryDao implements Dao<Category> {
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Category category = get(id);
+        Category category = session.get(Category.class, id);
         session.delete(category);
+        List list = session.getNamedQuery("selectCategoryId").setParameter("id", id).getResultList();
+        session.getTransaction().commit();
         session.close();
+        if(list.isEmpty()) return true;
+        else return false;
     }
 
     public List getAllNames() {

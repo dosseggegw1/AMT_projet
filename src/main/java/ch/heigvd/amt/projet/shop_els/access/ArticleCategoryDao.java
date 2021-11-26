@@ -51,11 +51,12 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
         Article_Category ac = get(id);
         session.delete(ac);
         session.close();
+        return true;
     }
 }

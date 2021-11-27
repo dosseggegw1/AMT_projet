@@ -46,9 +46,9 @@
                     <thead>
                       <tr>
                         <th></th>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
                         <th>Total</th>
                       </tr>
                     </thead>
@@ -70,9 +70,9 @@
                       <tr>
                         <td colspan="6" class="aa-cart-view-bottom">
                           <div class="aa-cart-coupon">
-                            <input onclick="removeCookie()" class="aa-cart-view-btn" type="submit" value="Empty Cart">
+                            <input onclick="removeCookie()" class="aa-cart-view-btn" type="submit" value="Vider le panier">
                           </div>
-                          <input onclick="updateCookie()" class="aa-cart-view-btn" type="submit" value="Update Cart">
+                          <input onclick="updateCookie()" class="aa-cart-view-btn" type="submit" value="Mettre à jour le panier">
                         </td>
                       </tr>
                       </tbody>
@@ -81,7 +81,7 @@
              </form>
              <!-- Cart Total view -->
              <div class="cart-view-total">
-               <h4>Cart Totals</h4>
+               <h4>Totaux du panier</h4>
                <table class="aa-totals-table">
                  <tbody>
                    <tr>
@@ -98,7 +98,7 @@
                    </tr>
                  </tbody>
                </table>
-               <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a href="#" class="aa-cart-view-btn">Passer au payement</a>
              </div>
            </div>
          </div>
@@ -109,8 +109,6 @@
  <!-- / Cart view section -->
 
  <jsp:include page="../includes/footer.jsp"/>
-
-  <jsp:include page="../includes/login.jsp"/>
 
   <jsp:include page="../includes/plugins.jsp"/>
   </body>

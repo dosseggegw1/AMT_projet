@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -10,36 +11,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ch.heigvd.amt.projet.shop_els.controller.Controller_Cookie.read_cookie;
+import static ch.heigvd.amt.projet.shop_els.controller.CookieController.read_cookie;
 
 
 @WebServlet("/cart")
-public class Cart extends HttpServlet {
-    private Session session;
+public class CartController extends HttpServlet {
+    private final ArticleDao articleDao = new ArticleDao();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<ArrayList<String>> cart = read_cookie(request);
         ArrayList<ArrayList<String>> cartShort = read_cookie(request);
         request.setAttribute("cartShort", cartShort);
 
-        session = HibUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
         for(ArrayList<String> item : cart) {
-            Query article = session.createNamedQuery("selectArticleAndCategoryById");
-            article.setParameter("articleID", Integer.parseInt(item.get(0)));
-            List<Object[]> resultArticle = article.getResultList();
+
+            List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
 
             item.add((String) resultArticle.get(0)[1]);
             item.add(String.valueOf(resultArticle.get(0)[3]));
             item.add((String) resultArticle.get(0)[4]);
         }
         request.setAttribute("cart", cart);
-        session.close();
 
         request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
     }

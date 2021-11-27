@@ -4,7 +4,8 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 
 @NamedQueries({
-        @NamedQuery(name="selectAllUser", query = "SELECT idUser, fk_cart from User")
+        @NamedQuery(name="selectAllUser", query = "SELECT idUser, fk_cart from User"),
+        @NamedQuery(name="selectUserId", query="SELECT idUser FROM User u WHERE u.idUser in :id")
 })
 
 @Entity

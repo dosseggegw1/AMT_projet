@@ -3,7 +3,8 @@ package ch.heigvd.amt.projet.shop_els.model;
 import javax.persistence.*;
 
 @NamedQueries({
-        @NamedQuery(name="selectAllArticleCart", query = "SELECT c.article_cart_id, c.article, c.quantity, c.cart FROM Article_Cart c")
+        @NamedQuery(name="selectAllArticleCart", query = "SELECT c.article_cart_id, c.article, c.quantity, c.cart FROM Article_Cart c"),
+        @NamedQuery(name="selectArticleCartId", query="SELECT article_cart_id FROM Article_Cart ac WHERE ac.article_cart_id in :id")
 })
 
 @Entity

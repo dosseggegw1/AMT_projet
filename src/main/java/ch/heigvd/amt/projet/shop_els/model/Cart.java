@@ -5,8 +5,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 @NamedQueries({
-        @NamedQuery(name="selectCartID", query = "SELECT idCart FROM Cart"),
-        @NamedQuery(name="selectAllCart", query="SELECT idCart, user FROM Cart")
+        @NamedQuery(name= "selectAllCartId", query = "SELECT idCart FROM Cart"),
+        @NamedQuery(name="selectAllCart", query="SELECT idCart, user FROM Cart"),
+        @NamedQuery(name="selectCartId", query="SELECT idCart FROM Cart c WHERE c.idCart in :id")
 })
 
 @Entity

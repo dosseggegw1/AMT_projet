@@ -15,7 +15,6 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        // Add article to DB
         session.save(article_category);
 
         session.getTransaction().commit();
@@ -41,6 +40,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session.beginTransaction();
 
         Article_Category ac = session.get(Article_Category.class, id);
+
         session.close();
         return ac;
     }
@@ -51,33 +51,39 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         return null;
     }
 
+    @Override
+    public boolean delete(int id) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Article_Category ac = session.get(Article_Category.class, id);
+        session.delete(ac);
+        List list = session.getNamedQuery("selectArticleCategoryId").setParameter("id", id).getResultList();
+
+        session.getTransaction().commit();
+        session.close();
+        if(list.isEmpty()) return false;
+        return true;
+    }
+
     public boolean checkIfHasArticles(int idCategory) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Category category = session.get(Category.class, idCategory);
         List list = session.getNamedQuery("selectArticleByCategory").setParameter("cat", category).getResultList();
-        session.close();
 
+        session.close();
         if(list.isEmpty()) return false;
-
-        return true;
-    }
-
-    @Override
-    public boolean delete(int id) {
-        session = HibUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Article_Category ac = get(id);
-        session.delete(ac);
-        session.close();
         return true;
     }
 
     public List<Object[]> getAllArticlesCategories() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List<Object[]> resultsArticles = session.createNamedQuery("selectArticleAndCategory").getResultList();
+
         session.close();
         return resultsArticles;
     }
@@ -85,7 +91,9 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
     public List<String> getCategoriesLinked() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List<String> resultsCategoriesLinked = session.getNamedQuery("selectCategoriesLinkedToArticles").getResultList();
+
         session.close();
         return resultsCategoriesLinked;
     }

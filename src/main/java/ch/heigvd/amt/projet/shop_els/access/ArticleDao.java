@@ -15,7 +15,7 @@ public class ArticleDao implements Dao<Article>{
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        // Add article to DB
+
         session.save(article);
 
         session.getTransaction().commit();
@@ -45,6 +45,7 @@ public class ArticleDao implements Dao<Article>{
         session.beginTransaction();
 
         Article article = session.get(Article.class, id);
+
         session.close();
         return article;
     }
@@ -53,7 +54,9 @@ public class ArticleDao implements Dao<Article>{
     public List<Article> getAll() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List<Article> articles = session.getNamedQuery("selectAllArticles").getResultList();
+
         session.close();
         return articles;
     }
@@ -62,16 +65,23 @@ public class ArticleDao implements Dao<Article>{
     public boolean delete(int id) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Article article = get(id);
+
+        Article article = session.get(Article.class, id);
         session.delete(article);
+        List list = session.getNamedQuery("selectArticleId").setParameter("id", id).getResultList();
+
+        session.getTransaction().commit();
         session.close();
+        if(list.isEmpty()) return false;
         return true;
     }
 
     public List getNameFromName(String name) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
+
         session.close();
         return listName;
     }
@@ -79,9 +89,22 @@ public class ArticleDao implements Dao<Article>{
     public List<Object[]> getNameDescriptionFromDescription(String description) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<Object[]> listObjects = session.getNamedQuery("selectArticleNameDescription").
+
+        List<Object[]> list = session.getNamedQuery("selectArticleNameDescription").
                 setParameter("descr", description).getResultList();
+
         session.close();
-        return listObjects;
+        return list;
+    }
+
+    public List<Object[]> getArticleAndCategoryById(int id) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List<Object[]> list = session.getNamedQuery("selectArticleAndCategoryById").setParameter("articleID", id)
+                .getResultList();
+
+        session.close();
+        return list;
     }
 }

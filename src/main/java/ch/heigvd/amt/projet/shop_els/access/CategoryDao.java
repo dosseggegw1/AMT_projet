@@ -14,7 +14,6 @@ public class CategoryDao implements Dao<Category> {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        // Add article to DB
         session.save(category);
 
         session.getTransaction().commit();
@@ -40,6 +39,7 @@ public class CategoryDao implements Dao<Category> {
         session.beginTransaction();
 
         Category category = session.get(Category.class, id);
+
         session.close();
         return category;
     }
@@ -48,7 +48,9 @@ public class CategoryDao implements Dao<Category> {
     public List<Category> getAll() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List<Category> categories = session.getNamedQuery("selectAllCategories").getResultList();
+
         session.close();
         return categories;
     }
@@ -57,9 +59,11 @@ public class CategoryDao implements Dao<Category> {
     public boolean delete(int id) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         Category category = session.get(Category.class, id);
         session.delete(category);
         List list = session.getNamedQuery("selectCategoryId").setParameter("id", id).getResultList();
+
         session.getTransaction().commit();
         session.close();
         if(list.isEmpty()) return false;
@@ -69,7 +73,9 @@ public class CategoryDao implements Dao<Category> {
     public List getAllNames() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List stringList = session.getNamedQuery("selectCategoryName").getResultList();
+
         session.close();
         return stringList;
     }
@@ -77,7 +83,9 @@ public class CategoryDao implements Dao<Category> {
     public List getNameFromName(String name) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         List list = session.getNamedQuery("selectCategoryNameWithName").setParameter("cat", name).getResultList();
+
         session.close();
         return list;
     }

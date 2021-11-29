@@ -6,14 +6,14 @@
   <jsp:include page="../includes/header.jsp"/>
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="assets/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>Account Page</h2>
+        <h2>Profil utilisateur</h2>
         <ol class="breadcrumb">
-          <li><a href="index.jsp">Home</a></li>
-          <li class="active">Account</li>
+          <li><a href="index.jsp">Accueil</a></li>
+          <li class="active">Compte</li>
         </ol>
       </div>
      </div>
@@ -30,27 +30,27 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="aa-myaccount-login">
-                <h4>Login</h4>
+                <h4>Se connecter</h4>
                  <form action="" class="aa-login-form">
-                  <label for="">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email">
-                   <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
-                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+                  <label for="">Nom d'utilisateur ou adresse email<span>*</span></label>
+                   <input type="text" placeholder="Nom d'utilisateur ou adresse email">
+                   <label for="">Mot de passe<span>*</span></label>
+                    <input type="password" placeholder="Mot de passe">
+                    <button type="submit" class="aa-browse-btn">Se connecter</button>
+                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Se rappeler de moi </label>
+                    <p class="aa-lost-password"><a href="#">Vous avez oublié votre mot de passe?</a></p>
                   </form>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="aa-myaccount-register">                 
-                 <h4>Register</h4>
+                 <h4>S'enregistrer</h4>
                  <form action="" class="aa-login-form">
-                    <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" placeholder="Username or email">
-                    <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Register</button>                    
+                    <label for="">Nom d'utilisateur ou adresse email<span>*</span></label>
+                    <input type="text" placeholder="Nom d'utilisateur ou adresse email">
+                    <label for="">Mot de passe<span>*</span></label>
+                    <input type="password" placeholder="Mot de passe">
+                    <button type="submit" class="aa-browse-btn">S'enregistrer</button>
                   </form>
                 </div>
               </div>

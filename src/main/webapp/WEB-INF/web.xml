@@ -7,18 +7,18 @@
 
     <servlet>
         <servlet-name>Accueil</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Index</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.IndexController</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern></url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>Account</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Account</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.AccountController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>Cart</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Cart</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CartController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -38,7 +38,7 @@
 
     <servlet>
         <servlet-name>Checkout</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Checkout</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CheckoutController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -48,7 +48,7 @@
 
     <servlet>
         <servlet-name>Contact</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Contact</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ContactController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -58,7 +58,7 @@
 
     <servlet>
         <servlet-name>Product</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Product</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ProductController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -68,7 +68,7 @@
 
     <servlet>
         <servlet-name>ProductDetail</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.ProductDetail</servlet-class>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ProductDetailController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -76,14 +76,63 @@
         <url-pattern>/productDetail</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>Administrator</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
     <servlet>
-        <servlet-name>Wishlist</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.presentation.Wishlist</servlet-class>
+        <servlet-name>Administrator</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.AdministratorController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Wishlist</servlet-name>
-        <url-pattern>/wishlist</url-pattern>
+        <servlet-name>Categories</servlet-name>
+        <url-pattern>/admin/categories</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Categories</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.CategoryController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Articles</servlet-name>
+        <url-pattern>/admin/articles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Articles</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.ArticleController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ArticleAdd</servlet-name>
+        <url-pattern>/admin/articleAdd</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ArticleAdd</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.ArticleAddController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CategoryAdd</servlet-name>
+        <url-pattern>/admin/categoryAdd</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CategoryAdd</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.CategoryAddController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CategoryDelete</servlet-name>
+        <url-pattern>/admin/categoryDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CategoryDelete</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.CategoryDeleteController</servlet-class>
+    </servlet>
 </web-app>

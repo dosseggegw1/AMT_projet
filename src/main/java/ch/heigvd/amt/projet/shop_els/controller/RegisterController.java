@@ -36,7 +36,7 @@ public class RegisterController extends HttpServlet{
 
         //create the POST request
         HttpPost httppost = new HttpPost(url);
-        StringEntity params = new StringEntity("details={\"username\" :\"rui\", \"password\":\"Aa12.12$$\"} ");
+        StringEntity params = new StringEntity("details={\"username\" :" + request.getParameter("username") + ", \"password\":" + request.getParameter("password") + "} ");
         httppost.addHeader("content-type", "application/json");
         httppost.setEntity(params);
 

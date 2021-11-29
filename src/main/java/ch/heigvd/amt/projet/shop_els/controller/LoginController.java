@@ -8,7 +8,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -39,7 +38,7 @@ public class LoginController extends HttpServlet{
 
         //create the POST request
         HttpPost httppost = new HttpPost(url);
-        StringEntity params = new StringEntity("details={\"username\" :\"rui\", \"password\":\"Aa12.12$$\"} ");
+        StringEntity params = new StringEntity("details={\"username\" :" + request.getParameter("username") + ", \"password\":" + request.getParameter("password") + "} ");
         httppost.addHeader("content-type", "application/json");
         httppost.setEntity(params);
 
@@ -53,6 +52,8 @@ public class LoginController extends HttpServlet{
 
             //convert String to JSON Object
             JSONObject result = new JSONObject(EntityUtils.toString(entity));
+            String id = result.getString("Id");
+
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         else{

@@ -6,7 +6,7 @@
   <jsp:include page="../includes/header.jsp"/>
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="assets/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -339,8 +339,6 @@
  </section>
  <!-- / Cart view section -->
  <jsp:include page="../includes/footer.jsp"/>
-
-  <jsp:include page="../includes/login.jsp"/>
 
   <jsp:include page="../includes/plugins.jsp"/>
   </body>

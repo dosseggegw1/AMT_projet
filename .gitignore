@@ -2,3 +2,4 @@
 target/
 shop_els.iml
 lib/*
+src/main/resources/

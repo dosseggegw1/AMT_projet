@@ -6,7 +6,28 @@
 <jsp:include page="WEB-INF/includes/head.jsp"/>
 <body>
 <jsp:include page="WEB-INF/includes/header.jsp"/>
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  function postData(id, price){
+    var quantity = 1;
+    $.ajax({
+      url: 'http://localhost:8080/shop/cookie',
+      timeout:30000,
+      type: "POST",
+      data: {
+        id,
+        quantity,
+        price
+      },
+      success: function (data) {
+        //what to do in success
+      },
+      error: function(xhr, ajaxOptions, thrownError){
+        //what to do in error
+      },
+    });
+  }
+</script>
 <!-- Products section -->
 <section id="aa-product">
   <div class="container">
@@ -37,7 +58,7 @@
                         <li class="filterDiv cat-all">
                           <figure>
                             <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                            <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                             <figcaption>
                               <h4 class="aa-product-title"><a href="/shop/productDetail?id=${article[0]}"><c:out value="${article[1]}"/></a></h4>
                               <span class="aa-product-price"><c:out value="${article[3]}"/> CHF</span><span class="aa-product-price"></span>

@@ -35,7 +35,7 @@ jobs:
       - name: Write DMZ SSH pem
         run: echo "${{ secrets.DMZ_KEY }}" > DMZ.pem && chmod 400 DMZ.pem
       - name: Start DMZ tunnel
-        run: ssh -o StrictHostKeyChecking=no -L 8081:${{ secrets.SSH_PRIVATE_IP }}:8080 ${{ secrets.SSH_USER }}@${{ secrets.SSH_PUBLIC_IP }} -i DMZ.pem &
+        run: ssh -tt -o StrictHostKeyChecking=no -L 8081:${{ secrets.SSH_PRIVATE_IP }}:8080 ${{ secrets.SSH_USER }}@${{ secrets.SSH_PUBLIC_IP }} -i DMZ.pem &
         
       # Set up Maven settings for the Wildfly Server
       - name: "Setup maven settings"

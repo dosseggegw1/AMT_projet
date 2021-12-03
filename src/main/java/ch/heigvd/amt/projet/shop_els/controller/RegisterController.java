@@ -7,6 +7,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,7 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegisterController extends HttpServlet{
     //url application server
-    //private final String url = "http://10.0.1.92/accounts/register";
+    //private final String url = "http://10.0.1.92:8080/accounts/register";
 
     //url with ssh tunnel
     private final String url = "http://localhost:3000/accounts/register";
@@ -36,7 +38,11 @@ public class RegisterController extends HttpServlet{
 
         //create the POST request
         HttpPost httppost = new HttpPost(url);
-        StringEntity params = new StringEntity("details={\"username\" :" + request.getParameter("username") + ", \"password\":" + request.getParameter("password") + "} ");
+        JSONObject Json = new JSONObject();
+        Json.put("username", request.getParameter("username"));
+        Json.put("password", request.getParameter("password"));
+        StringEntity params = new StringEntity(Json.toString());
+        params.setContentType("application/json");
         httppost.addHeader("content-type", "application/json");
         httppost.setEntity(params);
 
@@ -45,11 +51,18 @@ public class RegisterController extends HttpServlet{
         HttpEntity entity = resp.getEntity();
 
 
-        if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED){
+
+            //convert String to JSON Object
+            JSONObject result = new JSONObject(EntityUtils.toString(entity));
+
+            //add the id of the user in the database with the id and of the authentification server
+            String id = result.getString("id");
+
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
         else{
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
     }
 

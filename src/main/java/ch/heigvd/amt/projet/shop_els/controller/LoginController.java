@@ -38,26 +38,32 @@ public class LoginController extends HttpServlet{
 
         //create the POST request
         HttpPost httppost = new HttpPost(url);
-        StringEntity params = new StringEntity("details={\"username\" :" + request.getParameter("username") + ", \"password\":" + request.getParameter("password") + "} ");
-        httppost.addHeader("content-type", "application/json");
+        JSONObject Json = new JSONObject();
+        Json.put("username", request.getParameter("username"));
+        Json.put("password", request.getParameter("password"));
+        StringEntity params = new StringEntity(Json.toString());
+        params.setContentType("application/json");
+        httppost.addHeader("Content-Type", "application/json");
         httppost.setEntity(params);
 
         //Execute and get the response.
         HttpResponse resp = httpclient.execute(httppost);
         HttpEntity entity = resp.getEntity();
 
-
         if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
-            //create_cookie with the id of authentification server
 
             //convert String to JSON Object
             JSONObject result = new JSONObject(EntityUtils.toString(entity));
-            String id = result.getString("Id");
+            JSONObject accountInfoDTO = result.getJSONObject("account");
 
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            //create_cookie with the id and the role of the authentification server
+            String id = accountInfoDTO.getString("id");
+            String role = accountInfoDTO.getString("role");
+
+            request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
         }
         else{
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
     }
 

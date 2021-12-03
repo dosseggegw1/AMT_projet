@@ -65,30 +65,34 @@
 
             <form action="/shop/admin/articleAdd" method="POST" name="addForm" onsubmit="return validateform()">
                 <div class="form-group">
-                    <label for="name">Nom d'article</label>
+                    <label for="name">Nom d'article*</label>
                     <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" placeholder="Chaussette" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Description de l'article</label>
+                    <label for="description">Description de l'article*</label>
                     <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" required></textarea>
                 </div>
 
                 <div class="form-check form-check-inline">
+                    <label class="form-check-label ml-3" > Catégorie(s)* : </label><br>
                     <c:forEach var="cat" items="${categories}">
                         <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
                         <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>
+                <br>
 
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label for="price" >Prix de l'article (en CHF)</label>
-                        <input type="number" step="0.05" class="form-control" min="0" name="price" id="price" placeholder="15.50">
+                        <input type="number" step="0.05" class="form-control" min="0" name="price" aria-describedby="priceHelp" id="price">
+                        <small id="priceHelp" class="form-text text-muted">Si rien n'est renseigné, mis à 0 par défaut</small>
                     </div>
                     <div class="form-group col-sm-6">
                         <label for="stock">Nombre de pièces en stock</label>
-                        <input type="number" class="form-control" name="stock" id="stock" min="0" placeholder="20" >
+                        <input type="number" class="form-control" name="stock"  aria-describedby="stockHelp" id="stock" min="0">
+                        <small id="stockHelp" class="form-text text-muted">Si rien n'est renseigné, mis à 0 par défaut</small>
                     </div>
                 </div>
 
@@ -98,8 +102,11 @@
                     <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
                 </div>
 
+
                 <button type="submit" class="btn btn-primary">Valider</button>
             </form>
+            <small id="help" class="form-text text-muted">* doivent impérativement être renseignés.</small>
+
         </section>
     </section><!-- /MAIN CONTENT -->
 

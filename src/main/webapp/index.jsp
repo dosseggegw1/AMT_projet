@@ -58,9 +58,9 @@
                         <li class="filterDiv cat-all">
                           <figure>
                             <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
-                            <!-- If the price is null (0), we cannot add the product to the cart. -->
+                            <!-- If the price or the quantity are null (0), we cannot add the product to the cart. -->
 
-                            <c:if test="${article[3] != 0 && article[5] != 0}"> <!-- || article[5] != 0 -->
+                            <c:if test="${article[3] != 0 && article[5] != 0}">
                               <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                             </c:if>
                               <figcaption>
@@ -74,7 +74,9 @@
                       <li class="filterDiv ${article[7]}">
                       <figure>
                         <a class="aa-product-img" href="#"><img src="assets/img/man/polo-shirt-2.png" alt="${article[1]}"></a> <!-- "${article[4]}" -->
-                        <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                        <c:if test="${article[3] != 0 && article[5] != 0}">
+                          <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                        </c:if>
                         <figcaption>
                           <h4 class="aa-product-title"><a href="/shop/productDetail?id=${article[0]}"><c:out value="${article[1]}"/></a></h4>
                           <span class="aa-product-price"><c:out value="${article[3]}"/> CHF</span><span class="aa-product-price"></span>

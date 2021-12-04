@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -57,13 +58,17 @@ public class LoginController extends HttpServlet{
             JSONObject accountInfoDTO = result.getJSONObject("account");
 
             //create_cookie with the id and the role of the authentification server
-            String id = accountInfoDTO.getString("id");
+            int id = accountInfoDTO.getInt("id");
             String role = accountInfoDTO.getString("role");
 
-            request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("id", id);
+            session.setAttribute("role", role);
+
+            response.sendRedirect("/shop");
         }
         else{
-            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+            response.sendRedirect("/shop/login");
         }
     }
 

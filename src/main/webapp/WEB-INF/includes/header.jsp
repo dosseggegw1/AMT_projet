@@ -59,7 +59,8 @@
                     <li><a href="account">Mon compte</a></li>
                     <li class="hidden-xs"><a href="cart">Mon panier</a></li>
                     <li class="hidden-xs"><a href="checkout">Passer a la caisse</a></li>
-                    <li><a href="" data-toggle="modal" data-target="#login-modal">S'identifier</a></li>
+                    <li class="hidden-xs"><a href="login">S'identifier</a></li>
+                    <li class="hidden-xs"><a href="register">Se creer un compte</a></li>
                   </ul>
                 </div>
               </div>

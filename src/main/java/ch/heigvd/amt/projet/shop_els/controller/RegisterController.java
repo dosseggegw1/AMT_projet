@@ -57,12 +57,12 @@ public class RegisterController extends HttpServlet{
             JSONObject result = new JSONObject(EntityUtils.toString(entity));
 
             //add the id of the user in the database with the id and of the authentification server
-            String id = result.getString("id");
+            int id = result.getInt("id");
 
-            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+            response.sendRedirect("/shop/login");
         }
         else{
-            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+            response.sendRedirect("/shop/register");
         }
     }
 

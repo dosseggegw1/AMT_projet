@@ -1,5 +1,9 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.model.Category;
+import ch.heigvd.amt.projet.shop_els.model.User;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -15,10 +19,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/register")
 public class RegisterController extends HttpServlet{
+    private final UserDao userDao = new UserDao();
+
     //url application server
     //private final String url = "http://10.0.1.92:8080/accounts/register";
 
@@ -27,7 +34,13 @@ public class RegisterController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        //send to index if already connected
+        if(request.getSession().getAttribute("idServer") == null && request.getSession().getAttribute("role") == null){
+            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop");
+        }
 
     }
 
@@ -56,8 +69,11 @@ public class RegisterController extends HttpServlet{
             //convert String to JSON Object
             JSONObject result = new JSONObject(EntityUtils.toString(entity));
 
-            //add the id of the user in the database with the id and of the authentification server
+            //add the id of the user in the database with the id of the authentification server
             int id = result.getInt("id");
+            User newUser = new User();
+            newUser.setIdUser(id);
+            userDao.save(newUser);
 
             response.sendRedirect("/shop/login");
         }

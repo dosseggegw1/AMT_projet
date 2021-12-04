@@ -37,6 +37,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.LogoutController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Cart</servlet-name>
         <servlet-class>ch.heigvd.amt.projet.shop_els.controller.CartController</servlet-class>
     </servlet>

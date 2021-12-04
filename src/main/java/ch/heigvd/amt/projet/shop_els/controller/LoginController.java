@@ -28,7 +28,13 @@ public class LoginController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+        //send to index if already connected
+        if(request.getSession().getAttribute("idServer") == null && request.getSession().getAttribute("role") == null){
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop");
+        }
 
     }
 
@@ -57,12 +63,11 @@ public class LoginController extends HttpServlet{
             JSONObject result = new JSONObject(EntityUtils.toString(entity));
             JSONObject accountInfoDTO = result.getJSONObject("account");
 
-            //create_cookie with the id and the role of the authentification server
-            int id = accountInfoDTO.getInt("id");
+            //create the session with the id and the role of the authentification server
+            int idUser = accountInfoDTO.getInt("id");
             String role = accountInfoDTO.getString("role");
-
             HttpSession session = request.getSession();
-            session.setAttribute("id", id);
+            session.setAttribute("idUser", idUser);
             session.setAttribute("role", role);
 
             response.sendRedirect("/shop");

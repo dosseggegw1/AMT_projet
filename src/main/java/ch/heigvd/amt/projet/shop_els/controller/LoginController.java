@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //send to index if already connected
-        if(request.getSession().getAttribute("idServer") == null && request.getSession().getAttribute("role") == null){
+        if(request.getSession().getAttribute("idUser") == null && request.getSession().getAttribute("role") == null){
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
         else{

@@ -14,9 +14,9 @@ public class LogoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         //test if the user is connected
-        if (request.getSession().getAttribute("idServer") != null && request.getSession().getAttribute("role") != null) {
+        if (request.getSession().getAttribute("idUser") != null && request.getSession().getAttribute("role") != null) {
             session.removeAttribute("role");
-            session.removeAttribute("idServer");
+            session.removeAttribute("idUser");
             response.sendRedirect("/shop/login");
         }
         response.sendRedirect("/shop");

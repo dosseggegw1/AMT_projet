@@ -70,10 +70,14 @@ public class LoginController extends HttpServlet{
             session.setAttribute("idUser", idUser);
             session.setAttribute("role", role);
 
+            if(role == "admin"){
+                response.sendRedirect("/shop/admin");
+            }
             response.sendRedirect("/shop");
         }
-        else{
-            response.sendRedirect("/shop/login");
+        else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_FORBIDDEN){
+            request.setAttribute("errorMessage", "Utilisateur ou mot de passe invalide");
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
     }
 

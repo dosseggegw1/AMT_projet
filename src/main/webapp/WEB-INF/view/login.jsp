@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <html lang="en">
@@ -31,6 +32,9 @@
               <div class="col-md-6">
                 <div class="aa-myaccount-login">
                 <h4>Login</h4>
+                <c:if test="${not empty errorMessage}">
+                    <c:out value="${errorMessage}"/>
+                </c:if>
                  <form action="" method="post" class="aa-login-form">
                   <label>Username<span>*</span>
                    <input type="text" name="username" placeholder="Username"></label>

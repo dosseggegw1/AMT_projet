@@ -1,8 +1,6 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
-import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.model.User;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,7 +17,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/register")
@@ -77,8 +74,13 @@ public class RegisterController extends HttpServlet{
 
             response.sendRedirect("/shop/login");
         }
-        else{
-            response.sendRedirect("/shop/register");
+        else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_CONFLICT){
+            request.setAttribute("errorMessage", "L'utilisateur existe déjà.");
+            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        }
+        else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY){
+            request.setAttribute("errorMessage", "Les données rentré sont invalide.");
+            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
     }
 

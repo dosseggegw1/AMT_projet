@@ -117,6 +117,16 @@
     </servlet>
 
     <servlet-mapping>
+        <servlet-name>ArticleModify</servlet-name>
+        <url-pattern>/admin/articleModify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ArticleModify</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.ArticleModifyController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
         <servlet-name>CategoryAdd</servlet-name>
         <url-pattern>/admin/categoryAdd</url-pattern>
     </servlet-mapping>

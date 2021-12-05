@@ -61,28 +61,30 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Panel de gestion des articles </h3>
-            <a href="/shop/admin/articleAdd" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
-            <div class="row mt">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <c:forEach var="article" items="${articles}">
-                            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                <div class="panel pn pnArticle text-center">
-                                    <!-- <img src="${article[3]}" alt="${article[0]}" class="img-circle" width="60"> -->
-                                    <img src="/shop/assets/img/woman-small-1.jpg" alt="${article[1]}" width="100">
-                                    <h3><c:out value="${article[1]}"/></h3>
-                                    <p><c:out value="${article[2]}"/></p>
-                                    <p>Qté : <c:out value="${article[5]}"/></p>
-                                    <p>Prix : <c:out value="${article[3]}"/> CHF</p>
-                                    <p>Catégories : TODO </p>
-                                    <a href="/shop/admin/articleModify?id=${article[0]}" class="btn btn-info"><i class="fa fa-pencil-square-o  fa-1x" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
+            <h3><i class="fa fa-angle-right"></i> Modifier la catégorie de l'article n°<c:out value="${article['idArticle']}"/></h3>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                <div class="panel pn pnArticleModify text-center">
+                    <img src="/shop/assets/img/woman-small-1.jpg" alt="${article['imageURL']}" width="100">
+                    <h3><c:out value="${article['name']}"/> </h3>
+                    <p>Description : <c:out value="${article['description']}"/></p>
+                    <p>Prix : <c:out value="${article['price']}"/> CHF</p>
+                    <p>Stock : <c:out value="${article['stock']}"/> CHF</p>
                 </div>
             </div>
+
+            <form action="/shop/admin/articleModify" method="POST" name="addForm" onsubmit="return validateform()">
+
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label ml-3" > Cocher les catégories souhaitées : </label><br>
+                    <c:forEach var="cat" items="${categories}">
+                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                        <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
+                    </c:forEach>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
+
         </section>
     </section><!-- /MAIN CONTENT -->
 
@@ -104,6 +106,7 @@
 <script src="/shop/assets/js/bootstrap.js"></script>
 <script class="include" type="text/javascript" src="/shop/assets/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="/shop/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/shop/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="/shop/assets/js/jquery.sparkline.js"></script>
 
 <!--common script for all pages-->
@@ -111,6 +114,7 @@
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
+
 
 </body>
 </html>

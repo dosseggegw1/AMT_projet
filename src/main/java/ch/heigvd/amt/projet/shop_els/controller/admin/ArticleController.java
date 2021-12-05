@@ -21,7 +21,10 @@ public class ArticleController extends HttpServlet{
 
         List<Article> results = articleDao.getAll();
 
+        // TODO : récupérer les catégories par articles pour l'affichage
+
         request.setAttribute("articles", results);
+
 
         request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
 

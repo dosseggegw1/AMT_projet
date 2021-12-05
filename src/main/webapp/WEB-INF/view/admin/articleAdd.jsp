@@ -143,12 +143,16 @@
         let description = document.addForm.description.value;
         let price = document.addForm.price.value;
         let stock = document.addForm.stock.value;
+        var checkCategories = $("input[name='categories']:checked").length;
 
         if (name == null || name === "" || name.length > 50) {
             alert("Le nom doit être compris entre 1 et 50 caractères");
             return false;
         }else if (description == null || description === "" || description.length > 255){
             alert("La description doit être compris entre 1 et 255 caractères");
+            return false;
+        }else if (!checkCategories) {
+            alert("Au minimum une catégorie doit être choisie");
             return false;
         }else if (price < 0){
             alert("Le prix ne peut être inférieur à 0");

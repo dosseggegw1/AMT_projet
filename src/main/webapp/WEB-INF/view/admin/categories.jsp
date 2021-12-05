@@ -102,6 +102,7 @@
                 },
             });
         }
+
     </script>
 
     <!--main content end-->
@@ -131,14 +132,23 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    document.onload(errorDelete())
+    //document.onload(errorDelete())
     function errorDelete() {
-        const error = ${messageError};
-        if(error !== "") {
-            alert(error)
+        if(${messageError == 2}) {
+            var answer = confirm("Etes-vous sûrs de vouloir supprimer cette catégorie liée à des articles ?")
+            if (answer) {
+                alert("OK")
+            } else {
+                alert("NO")
+            }
+            return
         }
+        /*if (${messageError == '2'}) {
+            alert("Une erreur est survenue lors de la suppression de la catégorie")
+            return
+        }*/
     }
 </script>
 
 </body>
-</html>--%>
+</html>

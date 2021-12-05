@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @WebServlet("/admin/categoryDelete")
@@ -21,20 +24,21 @@ public class CategoryDeleteController extends HttpServlet {
         response.setContentType("text/html");
         int idCategory =  Integer.parseInt(request.getParameter("id"));
 
-        String messageError = "";
+        //String messageError = "";
 
-        if(articleCategoryDao.checkIfHasArticles(idCategory)){
-            messageError="La catégorie est liée à des articles";
-        }
-        else if(categoryDao.delete(idCategory)){
-            messageError = "Une erreur est survenue lors de la suppression de la catégorie";
-        }
+        //Set<String> articles = new HashSet<>();
+
+        /*if(articleCategoryDao.checkIfHasArticles(idCategory)){
+           request.setAttribute("messageError", 2);
+        } else {
+            categoryDao.delete(idCategory);
+        }*/
+        /*else if(categoryDao.delete(idCategory)){
+            request.setAttribute("messageError", 0);
+        }*/
 
         //TODO : delete la catégorie selon l'id => la récupération s'effectue bien ! :D
-
-        //request.setAttribute("categories", categoryDao.getAll());
-        request.setAttribute("messageError", messageError);
+        request.setAttribute("messageError", 2);
         request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
-        //response.sendRedirect("/shop/admin/categories?error=" + messageError);
     }
 }

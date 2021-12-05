@@ -24,7 +24,7 @@ public class CategoryDeleteController extends HttpServlet {
         String messageError = "";
 
         if(articleCategoryDao.checkIfHasArticles(idCategory)){
-            messageError="Erreur ! La catégorie est liée à des articles";
+            messageError="La catégorie est liée à des articles";
         }
         else if(categoryDao.delete(idCategory)){
             messageError = "Une erreur est survenue lors de la suppression de la catégorie";

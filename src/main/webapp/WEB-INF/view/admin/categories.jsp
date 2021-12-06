@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <html lang="en">
 
@@ -75,6 +75,9 @@
                                 </div>
                             </div>
                         </c:forEach>
+                        <script>
+                            alert(request.getAttribute("messageError").toString())
+                        </script>
                     </div>
                 </div>
             </div>
@@ -132,9 +135,8 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    //document.onload(errorDelete())
     function errorDelete() {
-        if(${messageError == 2}) {
+        if(${messageError == '2'}) {
             var answer = confirm("Etes-vous sûrs de vouloir supprimer cette catégorie liée à des articles ?")
             if (answer) {
                 alert("OK")
@@ -147,6 +149,7 @@
             alert("Une erreur est survenue lors de la suppression de la catégorie")
             return
         }*/
+        document.onload(errorDelete())
     }
 </script>
 

@@ -38,7 +38,7 @@ public class CategoryDeleteController extends HttpServlet {
         }*/
 
         //TODO : delete la catégorie selon l'id => la récupération s'effectue bien ! :D
-        request.setAttribute("messageError", 2);
+        request.setAttribute("messageError", "2");
         request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
     }
 }

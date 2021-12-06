@@ -63,7 +63,7 @@
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Ajout d'un article </h3>
 
-            <form action="/shop/admin/articleAdd" method="POST" name="addForm" onsubmit="return validateform()">
+            <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm" onsubmit="return validateform()">
                 <div class="form-group">
                     <label for="name">Nom d'article*</label>
                     <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" placeholder="Chaussette" required>
@@ -101,8 +101,6 @@
                     <input type="file" class="form-control-file" name="imageURL" aria-describedby="imageHelp" id="imageURL">
                     <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
                 </div>
-
-
                 <button type="submit" class="btn btn-primary">Valider</button>
             </form>
             <small id="help" class="form-text text-muted">* doivent impérativement être renseignés.</small>

@@ -994,9 +994,16 @@ PANELS CONFIGURATIONS
 	
 }
 
-.pnArticle {
+.pnArticle, .pnArticleModify {
+    padding-top: 10px;
     height: 350px;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.pnArticleModify p{
+    padding-left: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .pnArticle p{
@@ -1006,10 +1013,6 @@ PANELS CONFIGURATIONS
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.pnArticle img{
-    padding-top: 10px;
 }
 
 .pnCategory{

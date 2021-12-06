@@ -68,7 +68,7 @@
                     <h3><c:out value="${article['name']}"/> </h3>
                     <p>Description : <c:out value="${article['description']}"/></p>
                     <p>Prix : <c:out value="${article['price']}"/> CHF</p>
-                    <p>Stock : <c:out value="${article['stock']}"/> CHF</p>
+                    <p>Stock : <c:out value="${article['stock']}"/> pièces</p>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@
                 <div class="form-check form-check-inline">
                     <label class="form-check-label ml-3" > Cocher les catégories souhaitées : </label><br>
                     <c:forEach var="cat" items="${categories}">
-                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                        <input class="form-check-input" type="checkbox" name="categories" value="${"    " + cat[0]}">
                         <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>

@@ -27,8 +27,8 @@ public class ArticleModifyController extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        Article article = articleDao.get(id);
+        int idArticle = Integer.parseInt(request.getParameter("id"));
+        Article article = articleDao.get(idArticle);
 
 
         //TODO, il faut récupérer la liste des éléments catégories deja set et envoyer à la vue

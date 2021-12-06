@@ -75,7 +75,12 @@
                                     <p><c:out value="${article[2]}"/></p>
                                     <p>Qté : <c:out value="${article[5]}"/></p>
                                     <p>Prix : <c:out value="${article[3]}"/> CHF</p>
-                                    <p>Catégories : TODO </p>
+                                    <p>Catégories :  </p>
+                                    <c:forEach var="category" items="${categories}">
+                                        <c:if test="${category[0] == article[0]}">
+                                            <p><c:out value="${category[7]}"/></p>
+                                        </c:if>
+                                    </c:forEach>
                                     <a href="/shop/admin/articleModify?id=${article[0]}" class="btn btn-info"><i class="fa fa-pencil-square-o  fa-1x" aria-hidden="true"></i></a>
                                 </div>
                             </div>

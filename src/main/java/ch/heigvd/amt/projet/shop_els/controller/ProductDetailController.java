@@ -2,10 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
-import ch.heigvd.amt.projet.shop_els.model.Category;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
-import javax.persistence.Query;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +23,7 @@ public class ProductDetailController extends HttpServlet{
 
         // We get all the articles & the categories they are in
         List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(articleID);
-        List<String> resultCategoriesForArticle = articleCategoryDao.getCategoriesByArticleId(articleID);
+        List<String> resultCategoriesForArticle = articleCategoryDao.getCategoriesNameByArticleId(articleID);
 
 
 	    request.setAttribute("id", resultArticle.get(0)[0]);

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,6 @@ public class ArticleModifyController extends HttpServlet{
         int id = Integer.parseInt(request.getParameter("id"));
         Article article = articleDao.get(id);
 
-        //TODO, il faut récupérer la liste des éléments catégories deja set et envoyer à la vue
         List<Category> categories = categoryDao.getAll();
         List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
 
@@ -59,9 +59,9 @@ public class ArticleModifyController extends HttpServlet{
             response.sendRedirect("/shop/admin/articles");
         }
         else {
+            // If there is a new category, we add it to our DB
             for(int idCategory : categoriesNew) {
                 if (!categoriesOldConf.contains(idCategory)) {
-                    //on ajoute :D
                     Category category = categoryDao.get(idCategory);
                     Article article = articleDao.get(id);
                     Article_Category ac = new Article_Category();
@@ -70,22 +70,14 @@ public class ArticleModifyController extends HttpServlet{
                     articleCategoryDao.save(ac);
                 }
             }
+            // If we uncheck a category already set, we delete the category in the DB
             for(int idCategory : categoriesOldConf){
                 if(!categoriesNew.contains(idCategory)){
-                    //ON DELETE
-                    //ajout méthode get article_category id par rapport à idcategory et idarticle
+                    int idArticleCategory = articleCategoryDao.getArticleCategoryId(id, idCategory);
+                    articleCategoryDao.delete(idArticleCategory);
                 }
-                // autre boucle qui détecte si OldConf est > à ca
-                // => oe c'est ce que jai mis la hahah enfin qui check son contenu avec new
-                //categoriesNew => si c'est le cas faut delete
-
-                //t'arrête pas <3
-                // LOL hihi bisous <3
             }
+            response.sendRedirect("/shop/admin/articles");
         }
-
-        //categoryList.add(category);
-
-        //response.sendRedirect("/shop/admin/articles");
     }
 }

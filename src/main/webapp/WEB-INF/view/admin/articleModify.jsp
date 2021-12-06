@@ -125,6 +125,17 @@
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
+<script>
+    function validateform() {
+        var checkCategories = $("input[name='categories']:checked").length;
+
+        if (!checkCategories) {
+            alert("Au minimum une catégorie doit être choisie");
+            return false;
+        }
+        return true;
+    }
+</script>
 
 </body>
 </html>

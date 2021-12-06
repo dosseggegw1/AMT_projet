@@ -118,5 +118,15 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         return resultsCategories;
     }
 
+    public Integer getArticleCategoryId(int idArticle, int idCategory) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List<Integer> id = session.getNamedQuery("selectArticleCategoryIdByArticleIdAndCategoryId")
+                .setParameter("articleID", idArticle).setParameter("categoryID", idCategory).getResultList();
+
+        session.close();
+        return id.get(0);
+    }
 
 }

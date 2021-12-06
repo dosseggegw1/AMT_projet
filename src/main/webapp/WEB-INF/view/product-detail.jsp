@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../includes/head.jsp"/>
 <body>
   <jsp:include page="../includes/header.jsp"/>
@@ -89,9 +90,11 @@
                           <option value="6">6</option>
                         </select>
                       </form>
-                      <p class="aa-prod-category">
-                        Catégorie: ${article[7]}
-                      </p>
+                     <p class="aa-prod-category"> Catégorie(s):
+                      <c:forEach var="categorie" items="${categories}">
+                       ${categorie}
+                      </c:forEach>
+                     </p>
                     </div>
                     <div class="aa-prod-view-bottom">
                       <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>

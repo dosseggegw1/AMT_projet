@@ -5,7 +5,8 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name="selectArticleByCategory", query = "SELECT c.article FROM Article_Category c WHERE c.category in :cat"),
         @NamedQuery(name="selectCategoriesLinkedToArticles", query = "SELECT acat.category.name FROM Article_Category acat"),
-        @NamedQuery(name="selectArticleCategoryId", query = "SELECT article_category_id FROM Article_Category ac WHERE ac.article_category_id in :id")
+        @NamedQuery(name="selectArticleCategoryId", query = "SELECT ac.article_category_id FROM Article_Category ac WHERE ac.article_category_id in :id"),
+        @NamedQuery(name="selectCategoryByArticleId", query = "SELECT ac.category.name FROM Article_Category ac WHERE ac.article.idArticle = :articleID")
 })
 
 @Entity

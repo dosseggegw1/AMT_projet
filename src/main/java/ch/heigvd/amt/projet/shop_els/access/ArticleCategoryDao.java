@@ -97,4 +97,14 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session.close();
         return resultsCategoriesLinked;
     }
+
+    public List<String> getCategoriesByArticleId(int id) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List<String> resultsCategories = session.getNamedQuery("selectCategoryByArticleId").setParameter("articleID", id).getResultList();
+
+        session.close();
+        return resultsCategories;
+    }
 }

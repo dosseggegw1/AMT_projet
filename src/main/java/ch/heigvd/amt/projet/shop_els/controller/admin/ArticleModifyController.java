@@ -27,21 +27,28 @@ public class ArticleModifyController extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        int idArticle = Integer.parseInt(request.getParameter("id"));
-        Article article = articleDao.get(idArticle);
-
+        int id = Integer.parseInt(request.getParameter("id"));
+        Article article = articleDao.get(id);
 
         //TODO, il faut récupérer la liste des éléments catégories deja set et envoyer à la vue
         List<Category> categories = categoryDao.getAll();
-        List<Category> c = categoryDao.getAll();
-        //article.setArticleCategories();
+        List<String> categoriesArticle = articleCategoryDao.getCategoriesByArticleId(id);
 
         request.setAttribute("article", article);
         request.setAttribute("categories", categories);
+        request.setAttribute("categoriesArticle", categoriesArticle);
 
         request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+
+        String[] categories = request.getParameterValues("categories");
+
+
+
+        request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+    }
 }

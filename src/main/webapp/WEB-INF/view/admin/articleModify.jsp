@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 
 <jsp:include page="../../includes/head_admin.jsp"/>
@@ -77,8 +78,16 @@
                 <div class="form-check form-check-inline">
                     <label class="form-check-label ml-3" > Cocher les catégories souhaitées : </label><br>
                     <c:forEach var="cat" items="${categories}">
-                        <input class="form-check-input" type="checkbox" name="categories" value="${"    " + cat[0]}">
-                        <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
+                        <c:choose>
+                            <c:when test="${fn:contains(categoriesArticle, cat[1])}">
+                               <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}"
+                                        checked="checked">
+                            </c:when>
+                            <c:otherwise>
+                                <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                            </c:otherwise>
+                        </c:choose>
+                       <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>
                 <br>

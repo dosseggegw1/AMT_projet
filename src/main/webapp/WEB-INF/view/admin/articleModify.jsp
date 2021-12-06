@@ -90,6 +90,7 @@
                        <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>
+                <input type="hidden" name="id" value="${article['idArticle']}" />
                 <br>
                 <button type="submit" class="btn btn-primary">Valider</button>
             </form>

@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet("/admin/articleModify")
 public class ArticleModifyController extends HttpServlet{
@@ -32,7 +31,7 @@ public class ArticleModifyController extends HttpServlet{
 
         //TODO, il faut récupérer la liste des éléments catégories deja set et envoyer à la vue
         List<Category> categories = categoryDao.getAll();
-        List<String> categoriesArticle = articleCategoryDao.getCategoriesByArticleId(id);
+        List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
 
         request.setAttribute("article", article);
         request.setAttribute("categories", categories);
@@ -46,9 +45,47 @@ public class ArticleModifyController extends HttpServlet{
         response.setContentType("text/html");
 
         String[] categories = request.getParameterValues("categories");
+        int id = Integer.parseInt(request.getParameter("id"));
 
+        List<Integer> categoriesOldConf = articleCategoryDao.getCategoriesIdByArticleId(id);
+        List<Integer> categoriesNew = new ArrayList<>();
+        // Parse id string to integer
+        for(String category : categories) {
+            categoriesNew.add(Integer.parseInt(category));
+        }
 
+        // If there is no change, we do nothing
+        if (categoriesOldConf.equals(categoriesNew)) {
+            response.sendRedirect("/shop/admin/articles");
+        }
+        else {
+            for(int idCategory : categoriesNew) {
+                if (!categoriesOldConf.contains(idCategory)) {
+                    //on ajoute :D
+                    Category category = categoryDao.get(idCategory);
+                    Article article = articleDao.get(id);
+                    Article_Category ac = new Article_Category();
+                    ac.setCategory(category);
+                    ac.setArticle(article);
+                    articleCategoryDao.save(ac);
+                }
+            }
+            for(int idCategory : categoriesOldConf){
+                if(!categoriesNew.contains(idCategory)){
+                    //ON DELETE
+                    //ajout méthode get article_category id par rapport à idcategory et idarticle
+                }
+                // autre boucle qui détecte si OldConf est > à ca
+                // => oe c'est ce que jai mis la hahah enfin qui check son contenu avec new
+                //categoriesNew => si c'est le cas faut delete
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+                //t'arrête pas <3
+                // LOL hihi bisous <3
+            }
+        }
+
+        //categoryList.add(category);
+
+        //response.sendRedirect("/shop/admin/articles");
     }
 }

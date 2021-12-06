@@ -62,7 +62,7 @@
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i>  Suppression d'une catégorie</h3>
             <br>
-            <p class="categoryDeleteText">La catégorie < ${category['name']} > sera supprimé en cas de validation.</p>
+            <p class="categoryDeleteText">La catégorie < ${category['name']} > sera supprimée en cas de validation.</p>
             <form action="/shop/admin/categoryDelete" method="POST" name="deleteForm">
                 <input type="hidden" id="idCategory" name="idCategory" value="${category['idCategory']}">
                 <button type="" class="btn btn-primary">Valider</button>
@@ -72,7 +72,7 @@
                     <div class="cardArticles">
                         <c:forEach var="article" items="${articles}">
                             <div class="card card-article">
-                                <p> <c:out value="${article[1]}"/></p>
+                                <p> <c:out value="${article['name']}"/></p>
                             </div>
                         </c:forEach>
                     </div>
@@ -110,6 +110,16 @@
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
+
+<script>
+    function checkError() {
+        const error = ${error}
+        if(error) {
+            alert("Une erreur est survenue lors de la suppression de la catégorie")
+        }
+    }
+    document.onload(checkError())
+</script>
 
 </body>
 </html>

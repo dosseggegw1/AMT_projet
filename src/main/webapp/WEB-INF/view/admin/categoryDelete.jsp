@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html lang="en">
 
@@ -60,27 +60,24 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Panel de gestion des catégories</h3>
-            <a href="/shop/admin/categoryAdd" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i></a>
-
-            <div class="row mt">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <c:forEach var="cat" items="${categories}">
-                            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                <div class="panel pn pnCategory text-center">
-                                    <h3><c:out value="${cat[1]}"/></h3>
-                                    <!-- À mettre le lien pour supprimer la catégorie -->
-                                    <a href="/shop/admin/categoryDelete?id=${cat[0]}" class="btn btn-danger"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
-                                </div>
+            <h3><i class="fa fa-angle-right"></i>  Suppression d'une catégorie</h3>
+            <br>
+            <p class="categoryDeleteText">La catégorie < ${category['name']} > sera supprimée en cas de validation.</p>
+            <form action="/shop/admin/categoryDelete" method="POST" name="deleteForm">
+                <input type="hidden" id="idCategory" name="idCategory" value="${category['idCategory']}">
+                <button type="" class="btn btn-primary">Valider</button>
+                <a href="/shop/admin/categories" class="btn btn-danger">Annuler</a>
+                <c:if test="${not empty articles}">
+                    <h5><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i> Attention, les articles suivants seront impactés par la suppression et perdront le lien avec la catégorie. <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i></h5>
+                    <div class="cardArticles">
+                        <c:forEach var="article" items="${articles}">
+                            <div class="card card-article">
+                                <p> <c:out value="${article['name']}"/></p>
                             </div>
                         </c:forEach>
-                        <script>
-                            alert(request.getAttribute("messageError").toString())
-                        </script>
                     </div>
-                </div>
-            </div>
+                </c:if>
+            </form>
 
         </section>
         <! --/wrapper -->
@@ -105,6 +102,7 @@
 <script src="/shop/assets/js/bootstrap.js"></script>
 <script class="include" type="text/javascript" src="/shop/assets/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="/shop/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/shop/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
 <script src="/shop/assets/js/jquery.sparkline.js"></script>
 
 <!--common script for all pages-->
@@ -114,22 +112,13 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    function errorDelete() {
-        if(${messageError == '2'}) {
-            var answer = confirm("Etes-vous sûrs de vouloir supprimer cette catégorie liée à des articles ?")
-            if (answer) {
-                alert("OK")
-            } else {
-                alert("NO")
-            }
-            return
-        }
-        /*if (${messageError == '2'}) {
+    function checkError() {
+        const error = ${error}
+        if(error) {
             alert("Une erreur est survenue lors de la suppression de la catégorie")
-            return
-        }*/
-        document.onload(errorDelete())
+        }
     }
+    document.onload(checkError())
 </script>
 
 </body>

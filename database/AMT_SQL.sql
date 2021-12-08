@@ -147,11 +147,15 @@ CREATE TABLE `Article_Category` (
 --
 ALTER TABLE `Article_Category`
     ADD FOREIGN KEY (`idCategory`)
-        REFERENCES Category (`idCategory`);
+        REFERENCES Category (`idCategory`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE;
 
 ALTER TABLE `Article_Category`
     ADD FOREIGN KEY (`idArticle`)
-        REFERENCES Article (`idArticle`);
+        REFERENCES Article (`idArticle`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE;
 
 --
 -- Déchargement des données de la table `Article_Category`

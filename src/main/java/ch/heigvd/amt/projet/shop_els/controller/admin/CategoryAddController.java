@@ -36,7 +36,7 @@ public class CategoryAddController extends HttpServlet {
         String category = request.getParameter("name");
 
         // Verify if category already exist
-        if(categoryDao.getNameFromName(category).size() != 0 || (category.length() > 50)) {
+        if(!categoryDao.checkIfNameExists(category) || (category.length() > 50)) {
             request.setAttribute("categories", categoryDao.getAll());
             request.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);

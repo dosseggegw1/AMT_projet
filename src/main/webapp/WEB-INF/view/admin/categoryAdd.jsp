@@ -112,7 +112,7 @@
       return false;
   }else if (cate.has(name)){
       //Vérifier si le nom est présent dans la liste des catégories
-        alert("La catégorie " + name + " existe deja");
+        alert("La catégorie " + name + " existe déjà");
         return false;
       }
   return true;

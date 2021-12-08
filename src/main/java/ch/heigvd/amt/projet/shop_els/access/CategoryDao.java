@@ -79,13 +79,13 @@ public class CategoryDao implements Dao<Category> {
         return stringList;
     }
 
-    public List getNameFromName(String name) {
+    public boolean checkIfNameExists(String name) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         List list = session.getNamedQuery("selectCategoryNameWithName").setParameter("cat", name).getResultList();
 
         session.close();
-        return list;
+        return list.isEmpty();
     }
 }

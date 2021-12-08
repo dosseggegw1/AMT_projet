@@ -66,8 +66,7 @@ public class CategoryDao implements Dao<Category> {
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 
     public List getAllNames() {

@@ -163,7 +163,7 @@
             return
         }
         if (error === "2") {
-            alert("Un autre article a déjà la même description - " + article)
+            alert("Un autre article avec le même nom existe déjà - " + article)
             return
         }
     }

@@ -40,7 +40,7 @@ public class CategoryDeleteController extends HttpServlet {
         int idCategory =  Integer.parseInt(request.getParameter("idCategory"));
 
         // Check if the deletion was successful, if not, we show an alert
-        if(categoryDao.delete(idCategory)) {
+        if(!categoryDao.delete(idCategory)) {
             request.setAttribute("error", true);
         }
 

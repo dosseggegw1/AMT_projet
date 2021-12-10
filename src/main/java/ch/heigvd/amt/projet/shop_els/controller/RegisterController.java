@@ -43,6 +43,11 @@ public class RegisterController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("username").isEmpty() || request.getParameter("password").isEmpty()){
+            request.setAttribute("errorMessage", "Il faut remplir les deux champs pour se connecter.");
+            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        }
+
         //define the parameter for the POST request
         HttpClient httpclient = HttpClientBuilder.create().build();
 
@@ -79,7 +84,10 @@ public class RegisterController extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
         else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY){
-            request.setAttribute("errorMessage", "Les données rentré sont invalide.");
+            request.setAttribute("errorMessage", "Il faut 8 caractères dont une lettre, ube majuscule, un chiffre et un caractère spécial.");
+            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        }
+        else {
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
     }

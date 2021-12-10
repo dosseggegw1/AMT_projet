@@ -40,6 +40,11 @@ public class LoginController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("username").isEmpty() || request.getParameter("password").isEmpty()){
+            request.setAttribute("errorMessage", "Il faut remplir les deux champs pour se connecter.");
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+        }
+
         //define the parameter for the POST request
         HttpClient httpclient = HttpClientBuilder.create().build();
 
@@ -70,13 +75,16 @@ public class LoginController extends HttpServlet{
             session.setAttribute("idUser", idUser);
             session.setAttribute("role", role);
 
-            if(role == "admin"){
+            if(role.equals("admin")){
                 response.sendRedirect("/shop/admin");
             }
             response.sendRedirect("/shop");
         }
         else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_FORBIDDEN){
             request.setAttribute("errorMessage", "Utilisateur ou mot de passe invalide");
+            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+        }
+        else{
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
     }

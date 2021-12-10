@@ -70,7 +70,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                                 <div class="panel pn pnArticle text-center">
                                     <!-- <img src="${article[3]}" alt="${article[0]}" class="img-circle" width="60"> -->
-                                    <img src="/shop/assets/img/woman-small-1.jpg" alt="${article[1]}" width="100">
+                                    <img src="/shop/assets/img/ELS/${article[4]}" alt="${article[1]}" style="max-width: 100px">
                                     <h3><c:out value="${article[1]}"/></h3>
                                     <p><c:out value="${article[2]}"/></p>
                                     <p>Qté : <c:out value="${article[5]}"/></p>

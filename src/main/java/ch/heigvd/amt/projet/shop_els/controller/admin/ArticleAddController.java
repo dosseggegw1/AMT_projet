@@ -3,12 +3,11 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.config.ConfigurationManager;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
-import org.apache.commons.io.IOUtils;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.awt.*;
-import java.awt.image.RenderedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -51,24 +48,24 @@ public class ArticleAddController extends HttpServlet {
         String stock = request.getParameter("stock");
 
         Part filePart = request.getPart("imageURL");
-        String imageURL = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // the filename without the path
+        String imageURL = Paths.get(((Part) filePart).getSubmittedFileName()).getFileName().toString(); // the filename without the path
 
-        File uploads = new File("/shop/assets/img/ELS/"); // Error : "java.nio.file.NoSuchFileException: /shop/assets/img/ELS/grx-lab02-21.PNG"
-        // Stores the image in the folder /opt/wildfly-22.0.0.Final/bin/
-        //File uploads = new File("/opt/wildfly-22.0.0.Final/bin/");
-        File file = new File(uploads, imageURL);
+        try{
+            ConfigurationManager cm = new ConfigurationManager();
 
-        // Paths.get(imageURL).toAbsolutePath() prints "/opt/wildfly-22.0.0.Final/bin/grx-lab02-21.PNG"
-        // Paths.get(imageURL) prints "grx-lab02-21.PNG"
+            File uploads = new File(cm.getPath());
+            File file = new File(uploads, imageURL);
 
-        try (InputStream input = filePart.getInputStream()) {
+            InputStream input = filePart.getInputStream();
             Files.copy(input, file.toPath());
+        }catch (Exception e){
+            e.getStackTrace();
         }
 
         // Validation of the user's inputs
         if(name == "" || description == "" || articleDao.getNameFromName(name).size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
-                stock.contains("-")|| imageURL.equals("default.png")) {
+                stock.contains("-")|| imageURL.equals("default.jpg")) {
 
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);

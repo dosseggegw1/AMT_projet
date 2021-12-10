@@ -58,7 +58,7 @@
                         for (ArrayList<String> item : cart) {
                       %>
                       <tr>
-                        <td><a href="#"><img src="img/man/<%=item.get(5)%>" alt="img"></a></td>
+                        <td><a href="#"><img src="<%=item.get(5)%>" alt="img"></a></td>
                         <td><a class="aa-cart-title" href="#">"<%=item.get(3)%>"</a></td>
                         <td>"<%=item.get(4)%>"</td>
                         <td><input id="quantity<%=item.get(0)%>" class="aa-cart-quantity" type="number" value="<%=item.get(1)%>"></td>

@@ -33,10 +33,10 @@ public class CategoryAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        String category = (String) request.getParameter("name");
+        String category = request.getParameter("name");
 
         // Verify if category already exist
-        if(categoryDao.getNameFromName(category).size() != 0 || (category.length() > 50)) {
+        if(!categoryDao.checkIfNameExists(category) || (category.length() > 50)) {
             request.setAttribute("categories", categoryDao.getAll());
             request.setAttribute("error", true);
             request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);

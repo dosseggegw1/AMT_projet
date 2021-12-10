@@ -72,29 +72,17 @@ public class ArticleDao implements Dao<Article>{
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 
-    public List getNameFromName(String name) {
+    public boolean checkIfNameExists(String name) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
 
         session.close();
-        return listName;
-    }
-
-    public List<Object[]> getNameDescriptionFromDescription(String description) {
-        session = HibUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
-        List<Object[]> list = session.getNamedQuery("selectArticleNameDescription").
-                setParameter("descr", description).getResultList();
-
-        session.close();
-        return list;
+        return listName.isEmpty();
     }
 
     public List<Object[]> getArticleAndCategoryById(int id) {

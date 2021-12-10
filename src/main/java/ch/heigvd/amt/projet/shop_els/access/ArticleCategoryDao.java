@@ -63,8 +63,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 
     public boolean checkIfHasArticles(int idCategory) {

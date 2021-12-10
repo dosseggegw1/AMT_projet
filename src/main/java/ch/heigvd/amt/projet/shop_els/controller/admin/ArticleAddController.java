@@ -3,7 +3,6 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
-import ch.heigvd.amt.projet.shop_els.config.ConfigurationManager;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 @WebServlet("/admin/articleAdd")
@@ -37,6 +34,8 @@ public class ArticleAddController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
     }
 
+    private static final String SAVE_DIR = "/assets/img/ELS";
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -47,25 +46,33 @@ public class ArticleAddController extends HttpServlet {
         String price = request.getParameter("price");
         String stock = request.getParameter("stock");
 
-        Part filePart = request.getPart("imageURL");
-        String imageURL = Paths.get(((Part) filePart).getSubmittedFileName()).getFileName().toString(); // the filename without the path
 
-        try{
-            ConfigurationManager cm = new ConfigurationManager();
+        // TODO CHECK SI IMAGE EXISTE DEJA
 
-            File uploads = new File(cm.getPath());
-            File file = new File(uploads, imageURL);
+        // gets absolute path of the web application
+        String appPath = request.getServletContext().getRealPath("");
+        // constructs path of the directory to save uploaded file
+        String savePath = appPath + File.separator + SAVE_DIR;
 
-            InputStream input = filePart.getInputStream();
-            Files.copy(input, file.toPath());
-        }catch (Exception e){
-            e.getStackTrace();
+        File fileSaveDir = new File(savePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
         }
+
+        String fileName="";
+        for (Part part : request.getParts()) {
+             fileName = extractFileName(part);
+            // refines the fileName in case it is an absolute path
+            fileName = new File(fileName).getName();
+
+            part.write(savePath + File.separator + fileName);
+        }
+
 
         // Validation of the user's inputs
         if(name == "" || description == "" || articleDao.getNameFromName(name).size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
-                stock.contains("-")|| imageURL.equals("default.jpg")) {
+                stock.contains("-") || fileName.equals(SAVE_DIR+"default.jpg")) {
 
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);
@@ -86,7 +93,7 @@ public class ArticleAddController extends HttpServlet {
             Article article = new Article();
             article.setName(name);
             article.setDescription(description);
-            article.setImageURL(imageURL);
+            article.setImageURL("/shop"+SAVE_DIR+"/"+fileName);
             if(!price.equals("")) article.setPrice(Float.parseFloat(price));
             if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
 
@@ -104,13 +111,23 @@ public class ArticleAddController extends HttpServlet {
             }
             //article.setCategories(categoryList);
 
-            // Add the image to the directory for images
-            // webapp/assets/img/ELS
-            //File uploadedFile = File.createTempFile(prefix, suffix, new File("src/main/webapp/assets/img/ELS"));
-
             response.sendRedirect("/shop/admin/articles");
         }
 
+    }
+
+    /**
+     * Extracts file name from HTTP header content-disposition
+     */
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
     }
 
 }

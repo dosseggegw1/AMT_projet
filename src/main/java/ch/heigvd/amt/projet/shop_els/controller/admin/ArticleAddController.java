@@ -6,6 +6,7 @@ import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @WebServlet("/admin/articleAdd")
@@ -40,6 +42,8 @@ public class ArticleAddController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
@@ -57,13 +61,17 @@ public class ArticleAddController extends HttpServlet {
         }
 
         String fileName="";
+        String newFileName = "";
         for (Part part : request.getParts()) {
-             fileName = extractFileName(part);
+            fileName = extractFileName(part);
             // refines the fileName in case it is an absolute path
             fileName = new File(fileName).getName();
-            // if the file is not already in the directory, we save it
-            if (!new File(fileSaveDir, fileName).exists()) {
-                part.write(savePath + File.separator + fileName);
+            String[] fileNameArray = fileName.split("\\.");
+            // if the file name can be split in 2 (with the dot), we modify it to contain a unique timestamp
+            // this way, an image is unique and cannot be overwritten
+            if(fileNameArray.length > 1) {
+                newFileName = fileNameArray[0] + "-" + timestamp.getTime() + "." + fileNameArray[1];
+                part.write(savePath + File.separator + newFileName);
             }
         }
 
@@ -91,7 +99,7 @@ public class ArticleAddController extends HttpServlet {
             Article article = new Article();
             article.setName(name);
             article.setDescription(description);
-            article.setImageURL("/shop"+SAVE_DIR+"/"+fileName);
+            article.setImageURL("/shop"+ SAVE_DIR + "/" + newFileName);
             if(!price.equals("")) article.setPrice(Float.parseFloat(price));
             if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
 

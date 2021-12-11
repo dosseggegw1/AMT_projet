@@ -26,7 +26,6 @@ public class CategoryController extends HttpServlet{
         request.setAttribute("categories", results);
         request.setAttribute("messageError", request.getParameter("messageError"));
 
-
         request.getRequestDispatcher("/WEB-INF/view/admin/categories.jsp").forward(request, response);
     }
 }

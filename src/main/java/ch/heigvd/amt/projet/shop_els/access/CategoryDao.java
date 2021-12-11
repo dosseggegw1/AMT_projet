@@ -66,8 +66,7 @@ public class CategoryDao implements Dao<Category> {
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 
     public List getAllNames() {
@@ -80,13 +79,13 @@ public class CategoryDao implements Dao<Category> {
         return stringList;
     }
 
-    public List getNameFromName(String name) {
+    public boolean checkIfNameExists(String name) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         List list = session.getNamedQuery("selectCategoryNameWithName").setParameter("cat", name).getResultList();
 
         session.close();
-        return list;
+        return list.isEmpty();
     }
 }

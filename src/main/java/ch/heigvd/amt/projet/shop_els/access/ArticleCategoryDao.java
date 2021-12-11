@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
+import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
@@ -62,8 +63,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 
     public boolean checkIfHasArticles(int idCategory) {
@@ -76,6 +76,17 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session.close();
         if(list.isEmpty()) return false;
         return true;
+    }
+
+    public List<Article> getArticlesById(int idCategory) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Category category = session.get(Category.class, idCategory);
+        List<Article> list = session.getNamedQuery("selectArticleByCategory").setParameter("cat", category).getResultList();
+
+        session.close();
+        return list;
     }
 
     public List<Object[]> getAllArticlesCategories() {

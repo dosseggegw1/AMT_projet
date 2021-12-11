@@ -44,6 +44,7 @@ public class ArticleAddController extends HttpServlet {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
+        // Get all inputs
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
@@ -85,12 +86,12 @@ public class ArticleAddController extends HttpServlet {
             request.setAttribute("error", 1);
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
-        } else if (articleDao.getNameDescriptionFromDescription(description).size() != 0) {
+        } else if (!articleDao.checkIfNameExists(name)) {
 
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);
             request.setAttribute("error", 2);
-            request.setAttribute("article", articleDao.getNameDescriptionFromDescription(description).get(0)[0]);
+            request.setAttribute("article", name);
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
         } else {
@@ -106,16 +107,15 @@ public class ArticleAddController extends HttpServlet {
             articleDao.save(article);
 
             // Search for all categories selected and create an associate object with article
-            //Set<Category> categoryList = new HashSet<>();
-            for(String idCategory : categories) {
-                Category category = categoryDao.get(Integer.parseInt(idCategory));
-                //categoryList.add(category);
-                Article_Category ac = new Article_Category();
-                ac.setCategory(category);
-                ac.setArticle(article);
-                articleCategoryDao.save(ac);
+            if(categories != null) {
+                for (String idCategory : categories) {
+                    Category category = categoryDao.get(Integer.parseInt(idCategory));
+                    Article_Category ac = new Article_Category();
+                    ac.setCategory(category);
+                    ac.setArticle(article);
+                    articleCategoryDao.save(ac);
+                }
             }
-            //article.setCategories(categoryList);
 
             response.sendRedirect("/shop/admin/articles");
         }

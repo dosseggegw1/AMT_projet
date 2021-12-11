@@ -80,6 +80,7 @@ h2 {
 
 img {
   border: none;
+
 }
 
 .aa-primary-btn {
@@ -1111,7 +1112,7 @@ img {
 .aa-product-catg li {
   display: block;
   float: left;
-  height: 380px;
+  height: 250px;
   text-align: center;
   margin: 0 0 20px 55px;
   width: 20.5%;
@@ -1137,7 +1138,7 @@ img {
 }
 .aa-product-catg li figure {
   position: relative;
-  height: 300px;
+  height: 150px;
 }
 .aa-product-catg li figure .aa-product-img {
   background-color: #f9f9fb;
@@ -1147,6 +1148,11 @@ img {
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+}
+
+.aa-product-catg li figure .aa-product-img img {
+  max-width: 150px;
+  max-height: 150px;
 }
 .aa-product-catg li figure .aa-add-card-btn {
   background: #000 none repeat scroll 0 0;
@@ -2351,10 +2357,11 @@ img {
 #cart-view .cart-view-area .cart-view-table .table tbody tr td .remove:hover {
   color: #555;
 }
+/*
 #cart-view .cart-view-area .cart-view-table .table tbody tr td img {
   width: 80px;
   height: 100px;
-}
+}*/
 #cart-view .cart-view-area .cart-view-table .table tbody tr td .aa-cart-quantity {
   padding: 5px;
   width: 50px;

@@ -46,9 +46,6 @@ public class ArticleAddController extends HttpServlet {
         String price = request.getParameter("price");
         String stock = request.getParameter("stock");
 
-
-        // TODO CHECK SI IMAGE EXISTE DEJA
-
         // gets absolute path of the web application
         String appPath = request.getServletContext().getRealPath("");
         // constructs path of the directory to save uploaded file
@@ -64,10 +61,11 @@ public class ArticleAddController extends HttpServlet {
              fileName = extractFileName(part);
             // refines the fileName in case it is an absolute path
             fileName = new File(fileName).getName();
-
-            part.write(savePath + File.separator + fileName);
+            // if the file is not already in the directory, we save it
+            if (!new File(fileSaveDir, fileName).exists()) {
+                part.write(savePath + File.separator + fileName);
+            }
         }
-
 
         // Validation of the user's inputs
         if(name == "" || description == "" || articleDao.getNameFromName(name).size() != 0 ||

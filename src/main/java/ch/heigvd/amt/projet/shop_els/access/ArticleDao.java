@@ -72,7 +72,18 @@ public class ArticleDao implements Dao<Article>{
 
         session.getTransaction().commit();
         session.close();
-        return list.isEmpty();
+        if(list.isEmpty()) return false;
+        return true;
+    }
+
+    public List getNameFromName(String name) {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
+
+        session.close();
+        return listName;
     }
 
     public boolean checkIfNameExists(String name) {

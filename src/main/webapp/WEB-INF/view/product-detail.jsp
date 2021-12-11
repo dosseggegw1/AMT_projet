@@ -109,7 +109,9 @@
                      </p>
                     </div>
                     <div class="aa-prod-view-bottom">
+                      <c:if test="${article[3] != 0 && article[5] != 0}">
                       <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
+                      </c:if>
                     </div>
                   </div>
                 </div>

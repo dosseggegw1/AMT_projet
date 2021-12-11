@@ -69,7 +69,7 @@
                         <c:forEach var="article" items="${articles}">
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                                 <div class="panel pn pnArticle text-center">
-                                    <img src="${article[4]}" alt="${article[1]}" style="max-width: 100px">
+                                    <img src="${article[4]}" alt="${article[1]}" style="max-width: 100px; max-height:100px;">
                                     <h3><c:out value="${article[1]}"/></h3>
                                     <p><c:out value="${article[2]}"/></p>
                                     <p>Qté : <c:out value="${article[5]}"/></p>

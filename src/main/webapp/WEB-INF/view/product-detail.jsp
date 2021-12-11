@@ -68,7 +68,6 @@
                           <c:choose>
                             <c:when test="${article[3] != 0 && article[5] != 0}">
                               <a data-lens-image="${article[4]}" class="simpleLens-lens-image"><img src="${article[4]}" class="simpleLens-big-image"></a>
-
                             </c:when>
                             <c:otherwise>
                               <img src="${article[4]}" class="simpleLens-big-image">

@@ -81,7 +81,7 @@
                       <li class="filterDiv ${article[7]}">
                       <figure>
 
-                        <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a> <!-- "${article[4]}" -->
+                        <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a>
                         <c:choose>
                           <c:when test="${article[3] != 0 && article[5] != 0}">
                             <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Ajout au panier</a>

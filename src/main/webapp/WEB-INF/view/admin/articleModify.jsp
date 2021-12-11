@@ -65,7 +65,7 @@
             <h3><i class="fa fa-angle-right"></i> Modifier la catégorie de l'article n°<c:out value="${article['idArticle']}"/></h3>
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                 <div class="panel pn pnArticleModify text-center">
-                    <img src="/shop/assets/img/woman-small-1.jpg" alt="${article['imageURL']}" width="100">
+                    <img src="${article['imageURL']}" alt="${article['imageURL']}" width="100">
                     <h3><c:out value="${article['name']}"/> </h3>
                     <p>Description : <c:out value="${article['description']}"/></p>
                     <p>Prix : <c:out value="${article['price']}"/> CHF</p>

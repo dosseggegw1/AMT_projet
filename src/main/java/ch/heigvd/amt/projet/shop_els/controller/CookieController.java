@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
+import ch.heigvd.amt.projet.shop_els.access.CartDao;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
@@ -90,11 +91,24 @@ public class CookieController extends HttpServlet {
     }
 
     private void pushCartInDB(HttpServletRequest request, String cartAsString){
-        UserDao user = new UserDao();
+        UserDao userDao = new UserDao();
+        CartDao cartDao = new CartDao();
 
         int idUser = (int) request.getSession().getAttribute("idUser");
-        Cart cart = user.get(idUser).getFk_cart();
-        int idCart = cart.getIdCart();
+        User user = userDao.get(idUser);
+        Cart cart = user.getFk_cart();
+        int idCart;
+
+        if(cart == null)
+        {
+            cart = new Cart();
+            cartDao.save(cart);
+            user.setFk_cart(cartDao.get(cart.getIdCart()));
+            userDao.update(user);
+        }
+
+        idCart = cart.getIdCart();
+
         ArrayList<ArrayList<String>> parsedCart = parseCookie(cartAsString);
 
         for (ArrayList<String> item : parsedCart) {

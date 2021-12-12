@@ -79,7 +79,7 @@ public class ArticleAddController extends HttpServlet {
         // Validation of the user's inputs
         if(name == "" || description == "" || articleDao.getNameFromName(name).size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
-                stock.contains("-") || fileName.equals(SAVE_DIR+"default.jpg")) {
+                stock.contains("-")) {
 
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);
@@ -95,6 +95,11 @@ public class ArticleAddController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
         } else {
+
+            // Verify an image was set
+            if(newFileName == ""){
+                newFileName = "default.jpg";
+            }
 
             // Add article to database
             Article article = new Article();

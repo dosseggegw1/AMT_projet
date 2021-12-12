@@ -1,5 +1,12 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
+import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.model.Cart;
+import ch.heigvd.amt.projet.shop_els.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -8,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @WebServlet("/cookie")
 public class CookieController extends HttpServlet {
@@ -67,12 +77,65 @@ public class CookieController extends HttpServlet {
             cartAsString += productCode + "&" + quantity + "&" + priceByUnit + "#";
         }
 
+        if(checkIfLoggedIn(request)){
+            pushCartInDB(request, cartAsString);
+        }
+
         javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
         cook.setPath("/shop");
         if(quantity <= 0){
             cook.setMaxAge(0);
         }
         response.addCookie(cook);
+    }
+
+    private void pushCartInDB(HttpServletRequest request, String cartAsString){
+        UserDao user = new UserDao();
+
+        int idUser = (int) request.getSession().getAttribute("idUser");
+        Cart cart = user.get(idUser).getFk_cart();
+        int idCart = cart.getIdCart();
+        ArrayList<ArrayList<String>> parsedCart = parseCookie(cartAsString);
+
+        for (ArrayList<String> item : parsedCart) {
+            Article article = new Article();
+            Article_Cart articleCart = new Article_Cart();
+            ArticleCartDao articleCartDao = new ArticleCartDao();
+
+            int idArticle = Integer.parseInt(item.get(0));
+            int quantity = Integer.parseInt(item.get(1));
+            int idArticleCart = findArticleCartID(idCart, idArticle);
+
+            articleCart.setCart(cart);
+            articleCart.setArticle(article);
+            articleCart.setQuantity(quantity);
+
+            if(idArticleCart < 0){
+                articleCartDao.save(articleCart);
+            }
+
+            articleCart.setArticle_cart_id(idArticleCart);
+
+            articleCartDao.update(articleCart);
+        }
+    }
+
+    private int findArticleCartID(int idCart, int idArticle){
+        ArticleCartDao articleCartDao = new ArticleCartDao();
+        List<Article_Cart> articlesCart =  articleCartDao.getAll();
+        for(Article_Cart articleCart : articlesCart){
+            if(articleCart.getCart().getIdCart() == idCart && articleCart.getArticle().getIdArticle() == idArticle){
+                return articleCart.getArticle_cart_id();
+            }
+        }
+        return -1;
+    }
+
+    private boolean checkIfLoggedIn(HttpServletRequest request){
+        if(request.getSession().getAttribute("idUser") == null){
+            return false;
+        }
+        return true;
     }
 
     public static ArrayList<ArrayList<String>> read_cookie(HttpServletRequest request)  {
@@ -82,16 +145,22 @@ public class CookieController extends HttpServlet {
             if(aCookie.getName().equals("cartItems")){
                 String value = aCookie.getValue();
 
-                String[] parts = value.split("#");
-                for(String s : parts){
-                    String[] params = s.split("&");
-                    ArrayList<String> item = new ArrayList<String>();
-                    for(String p : params){
-                        item.add(p);
-                    }
-                    cart.add(item);
-                }
+                cart = parseCookie(value);
             }
+        }
+        return cart;
+    }
+
+    private static ArrayList<ArrayList<String>> parseCookie(String value){
+        ArrayList<ArrayList<String>> cart = new ArrayList<ArrayList<String>>();
+        String[] parts = value.split("#");
+        for(String s : parts){
+            String[] params = s.split("&");
+            ArrayList<String> item = new ArrayList<String>();
+            for(String p : params){
+                item.add(p);
+            }
+            cart.add(item);
         }
         return cart;
     }

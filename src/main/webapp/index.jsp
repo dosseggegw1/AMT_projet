@@ -61,9 +61,14 @@
                             <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a> <!-- "${article[4]}" -->
                             <!-- If the price or the quantity are null (0), we cannot add the product to the cart. -->
 
-                            <c:if test="${article[3] != 0 && article[5] != 0}">
-                              <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            </c:if>
+                            <c:choose>
+                              <c:when test="${article[3] != 0 && article[5] != 0}">
+                                <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Ajout au panier</a>
+                              </c:when>
+                              <c:otherwise>
+                                <a class="btn-indisp">Indisponible</a>
+                              </c:otherwise>
+                            </c:choose>
                               <figcaption>
 
                                 <h4 class="aa-product-title"><a href="/shop/productDetail?id=${article[0]}"><c:out value="${article[1]}"/></a></h4>
@@ -76,10 +81,16 @@
                       <li class="filterDiv ${article[7]}">
                       <figure>
 
-                        <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a> <!-- "${article[4]}" -->
-                        <c:if test="${article[3] != 0 && article[5] != 0}">
-                          <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                        </c:if>
+                        <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a>
+                        <c:choose>
+                          <c:when test="${article[3] != 0 && article[5] != 0}">
+                            <a onclick="postData(${article[0]}, ${article[3]})" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Ajout au panier</a>
+                          </c:when>
+                          <c:otherwise>
+                            <a class="btn-indisp">Indisponible</a>
+                          </c:otherwise>
+                        </c:choose>
+
 
                         <figcaption>
                           <h4 class="aa-product-title"><a href="/shop/productDetail?id=${article[0]}"><c:out value="${article[1]}"/></a></h4>

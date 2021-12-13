@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <form action="/shop/admin/articleModify" method="POST" name="addForm" onsubmit="return validateform()">
+            <form action="/shop/admin/articleModify" method="POST" name="addForm">
 
                 <div class="form-check form-check-inline">
                     <label class="form-check-label ml-3" > Cocher les catégories souhaitées : </label><br>
@@ -124,18 +124,6 @@
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
-
-<script>
-    function validateform() {
-        var checkCategories = $("input[name='categories']:checked").length;
-
-        if (!checkCategories) {
-            alert("Au minimum une catégorie doit être choisie");
-            return false;
-        }
-        return true;
-    }
-</script>
 
 </body>
 </html>

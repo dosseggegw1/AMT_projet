@@ -50,12 +50,22 @@ public class ArticleModifyController extends HttpServlet{
         List<Integer> categoriesOldConf = articleCategoryDao.getCategoriesIdByArticleId(id);
         List<Integer> categoriesNew = new ArrayList<>();
         // Parse id string to integer
-        for(String category : categories) {
-            categoriesNew.add(Integer.parseInt(category));
+        if(categories != null) {
+            for (String category : categories) {
+                categoriesNew.add(Integer.parseInt(category));
+            }
         }
 
         // If there is no change, we do nothing
         if (categoriesOldConf.equals(categoriesNew)) {
+            response.sendRedirect("/shop/admin/articles");
+        }
+        else if (categoriesNew.isEmpty()) {
+            // if we uncheck every category
+            for(int idCategory : categoriesOldConf){
+                int idArticleCategory = articleCategoryDao.getArticleCategoryId(id, idCategory);
+                articleCategoryDao.delete(idArticleCategory);
+            }
             response.sendRedirect("/shop/admin/articles");
         }
         else {

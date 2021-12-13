@@ -994,9 +994,16 @@ PANELS CONFIGURATIONS
 	
 }
 
-.pnArticle {
-    height: 300px;
+.pnArticle, .pnArticleModify {
+    padding-top: 10px;
+    height: 350px;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.pnArticleModify p{
+    padding-left: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .pnArticle p{
@@ -1006,10 +1013,6 @@ PANELS CONFIGURATIONS
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.pnArticle img{
-    padding-top: 10px;
 }
 
 .pnCategory{
@@ -2330,4 +2333,42 @@ label {
     min-height: 850px;
 }
 
+.pnArticle, .pnArticleModify {
+    padding-top: 10px;
+    height: 350px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.pnArticleModify p{
+    padding-left: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.cardArticles{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: baseline;
+    align-content: center;
+}
+
+.card-article {
+    min-width: min-content;
+    height: 50px;
+    padding: 15px;
+    margin-left: 10px ;
+}
+
+.card-article p{
+    font-size: 14px;
+    margin:auto;
+}
+
+.categoryDeleteText{
+    font-size: 16px;
+}
 

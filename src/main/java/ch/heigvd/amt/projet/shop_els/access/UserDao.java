@@ -66,7 +66,6 @@ public class UserDao implements Dao<User>{
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 }

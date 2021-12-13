@@ -65,7 +65,6 @@ public class CartDao implements Dao<Cart> {
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return list.isEmpty();
     }
 }

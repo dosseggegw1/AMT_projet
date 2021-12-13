@@ -17,13 +17,33 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Account</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.AccountController</servlet-class>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.LoginController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Account</servlet-name>
-        <url-pattern>/account</url-pattern>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterController</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.RegisterController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegisterController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.LogoutController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -114,6 +134,16 @@
     <servlet>
         <servlet-name>ArticleAdd</servlet-name>
         <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.ArticleAddController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ArticleModify</servlet-name>
+        <url-pattern>/admin/articleModify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ArticleModify</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.ArticleModifyController</servlet-class>
     </servlet>
 
     <servlet-mapping>

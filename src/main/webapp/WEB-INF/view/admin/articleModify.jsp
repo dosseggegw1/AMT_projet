@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 
 <jsp:include page="../../includes/head_admin.jsp"/>
@@ -61,49 +62,38 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Ajout d'un article </h3>
-
-            <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm" onsubmit="return validateform()">
-                <div class="form-group">
-                    <label for="name">Nom d'article*</label>
-                    <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" placeholder="Chaussette" required>
+            <h3><i class="fa fa-angle-right"></i> Modifier la catégorie de l'article n°<c:out value="${article['idArticle']}"/></h3>
+            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                <div class="panel pn pnArticleModify text-center">
+                    <img src="${article['imageURL']}" alt="${article['imageURL']}" width="100">
+                    <h3><c:out value="${article['name']}"/> </h3>
+                    <p>Description : <c:out value="${article['description']}"/></p>
+                    <p>Prix : <c:out value="${article['price']}"/> CHF</p>
+                    <p>Stock : <c:out value="${article['stock']}"/> pièces</p>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="description">Description de l'article*</label>
-                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" required></textarea>
-                </div>
+            <form action="/shop/admin/articleModify" method="POST" name="addForm" onsubmit="return validateform()">
 
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label ml-3" > Catégorie(s)* : </label><br>
+                    <label class="form-check-label ml-3" > Cocher les catégories souhaitées : </label><br>
                     <c:forEach var="cat" items="${categories}">
-                        <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
-                        <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
+                        <c:choose>
+                            <c:when test="${fn:contains(categoriesArticle, cat[1])}">
+                               <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}"
+                                        checked="checked">
+                            </c:when>
+                            <c:otherwise>
+                                <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                            </c:otherwise>
+                        </c:choose>
+                       <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
                     </c:forEach>
                 </div>
+                <input type="hidden" name="id" value="${article['idArticle']}" />
                 <br>
-
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label for="price" >Prix de l'article (en CHF)</label>
-                        <input type="number" step="0.05" class="form-control" min="0" name="price" aria-describedby="priceHelp" id="price">
-                        <small id="priceHelp" class="form-text text-muted">Si rien n'est renseigné, mis à 0 par défaut</small>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <label for="stock">Nombre de pièces en stock</label>
-                        <input type="number" class="form-control" name="stock"  aria-describedby="stockHelp" id="stock" min="0">
-                        <small id="stockHelp" class="form-text text-muted">Si rien n'est renseigné, mis à 0 par défaut</small>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="imageURL">Image de l'article</label>
-                    <input type="file" class="form-control-file" name="imageURL" aria-describedby="imageHelp" id="imageURL">
-                    <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
-                </div>
                 <button type="submit" class="btn btn-primary">Valider</button>
             </form>
-            <small id="help" class="form-text text-muted">* doivent impérativement être renseignés.</small>
 
         </section>
     </section><!-- /MAIN CONTENT -->
@@ -137,46 +127,14 @@
 
 <script>
     function validateform() {
-        let name = document.addForm.name.value;
-        let description = document.addForm.description.value;
-        let price = document.addForm.price.value;
-        let stock = document.addForm.stock.value;
         var checkCategories = $("input[name='categories']:checked").length;
 
-        if (name == null || name === "" || name.length > 50) {
-            alert("Le nom doit être compris entre 1 et 50 caractères");
-            return false;
-        }else if (description == null || description === "" || description.length > 255){
-            alert("La description doit être compris entre 1 et 255 caractères");
-            return false;
-        }else if (!checkCategories) {
+        if (!checkCategories) {
             alert("Au minimum une catégorie doit être choisie");
-            return false;
-        }else if (price < 0){
-            alert("Le prix ne peut être inférieur à 0");
-            return false;
-        }else if (stock < 0){
-            alert("Le stock ne peut être inférieur à 0");
             return false;
         }
         return true;
     }
-</script>
-
-<script>
-    function errorDuplicateData() {
-        let error = "${error}";
-        const article ="${article}"
-        if(error === "1") {
-            alert("Une erreur est survenue dans le formulaire.\nVeuillez resaisir les informations.")
-            return
-        }
-        if (error === "2") {
-            alert("Un autre article avec le même nom existe déjà - " + article)
-            return
-        }
-    }
-    document.onload(errorDuplicateData())
 </script>
 
 </body>

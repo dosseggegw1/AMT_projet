@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../includes/head.jsp"/>
 <body>
   <jsp:include page="../includes/header.jsp"/>
@@ -36,7 +37,19 @@
                   <div class="aa-product-view-slider">                                
                     <div id="demo-1" class="simpleLens-gallery-container">
                       <div class="simpleLens-container">
-                        <div class="simpleLens-big-image-container"><a data-lens-image="assets/img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="assets/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                        <div class="simpleLens-big-image-container">
+                          <c:choose>
+                            <c:when test="${article[3] != 0 && article[5] != 0}">
+                              <a data-lens-image="${article[4]}" class="simpleLens-lens-image"><img src="${article[4]}" class="simpleLens-big-image"></a>
+                            </c:when>
+                            <c:otherwise>
+                              <img src="${article[4]}" class="simpleLens-big-image">
+                              <a class="btn-indisp">Indisponible</a>
+                            </c:otherwise>
+                          </c:choose>
+
+
+                        </div>
                       </div>
                       </div>
                     </div>
@@ -68,6 +81,16 @@
                         </div>
                         <p name="category" class="aa-prod-category">Catégorie: ${article[7]}</p>
                       </form>
+                     <p class="aa-prod-category"> Catégorie(s):
+                      <c:forEach var="categorie" items="${categories}">
+                       ${categorie}
+                      </c:forEach>
+                     </p>
+                    </div>
+                    <div class="aa-prod-view-bottom">
+                      <c:if test="${article[3] != 0 && article[5] != 0}">
+                      <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
+                      </c:if>
                     </div>
                   </div>
                 </div>

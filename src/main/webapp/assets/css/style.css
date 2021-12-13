@@ -1154,6 +1154,7 @@ img {
   max-width: 150px;
   height: 150px;
 }
+
 .aa-product-catg li figure form input .aa-add-card-btn {
   background: #000 none repeat scroll 0 0;
   bottom: 0;
@@ -4211,6 +4212,7 @@ img {
     color: white;
   }
 }
+
 .btn-indisp{
   padding : 12px 10px;
   font-size: 16px;
@@ -4238,3 +4240,4 @@ img {
   right: 0;
   font-family: "Lato", sans-serif;
 }
+

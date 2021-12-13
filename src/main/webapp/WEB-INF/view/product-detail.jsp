@@ -47,11 +47,9 @@
                               <a class="btn-indisp">Indisponible</a>
                             </c:otherwise>
                           </c:choose>
-
-
                         </div>
                       </div>
-                      </div>
+                     </div>
                     </div>
                   </div>
                 <!-- Modal view content -->
@@ -77,20 +75,16 @@
                           <option value="6">6</option>
                         </select>
                         <div class="aa-prod-view-bottom">
-                          <input type="submit" id="addToCart" class="aa-add-to-cart-btn" value="Ajouter au panier">
+                          <c:if test="${article[3] != 0 && article[5] != 0}">
+                            <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
+                          </c:if>
                         </div>
-                        <p name="category" class="aa-prod-category">Catégorie: ${article[7]}</p>
                       </form>
                      <p class="aa-prod-category"> Catégorie(s):
                       <c:forEach var="categorie" items="${categories}">
                        ${categorie}
                       </c:forEach>
                      </p>
-                    </div>
-                    <div class="aa-prod-view-bottom">
-                      <c:if test="${article[3] != 0 && article[5] != 0}">
-                      <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
-                      </c:if>
                     </div>
                   </div>
                 </div>

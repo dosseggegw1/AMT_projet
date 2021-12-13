@@ -138,12 +138,13 @@ public class CookieController extends HttpServlet {
         return -1;
     }
 
-    private boolean checkIfLoggedIn(HttpServletRequest request){
-        if(request.getSession().getAttribute("idUser") == null){
+    private boolean checkIfLoggedIn(HttpServletRequest request) {
+        if (request.getSession().getAttribute("idUser") == null) {
             return false;
         }
         return true;
-
+    }
+    
     private String updateCookie(ArrayList<String> item) {
         boolean firstParam = true;
         String content = "";

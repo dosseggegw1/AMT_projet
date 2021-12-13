@@ -5,35 +5,8 @@
 <body>
   <jsp:include page="../includes/header.jsp"/>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('#addToCart').click(function(){
-        postData(); //Your function
-      });
-    });
 
-    function postData(){
-      var id = "${id}";
-      var quantity = $('#quantity option:selected').val();
-      var price = "${price}";
-      $.ajax({
-        url: 'http://localhost:8080/shop/cookie',
-        timeout:30000,
-        type: "POST",
-        data: {
-            id,
-            quantity,
-            price
-        },
-        success: function (data) {
-          //what to do in success
-        },
-        error: function(xhr, ajaxOptions, thrownError){
-          //what to do in error
-        },
-      });
-    }
-  </script>
+  <iframe name="hiddenFrame" class="hide"></iframe>
 
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
@@ -74,25 +47,25 @@
                               <a class="btn-indisp">Indisponible</a>
                             </c:otherwise>
                           </c:choose>
-
-
                         </div>
                       </div>
-                      </div>
+                     </div>
                     </div>
                   </div>
                 <!-- Modal view content -->
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="aa-product-view-content">
-                    <h3>${article[1]}</h3>
-                    <div class="aa-price-block">
-                      <span class="aa-product-view-price">CHF ${article[3]}</span>
-                      <p class="aa-product-avilability">Disponibilité: <span> ${article[5]} pièces en stock</span>
-                      </p>
-                    </div>
-                    <p>${article[2]}</p>
                     <div class="aa-prod-quantity">
-                      <form action="">
+                      <form action="/shop/cookie" method="post" target="hiddenFrame">
+                        <input name="id" value="${article[0]}" readonly hidden>
+                        <h3>${article[1]}</h3>
+                        <div class="aa-price-block">
+                          <span>CHF ${article[3]}</span>
+                          <input class="aa-product-view-price" name="price" value="${article[3]}" readonly hidden>
+                          <p class="aa-product-avilability">Disponibilité: <span> ${article[5]} pièces en stock</span>
+                          </p>
+                        </div>
+                        <p>${article[2]}</p>
                         <select id="quantity" name="quantity">
                           <option selected="1" value="1">1</option>
                           <option value="2">2</option>
@@ -101,17 +74,17 @@
                           <option value="5">5</option>
                           <option value="6">6</option>
                         </select>
+                        <div class="aa-prod-view-bottom">
+                          <c:if test="${article[3] != 0 && article[5] != 0}">
+                            <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
+                          </c:if>
+                        </div>
                       </form>
                      <p class="aa-prod-category"> Catégorie(s):
                       <c:forEach var="categorie" items="${categories}">
                        ${categorie}
                       </c:forEach>
                      </p>
-                    </div>
-                    <div class="aa-prod-view-bottom">
-                      <c:if test="${article[3] != 0 && article[5] != 0}">
-                      <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
-                      </c:if>
                     </div>
                   </div>
                 </div>

@@ -18,7 +18,7 @@
       }
       let cookie = "";
       c.forEach((item) => {
-        if(item[1] > 0){
+        if(item[1] > 0 && item[2] > 0){
           cookie += item[0] + "&" + item[1] + "&" + item[2] + "#";
         }
       });

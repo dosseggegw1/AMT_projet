@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,10 +30,10 @@ public class CookieController extends HttpServlet {
     }
 
     private void create_cookie(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getCookies() == null){
-            throw new IOException();
-        }
-        javax.servlet.http.Cookie[] cookies = request.getCookies();
+
+        checkIfCookiesExist(request);
+
+        Cookie[] cookies = request.getCookies();
         String productCode = request.getParameter("id");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         float priceByUnit = Float.parseFloat(request.getParameter("price"));
@@ -57,16 +58,7 @@ public class CookieController extends HttpServlet {
                         item.set(2, String.valueOf(newPrice));
                     }
                     if (!quantityZero) {
-                        for (String param : item) {
-                            if (firstParam) {
-                                firstParam = false;
-                                cartAsString += param;
-                            } else {
-                                cartAsString += "&" + param;
-                            }
-                        }
-                        firstParam = true;
-                        cartAsString += "#";
+                        cartAsString += updateCookie(item);
                     }
                     quantityZero = false;
                 }
@@ -89,6 +81,7 @@ public class CookieController extends HttpServlet {
         }
         response.addCookie(cook);
     }
+
 
     private void pushCartInDB(HttpServletRequest request, String cartAsString){
         UserDao userDao = new UserDao();
@@ -150,6 +143,28 @@ public class CookieController extends HttpServlet {
             return false;
         }
         return true;
+
+    private String updateCookie(ArrayList<String> item) {
+        boolean firstParam = true;
+        String content = "";
+        for (String param : item) {
+            if (firstParam) {
+                firstParam = false;
+                content += param;
+            } else {
+                content += "&" + param;
+            }
+        }
+        content += "#";
+
+        return content;
+    }
+
+    private void checkIfCookiesExist(HttpServletRequest request) throws IOException {
+        if(request.getCookies() == null){
+            throw new IOException();
+        }
+
     }
 
     public static ArrayList<ArrayList<String>> read_cookie(HttpServletRequest request)  {

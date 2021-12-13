@@ -69,12 +69,19 @@
                         <c:forEach var="article" items="${articles}">
                             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                                 <div class="panel pn pnArticle text-center">
-                                    <!-- <img src="${article[3]}" alt="${article[0]}" class="img-circle" width="60"> -->
-                                    <img src="/shop/assets/img/woman-small-1.jpg" alt="${article[1]}" width="100">
+                                    <img src="${article[4]}" alt="${article[1]}" style="max-width: 100px; max-height:100px;">
                                     <h3><c:out value="${article[1]}"/></h3>
                                     <p><c:out value="${article[2]}"/></p>
                                     <p>Qté : <c:out value="${article[5]}"/></p>
                                     <p>Prix : <c:out value="${article[3]}"/> CHF</p>
+                                    <p>Catégories :
+                                    <c:forEach var="category" items="${categories}">
+                                        <c:if test="${category[0] == article[0]}">
+                                            <c:out value="${category[7]} "/>
+                                        </c:if>
+                                    </c:forEach>
+                                    </p>
+                                    <a href="/shop/admin/articleModify?id=${article[0]}" class="btn btn-info"><i class="fa fa-pencil-square-o  fa-1x" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </c:forEach>

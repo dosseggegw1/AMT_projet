@@ -52,7 +52,7 @@
                                 </form>
                               </c:when>
                               <c:otherwise>
-                                <a class="btn-indisp">Indisponible</a>
+                                <span class="btn-indisp">Indisponible</span>
                               </c:otherwise>
                             </c:choose>
                             <figcaption>
@@ -78,7 +78,7 @@
                               </form>
                             </c:when>
                             <c:otherwise>
-                              <a class="btn-indisp">Indisponible</a>
+                              <span class="btn-indisp">Indisponible</span>
                             </c:otherwise>
                           </c:choose>
                         <figcaption>

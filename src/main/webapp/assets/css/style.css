@@ -4220,7 +4220,7 @@ img {
   text-transform: uppercase;
   background: #000 none repeat scroll 0 0;
   bottom: 0;
-  color: #ff6666;
+  color: #ff6666 !important;
   left: 0;
   position: absolute;
   right: 0;

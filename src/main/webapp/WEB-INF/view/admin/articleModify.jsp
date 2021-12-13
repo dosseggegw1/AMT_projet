@@ -93,6 +93,7 @@
                 <input type="hidden" name="id" value="${article['idArticle']}" />
                 <br>
                 <button type="submit" class="btn btn-primary">Valider</button>
+                <a href="/shop/admin/articles" class="btn btn-danger">Annuler</a>
             </form>
 
         </section>

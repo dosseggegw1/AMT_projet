@@ -102,6 +102,7 @@
                     <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
                 </div>
                 <button type="submit" class="btn btn-primary">Valider</button>
+                <a href="/shop/admin/articles" class="btn btn-danger">Annuler</a>
             </form>
             <small id="help" class="form-text text-muted">* doivent impérativement être renseignés.</small>
 

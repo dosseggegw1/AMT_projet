@@ -84,7 +84,7 @@ public class RegisterController extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
         else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY){
-            request.setAttribute("errorMessage", "Il faut 8 caractères dont une lettre, ube majuscule, un chiffre et un caractère spécial.");
+            request.setAttribute("errorMessage", "Il faut 8 caractères dont une lettre, une majuscule, un chiffre et un caractère spécial.");
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
         else {

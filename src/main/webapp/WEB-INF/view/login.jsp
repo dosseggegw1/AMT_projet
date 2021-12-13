@@ -33,7 +33,9 @@
                 <div class="aa-myaccount-login">
                 <h4>Login</h4>
                 <c:if test="${not empty errorMessage}">
-                    <c:out value="${errorMessage}"/>
+                    <span style="color: red; ">
+                        <c:out value="${errorMessage}"/>
+                    </span>
                 </c:if>
                  <form action="" method="post" class="aa-login-form">
                   <label>Username<span>*</span>

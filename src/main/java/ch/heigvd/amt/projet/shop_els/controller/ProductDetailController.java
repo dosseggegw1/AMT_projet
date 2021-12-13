@@ -1,9 +1,8 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
-import javax.persistence.Query;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,7 @@ import java.util.List;
 @WebServlet("/productDetail")
 public class ProductDetailController extends HttpServlet{
     private final ArticleDao articleDao = new ArticleDao();
+    private final ArticleCategoryDao articleCategoryDao = new ArticleCategoryDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,11 +23,13 @@ public class ProductDetailController extends HttpServlet{
 
         // We get all the articles & the categories they are in
         List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(articleID);
+        List<String> resultCategoriesForArticle = articleCategoryDao.getCategoriesNameByArticleId(articleID);
 
 
-	request.setAttribute("id", resultArticle.get(0)[0]);
+	    request.setAttribute("id", resultArticle.get(0)[0]);
         request.setAttribute("price", resultArticle.get(0)[3]);
         request.setAttribute("article", resultArticle.get(0));
+        request.setAttribute("categories", resultCategoriesForArticle);
         request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
 
     }

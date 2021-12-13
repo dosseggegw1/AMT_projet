@@ -18,7 +18,7 @@
       }
       let cookie = "";
       c.forEach((item) => {
-        if(item[1] > 0){
+        if(item[1] > 0 && item[2] > 0){
           cookie += item[0] + "&" + item[1] + "&" + item[2] + "#";
         }
       });
@@ -58,7 +58,7 @@
                         for (ArrayList<String> item : cart) {
                       %>
                       <tr>
-                        <td><a href="#"><img src="img/man/<%=item.get(5)%>" alt="img"></a></td>
+                        <td><a href="#"><img src="<%=item.get(5)%>" alt="img" style="max-width: 100px; max-height: 100px;"></a></td>
                         <td><a class="aa-cart-title" href="#">"<%=item.get(3)%>"</a></td>
                         <td>"<%=item.get(4)%>"</td>
                         <td><input id="quantity<%=item.get(0)%>" class="aa-cart-quantity" type="number" value="<%=item.get(1)%>"></td>
@@ -98,7 +98,7 @@
                    </tr>
                  </tbody>
                </table>
-               <a href="#" class="aa-cart-view-btn">Passer au payement</a>
+               <a href="#" class="aa-cart-view-btn">Passer au paiement</a>
              </div>
            </div>
          </div>

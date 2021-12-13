@@ -67,6 +67,7 @@
           <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" required>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
+        <a href="/shop/admin/categories" class="btn btn-danger">Annuler</a>
       </form>
 
         <h3><i class="fa fa-angle-right"></i> Catégories existantes</h3>
@@ -112,7 +113,7 @@
       return false;
   }else if (cate.has(name)){
       //Vérifier si le nom est présent dans la liste des catégories
-        alert("La catégorie " + name + " existe deja");
+        alert("La catégorie " + name + " existe déjà");
         return false;
       }
   return true;

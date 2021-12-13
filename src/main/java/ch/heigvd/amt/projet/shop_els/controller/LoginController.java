@@ -21,10 +21,10 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginController extends HttpServlet{
     //url application server
-    //private final String url = "http://10.0.1.92/auth/login";
+    private final String url = "http://10.0.1.92:8080/auth/login";
 
     //url with ssh tunnel
-    private final String url = "http://localhost:3000/auth/login";
+    //private final String url = "http://localhost:3000/auth/login";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -24,10 +24,10 @@ public class RegisterController extends HttpServlet{
     private final UserDao userDao = new UserDao();
 
     //url application server
-    //private final String url = "http://10.0.1.92:8080/accounts/register";
+    private final String url = "http://10.0.1.92:8080/accounts/register";
 
     //url with ssh tunnel
-    private final String url = "http://localhost:3000/accounts/register";
+    //private final String url = "http://localhost:3000/accounts/register";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

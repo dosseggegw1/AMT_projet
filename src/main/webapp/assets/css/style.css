@@ -80,6 +80,7 @@ h2 {
 
 img {
   border: none;
+
 }
 
 .aa-primary-btn {
@@ -156,7 +157,7 @@ img {
   margin-right: 5px;
 }
 
-.aa-filter-btn {  
+.aa-filter-btn {
   color: #fff;
   font-size: 15px;
   height: 30px;
@@ -381,7 +382,7 @@ img {
   font-family: "Raleway", sans-serif;
   font-size: 28px;
 }
-#aa-header .aa-header-bottom .aa-header-bottom-area .aa-logo a:hover {  
+#aa-header .aa-header-bottom .aa-header-bottom-area .aa-logo a:hover {
   color: #333;
 }
 #aa-header .aa-header-bottom .aa-header-bottom-area .aa-logo a > span {
@@ -655,7 +656,7 @@ img {
   padding: 8px 15px;
 }
 #menu .menu-area .navbar-default .navbar-nav .dropdown-menu li a:hover, #menu .menu-area .navbar-default .navbar-nav .dropdown-menu li a:focus {
-  color: #fff; 
+  color: #fff;
 }
 #menu .menu-area .navbar-default .navbar-nav .dropdown-menu .dropdown-header {
   color: #555;
@@ -822,7 +823,7 @@ img {
   text-align: center;
 }
 #aa-slider .aa-slider-area .seq-title span {
-  background-color: #fff;  
+  background-color: #fff;
   display: inline-block;
   padding: 6px 15px;
   text-transform: uppercase;
@@ -858,7 +859,7 @@ img {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-#aa-slider .aa-slider-area .seq .seq-next:hover, #aa-slider .aa-slider-area .seq .seq-next:focus {  
+#aa-slider .aa-slider-area .seq .seq-next:hover, #aa-slider .aa-slider-area .seq .seq-next:focus {
   border: 1px solid #f9f9f9;
   color: #fff;
 }
@@ -981,7 +982,7 @@ img {
 }
 #aa-promo .aa-promo-area .aa-promo-banner .aa-prom-content span {
   background-color: #FFF;
-  padding: 5px 10px;  
+  padding: 5px 10px;
 }
 #aa-promo .aa-promo-area .aa-promo-banner .aa-prom-content h4 {
   color: #fff;
@@ -1111,7 +1112,7 @@ img {
 .aa-product-catg li {
   display: block;
   float: left;
-  height: 380px;
+  height: 250px;
   text-align: center;
   margin: 0 0 20px 55px;
   width: 20.5%;
@@ -1137,7 +1138,7 @@ img {
 }
 .aa-product-catg li figure {
   position: relative;
-  height: 300px;
+  height: 150px;
 }
 .aa-product-catg li figure .aa-product-img {
   background-color: #f9f9fb;
@@ -1148,7 +1149,12 @@ img {
   -o-transition: all 0.5s;
   transition: all 0.5s;
 }
-.aa-product-catg li figure .aa-add-card-btn {
+
+.aa-product-catg li figure .aa-product-img img {
+  max-width: 150px;
+  height: 150px;
+}
+.aa-product-catg li figure form input .aa-add-card-btn {
   background: #000 none repeat scroll 0 0;
   bottom: 0;
   color: #fff;
@@ -2351,10 +2357,11 @@ img {
 #cart-view .cart-view-area .cart-view-table .table tbody tr td .remove:hover {
   color: #555;
 }
+/*
 #cart-view .cart-view-area .cart-view-table .table tbody tr td img {
   width: 80px;
   height: 100px;
-}
+}*/
 #cart-view .cart-view-area .cart-view-table .table tbody tr td .aa-cart-quantity {
   padding: 5px;
   width: 50px;
@@ -2445,7 +2452,7 @@ img {
   padding: 20px 15px;
 }
 #checkout .checkout-area .checkout-left .panel-group .panel-default .panel-heading .panel-title a {
-  display: block; 
+  display: block;
 }
 #checkout .checkout-area .checkout-left .panel-group .aa-checkout-coupon .aa-coupon-code {
   border: 1px solid #e5e5e5;
@@ -3277,7 +3284,7 @@ img {
   float: left;
   width: 100% !important;
 }
-#aa-contact .aa-contact-area .aa-contact-address .aa-contact-address-left .comments-form button { 
+#aa-contact .aa-contact-area .aa-contact-address .aa-contact-address-left .comments-form button {
   width: 100px;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
@@ -4185,7 +4192,7 @@ img {
     padding: 6px;
     width: 90px;
   }
-  #aa-header .aa-header-top .aa-header-top-right .aa-head-top-nav-right li a {   
+  #aa-header .aa-header-top .aa-header-top-right .aa-head-top-nav-right li a {
     padding: 5px 2px;
   }
 
@@ -4204,4 +4211,30 @@ img {
     color: white;
   }
 }
+.btn-indisp{
+  padding : 12px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #000 none repeat scroll 0 0;
+  bottom: 0;
+  color: #ff6666;
+  left: 0;
+  position: absolute;
+  right: 0;
+  font-family: "Lato", sans-serif;
+}
 
+.addtocart {
+  padding : 12px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #000 none repeat scroll 0 0;
+  bottom: 0;
+  color: #ff6666;
+  left: 0;
+  position: absolute;
+  right: 0;
+  font-family: "Lato", sans-serif;
+}

@@ -67,6 +67,7 @@
           <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" required>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
+        <a href="/shop/admin/categories" class="btn btn-danger">Annuler</a>
       </form>
 
         <h3><i class="fa fa-angle-right"></i> Catégories existantes</h3>

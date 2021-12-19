@@ -24,7 +24,7 @@ public class CategoryAddController extends HttpServlet {
 
         List results = categoryDao.getAllNames();
         Gson g = new Gson();
-        request.setAttribute("error", false);
+        request.setAttribute("error", "");
         request.setAttribute("categories",g.toJson(results));
 
         request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
@@ -34,11 +34,13 @@ public class CategoryAddController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String category = request.getParameter("name");
+        List results = categoryDao.getAllNames();
+        Gson g = new Gson();
 
         // Verify if category already exist
         if(!categoryDao.checkIfNameExists(category) || (category.length() > 50)) {
-            request.setAttribute("categories", categoryDao.getAll());
-            request.setAttribute("error", true);
+            request.setAttribute("categories",g.toJson(results));
+            request.setAttribute("error", "AFFICHE UNE ERREUR LOLILOL");
             request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
         } else {
             Category newCategory = new Category();

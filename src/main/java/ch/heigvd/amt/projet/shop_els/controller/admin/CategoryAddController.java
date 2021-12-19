@@ -40,7 +40,8 @@ public class CategoryAddController extends HttpServlet {
         // Verify if category already exist
         if(!categoryDao.checkIfNameExists(category) || (category.length() > 50)) {
             request.setAttribute("categories",g.toJson(results));
-            request.setAttribute("error", "AFFICHE UNE ERREUR LOLILOL");
+            //TODO mettre la bonne erreur
+            request.setAttribute("error", "Afficher l'erreur e du try");
             request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
         } else {
             Category newCategory = new Category();

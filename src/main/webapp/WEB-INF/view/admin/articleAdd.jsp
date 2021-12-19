@@ -63,6 +63,13 @@
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Ajout d'un article </h3>
 
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert">
+                    <c:out value="${error}"/>
+                </div>
+            </c:if>
+            <!--<span id="errorMessage"></span> -->
+
             <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm">
                 <div class="form-group">
                     <label for="name">Nom d'article*</label>
@@ -137,7 +144,7 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    function errorDuplicateData() {
+    /*function errorDuplicateData() {
         let error = "${error}";
         const article ="${article}"
         if(error === "1") {
@@ -149,7 +156,7 @@
             return
         }
     }
-    document.onload(errorDuplicateData())
+    document.onload(errorDuplicateData())*/
 </script>
 
 </body>

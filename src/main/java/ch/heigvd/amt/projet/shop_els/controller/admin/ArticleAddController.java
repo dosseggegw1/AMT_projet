@@ -31,7 +31,7 @@ public class ArticleAddController extends HttpServlet {
         response.setContentType("text/html");
 
         List<Category> results = categoryDao.getAll();
-
+        request.setAttribute("error", "");
         request.setAttribute("categories", results);
         request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
     }
@@ -77,27 +77,28 @@ public class ArticleAddController extends HttpServlet {
         }
 
         // Validation of the user's inputs
-        if(name == "" || description == "" || articleDao.getNameFromName(name).size() != 0 ||
+        if(name.equals("")  || description.equals("") || articleDao.getNameFromName(name).size() != 0 ||
                 name.length() > 50 || description.length() > 255 || price.contains("-") ||
                 stock.contains("-")) {
 
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);
-            request.setAttribute("error", 1);
+            //TODO mettre la bonne erreur
+            request.setAttribute("error", "Afficher l'erreur e du try");
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
         } else if (!articleDao.checkIfNameExists(name)) {
 
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);
-            request.setAttribute("error", 2);
-            request.setAttribute("article", name);
+            //TODO On arrive jamais ici je comprends pas ????
+            request.setAttribute("error", "Un autre article avec le même nom existe déjà <"+name+">");
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
         } else {
 
             // Verify an image was set
-            if(newFileName == ""){
+            if(newFileName.equals("")){
                 newFileName = "default.jpg";
             }
 

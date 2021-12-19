@@ -35,6 +35,7 @@ public class ArticleModifyController extends HttpServlet{
 
         request.setAttribute("article", article);
         request.setAttribute("categories", categories);
+        request.setAttribute("error", "");
         request.setAttribute("categoriesArticle", categoriesArticle);
 
         request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
@@ -46,6 +47,11 @@ public class ArticleModifyController extends HttpServlet{
 
         String[] categories = request.getParameterValues("categories");
         int id = Integer.parseInt(request.getParameter("id"));
+
+
+        //TODO afficher erreur si problème de modification avec la DB
+        //request.setAttribute("error", "");
+
 
         List<Integer> categoriesOldConf = articleCategoryDao.getCategoriesIdByArticleId(id);
         List<Integer> categoriesNew = new ArrayList<>();

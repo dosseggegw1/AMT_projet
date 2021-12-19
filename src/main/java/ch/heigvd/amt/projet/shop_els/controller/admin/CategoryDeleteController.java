@@ -28,6 +28,7 @@ public class CategoryDeleteController extends HttpServlet {
         List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
         request.setAttribute("articles", articles);
         request.setAttribute("category", category);
+        request.setAttribute("error", "");
 
         request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
     }
@@ -41,7 +42,8 @@ public class CategoryDeleteController extends HttpServlet {
 
         // Check if the deletion was successful, if not, we show an alert
         if(!categoryDao.delete(idCategory)) {
-            request.setAttribute("error", true);
+            //TODO
+            request.setAttribute("error", "Afficher l'erreur e");
         }
 
         List<Category> results = categoryDao.getAll();

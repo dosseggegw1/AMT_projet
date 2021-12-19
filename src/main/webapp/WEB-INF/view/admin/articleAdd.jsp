@@ -63,15 +63,15 @@
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i> Ajout d'un article </h3>
 
-            <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm" onsubmit="return validateform()">
+            <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm">
                 <div class="form-group">
                     <label for="name">Nom d'article*</label>
-                    <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" placeholder="Chaussette" required>
+                    <input type="text" class="form-control" name="name" id="name" maxlength="50" aria-describedby="nameHelp" placeholder="Chaussette" required>
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description de l'article*</label>
-                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" required></textarea>
+                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" maxlength="255" required></textarea>
                 </div>
 
                 <div class="form-check form-check-inline">
@@ -135,30 +135,6 @@
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
-
-<script>
-    function validateform() {
-        let name = document.addForm.name.value;
-        let description = document.addForm.description.value;
-        let price = document.addForm.price.value;
-        let stock = document.addForm.stock.value;
-
-        if (name == null || name === "" || name.length > 50) {
-            alert("Le nom doit être compris entre 1 et 50 caractères");
-            return false;
-        }else if (description == null || description === "" || description.length > 255){
-            alert("La description doit être compris entre 1 et 255 caractères");
-            return false;
-        }else if (price < 0){
-            alert("Le prix ne peut être inférieur à 0");
-            return false;
-        }else if (stock < 0){
-            alert("Le stock ne peut être inférieur à 0");
-            return false;
-        }
-        return true;
-    }
-</script>
 
 <script>
     function errorDuplicateData() {

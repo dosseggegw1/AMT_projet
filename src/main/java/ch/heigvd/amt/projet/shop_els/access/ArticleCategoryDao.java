@@ -53,7 +53,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -63,7 +63,10 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
 
         session.getTransaction().commit();
         session.close();
-        return list.isEmpty();
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression");
+        }
     }
 
     public boolean checkIfHasArticles(int idCategory) {

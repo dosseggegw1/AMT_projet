@@ -52,7 +52,7 @@ public class ArticleCartDao implements Dao<Article_Cart> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -62,6 +62,9 @@ public class ArticleCartDao implements Dao<Article_Cart> {
 
         session.getTransaction().commit();
         session.close();
-        return list.isEmpty();
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression");
+        }
     }
 }

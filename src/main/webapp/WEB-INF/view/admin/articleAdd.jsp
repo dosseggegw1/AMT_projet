@@ -78,7 +78,7 @@
 
                 <div class="form-group">
                     <label for="description">Description de l'article*</label>
-                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" maxlength="255" required></textarea>
+                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" maxlength="500" required></textarea>
                 </div>
 
                 <div class="form-check form-check-inline">

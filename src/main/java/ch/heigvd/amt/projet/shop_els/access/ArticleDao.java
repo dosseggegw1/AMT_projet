@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
 import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.ModelException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -23,7 +24,7 @@ public class ArticleDao implements Dao<Article>{
     }
 
     @Override
-    public void update(Article article) {
+    public void update(Article article) throws ModelException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -62,7 +63,7 @@ public class ArticleDao implements Dao<Article>{
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -72,9 +73,12 @@ public class ArticleDao implements Dao<Article>{
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression de l'article");
+        }
     }
+
 
     public List getAllNames() {
         session = HibUtil.getSessionFactory().openSession();
@@ -84,24 +88,16 @@ public class ArticleDao implements Dao<Article>{
         return stringList;
     }
 
-    public List getNameFromName(String name) {
+    public void checkIfNameExists(String name) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
+        List list = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
 
         session.close();
-        return listName;
-    }
-
-    public boolean checkIfNameExists(String name) {
-        session = HibUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
-        List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
-
-        session.close();
-        return listName.isEmpty();
+        if(!list.isEmpty()) {
+            throw new DaoException("Le nom d'article existe déjà, " + name);
+        }
     }
 
     public List<Object[]> getArticleAndCategoryById(int id) {

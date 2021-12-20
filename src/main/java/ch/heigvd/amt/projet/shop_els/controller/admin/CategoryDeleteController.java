@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 
@@ -40,10 +41,11 @@ public class CategoryDeleteController extends HttpServlet {
 
         int idCategory =  Integer.parseInt(request.getParameter("idCategory"));
 
-        // Check if the deletion was successful, if not, we show an alert
-        if(!categoryDao.delete(idCategory)) {
-            //TODO
-            request.setAttribute("error", "Afficher l'erreur e");
+        // Check if the deletion was successful, if not, we show an error
+        try {
+            categoryDao.delete(idCategory);
+        } catch (DaoException e) {
+            request.setAttribute("error", e.toString());
         }
 
         List<Category> results = categoryDao.getAll();

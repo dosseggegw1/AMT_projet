@@ -9,6 +9,8 @@ import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import static ch.heigvd.amt.projet.shop_els.util.Constants.MAXIMUM_NAME_LENGTH;
+
 @NamedQueries({
         @NamedQuery(name= "selectAllCategories", query = "SELECT idCategory, name FROM Category "),
         @NamedQuery(name="selectCategoryName", query = "SELECT name FROM Category "),
@@ -38,7 +40,13 @@ public class Category {
 
     public String getName() { return name; }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) throws ModelException {
+        if(name.length() > MAXIMUM_NAME_LENGTH) {
+            throw new ModelException("Le nom de la catégorie est trop grand ! (50 caractères maximum)");
+        } else {
+            this.name = name;
+        }
+    }
 
     public Set<Article_Category> getArticleCategories() {
         return articleCategories;

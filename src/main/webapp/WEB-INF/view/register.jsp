@@ -75,7 +75,6 @@
 </script>
 
 <jsp:include page="../includes/footer.jsp"/>
-
 <jsp:include page="../includes/plugins.jsp"/>
 </body>
 </html>

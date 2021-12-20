@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.model.Article;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,9 @@ public class ProductDetailController extends HttpServlet{
         List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(articleID);
         List<String> resultCategoriesForArticle = articleCategoryDao.getCategoriesNameByArticleId(articleID);
 
+        if(resultArticle.isEmpty()){
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+        }
 
 	    request.setAttribute("id", resultArticle.get(0)[0]);
         request.setAttribute("price", resultArticle.get(0)[3]);

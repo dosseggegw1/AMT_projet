@@ -6,7 +6,6 @@ import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;

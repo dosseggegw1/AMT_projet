@@ -7,14 +7,12 @@
   <jsp:include page="../includes/header.jsp"/>
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="assets/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
         <h2>Profil utilisateur</h2>
         <ol class="breadcrumb">
           <li><a href="index.jsp">Accueil</a></li>
-          <li class="active">Compte</li>
         </ol>
       </div>
      </div>
@@ -36,11 +34,11 @@
                     <c:out value="${errorMessage}"/>
                 </c:if>
                  <form action="" method="post" class="aa-login-form">
-                  <label>Username<span>*</span>
-                   <input type="text" name="username" placeholder="Username"></label>
-                   <label>Password<span>*</span>
-                    <input type="password" name="password" placeholder="Password"></label>
-                    <button type="submit" value="Login" class="aa-browse-btn">Login</button>
+                  <label>Username<span>*</span></label><br>
+                  <input type="text" name="username" placeholder="Username"><br>
+                  <label>Password<span>*</span></label><br>
+                  <input type="password" name="password" placeholder="Password"><br>
+                  <button type="submit" value="Login" class="aa-browse-btn">Login</button>
                   </form>
                 </div>
               </div>

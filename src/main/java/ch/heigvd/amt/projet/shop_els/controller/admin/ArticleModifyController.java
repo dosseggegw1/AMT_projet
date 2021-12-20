@@ -3,6 +3,7 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
@@ -12,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +48,6 @@ public class ArticleModifyController extends HttpServlet{
         String[] categories = request.getParameterValues("categories");
         int id = Integer.parseInt(request.getParameter("id"));
 
-
-        //TODO afficher erreur si problème de modification avec la DB
-        //request.setAttribute("error", "");
-
-
         List<Integer> categoriesOldConf = articleCategoryDao.getCategoriesIdByArticleId(id);
         List<Integer> categoriesNew = new ArrayList<>();
         // Parse id string to integer
@@ -70,7 +65,11 @@ public class ArticleModifyController extends HttpServlet{
             // if we uncheck every category
             for(int idCategory : categoriesOldConf){
                 int idArticleCategory = articleCategoryDao.getArticleCategoryId(id, idCategory);
-                articleCategoryDao.delete(idArticleCategory);
+                try {
+                    articleCategoryDao.delete(idArticleCategory);
+                } catch (DaoException error) {
+                    request.setAttribute("error", error.toString());
+                }
             }
             response.sendRedirect("/shop/admin/articles");
         }
@@ -90,7 +89,11 @@ public class ArticleModifyController extends HttpServlet{
             for(int idCategory : categoriesOldConf){
                 if(!categoriesNew.contains(idCategory)){
                     int idArticleCategory = articleCategoryDao.getArticleCategoryId(id, idCategory);
-                    articleCategoryDao.delete(idArticleCategory);
+                    try {
+                        articleCategoryDao.delete(idArticleCategory);
+                    } catch (DaoException error) {
+                        request.setAttribute("error", error.toString());
+                    }
                 }
             }
             response.sendRedirect("/shop/admin/articles");

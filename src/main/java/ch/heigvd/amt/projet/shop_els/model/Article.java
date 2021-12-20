@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static ch.heigvd.amt.projet.shop_els.util.Constants.*;
+
 @NamedQueries({
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
         @NamedQuery(name= "selectAllArticles", query = "SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock FROM Article a"),
@@ -67,24 +69,42 @@ public class Article {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws ModelException {
+        if(name.equals("")) {
+            throw new ModelException("Le nom de l'article est vide");
+        } else if(name.length() > MAXIMUM_NAME_LENGTH) {
+            throw new ModelException("Le nom de l'article est trop grand ! (50 caractères maximum)");
+        }
+        else {
+            this.name = name;
+        }
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) throws ModelException {
+        if(description.equals("")) {
+            throw new ModelException("La description de l'article est vide");
+        } else if(description.length() > MAXIMUM_DESCRIPTION_LENGTH) {
+            throw new ModelException("La description de l'article est trop grand ! (255 caractères maximum)");
+        }
+        else {
+            this.description = description;
+        }
     }
 
     public float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setPrice(float price) throws ModelException {
+        if(price < MINIMUM_QUANTITY) {
+            throw new ModelException("Le prix ne peut pas être négatif");
+        } else {
+            this.price = price;
+        }
     }
 
     public String getImageURL() {
@@ -99,8 +119,12 @@ public class Article {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStock(int stock) throws ModelException {
+        if(stock < MINIMUM_QUANTITY) {
+            throw new ModelException("Le stock ne peut pas être négatif");
+        } else {
+            this.stock = stock;
+        }
     }
 
     public Set<Article_Cart> getArticle_carts() {

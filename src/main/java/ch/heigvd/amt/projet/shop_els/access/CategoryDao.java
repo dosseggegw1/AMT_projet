@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
 import ch.heigvd.amt.projet.shop_els.model.Category;
+import ch.heigvd.amt.projet.shop_els.model.ModelException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -21,7 +22,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     @Override
-    public void update(Category category) {
+    public void update(Category category) throws ModelException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -56,7 +57,7 @@ public class CategoryDao implements Dao<Category> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -66,7 +67,10 @@ public class CategoryDao implements Dao<Category> {
 
         session.getTransaction().commit();
         session.close();
-        return list.isEmpty();
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression de la catégorie");
+        }
     }
 
     public List getAllNames() {
@@ -79,13 +83,16 @@ public class CategoryDao implements Dao<Category> {
         return stringList;
     }
 
-    public boolean checkIfNameExists(String name) {
+    public void checkIfNameExists(String name) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         List list = session.getNamedQuery("selectCategoryNameWithName").setParameter("cat", name).getResultList();
 
         session.close();
-        return list.isEmpty();
+
+        if(!list.isEmpty()) {
+            throw new DaoException("La catégorie existe déjà");
+        }
     }
 }

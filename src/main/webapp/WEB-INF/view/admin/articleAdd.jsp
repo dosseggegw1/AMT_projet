@@ -73,12 +73,12 @@
             <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm">
                 <div class="form-group">
                     <label for="name">Nom d'article*</label>
-                    <input type="text" class="form-control" name="name" id="name" maxlength="50" aria-describedby="nameHelp" placeholder="Chaussette" required>
+                    <input type="text" class="form-control" name="name" id="name" maxlength="100" aria-describedby="nameHelp" placeholder="Chaussette" required>
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description de l'article*</label>
-                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" maxlength="255" required></textarea>
+                    <textarea type="text-area" class="form-control" name="description" id="description" placeholder="Chaussette jaune en velour. (Taille unique)" maxlength="500" required></textarea>
                 </div>
 
                 <div class="form-check form-check-inline">

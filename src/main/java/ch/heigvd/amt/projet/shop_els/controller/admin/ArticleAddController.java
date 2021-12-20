@@ -3,10 +3,11 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
+import ch.heigvd.amt.projet.shop_els.model.ModelException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -51,9 +52,9 @@ public class ArticleAddController extends HttpServlet {
         String price = request.getParameter("price");
         String stock = request.getParameter("stock");
 
-        // gets absolute path of the web application
+        // Gets absolute path of the web application
         String appPath = request.getServletContext().getRealPath("");
-        // constructs path of the directory to save uploaded file
+        // Constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
 
         File fileSaveDir = new File(savePath);
@@ -61,59 +62,39 @@ public class ArticleAddController extends HttpServlet {
             fileSaveDir.mkdir();
         }
 
-        String fileName="";
+        String fileName = "";
         String newFileName = "";
         for (Part part : request.getParts()) {
             fileName = extractFileName(part);
-            // refines the fileName in case it is an absolute path
+            // Refines the fileName in case it is an absolute path
             fileName = new File(fileName).getName();
             String[] fileNameArray = fileName.split("\\.");
-            // if the file name can be split in 2 (with the dot), we modify it to contain a unique timestamp
+            // If the file name can be split in 2 (with the dot), we modify it to contain a unique timestamp
             // this way, an image is unique and cannot be overwritten
-            if(fileNameArray.length > 1) {
+            if (fileNameArray.length > 1) {
                 newFileName = fileNameArray[0] + "-" + timestamp.getTime() + "." + fileNameArray[1];
                 part.write(savePath + File.separator + newFileName);
             }
         }
 
         // Validation of the user's inputs
-        if(name.equals("")  || description.equals("") || articleDao.getNameFromName(name).size() != 0 ||
-                name.length() > 50 || description.length() > 255 || price.contains("-") ||
-                stock.contains("-")) {
-
-            List<Category> results = categoryDao.getAll();
-            request.setAttribute("categories", results);
-            //TODO mettre la bonne erreur
-            request.setAttribute("error", "Afficher l'erreur e du try");
-            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
-
-        } else if (!articleDao.checkIfNameExists(name)) {
-
-            List<Category> results = categoryDao.getAll();
-            request.setAttribute("categories", results);
-            //TODO On arrive jamais ici je comprends pas ????
-            request.setAttribute("error", "Un autre article avec le même nom existe déjà <"+name+">");
-            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
-
-        } else {
-
+        try {
             // Verify an image was set
-            if(newFileName.equals("")){
+            if (newFileName.equals("")) {
                 newFileName = "default.jpg";
             }
-
+            articleDao.checkIfNameExists(name);
             // Add article to database
             Article article = new Article();
             article.setName(name);
             article.setDescription(description);
-            article.setImageURL("/shop"+ SAVE_DIR + "/" + newFileName);
-            if(!price.equals("")) article.setPrice(Float.parseFloat(price));
-            if(!stock.equals("")) article.setStock(Integer.parseInt(stock));
-
+            article.setImageURL("/shop" + SAVE_DIR + "/" + newFileName);
+            if (!price.equals("")) article.setPrice(Float.parseFloat(price));
+            if (!stock.equals("")) article.setStock(Integer.parseInt(stock));
             articleDao.save(article);
 
             // Search for all categories selected and create an associate object with article
-            if(categories != null) {
+            if (categories != null) {
                 for (String idCategory : categories) {
                     Category category = categoryDao.get(Integer.parseInt(idCategory));
                     Article_Category ac = new Article_Category();
@@ -122,10 +103,14 @@ public class ArticleAddController extends HttpServlet {
                     articleCategoryDao.save(ac);
                 }
             }
-
             response.sendRedirect("/shop/admin/articles");
-        }
 
+        } catch (ModelException | DaoException error) {
+            List<Category> results = categoryDao.getAll();
+            request.setAttribute("categories", results);
+            request.setAttribute("error", error.toString());
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -136,7 +121,7 @@ public class ArticleAddController extends HttpServlet {
         String[] items = contentDisp.split(";");
         for (String s : items) {
             if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length()-1);
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
             }
         }
         return "";

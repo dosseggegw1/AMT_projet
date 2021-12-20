@@ -72,7 +72,7 @@
       <form action="/shop/admin/categoryAdd" method="POST" name="addForm" onsubmit="return validateform()">
         <div class="form-group col-sm5">
           <label for="name">Nom d'article</label>
-          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" maxlength="50"  onchange="updateInput()" required>
+          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" maxlength="100"  onchange="updateInput()" required>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
         <a href="/shop/admin/categories" class="btn btn-danger">Annuler</a>
@@ -121,7 +121,7 @@
     const cate = new Set(${categories});
     let name = document.addForm.name.value;
     if(cate.has(name)){
-      error.textContent = "la catégorie existe deja"
+      error.textContent = "la catégorie existe déjà"
       error.style.color = "red"
       isOk = false;
     } else {

@@ -23,6 +23,8 @@ public class CategoryDeleteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+
+        // TODO vérifier que l'id voulu existe sinon erreur
         int idCategory = Integer.parseInt(request.getParameter("id"));
         Category category = categoryDao.get(idCategory);
 

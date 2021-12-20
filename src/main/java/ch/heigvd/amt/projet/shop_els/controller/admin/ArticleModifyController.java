@@ -28,6 +28,8 @@ public class ArticleModifyController extends HttpServlet{
         response.setContentType("text/html");
 
         int id = Integer.parseInt(request.getParameter("id"));
+
+        // TODO vérifier que l'id voulu existe sinon erreur
         Article article = articleDao.get(id);
 
         List<Category> categories = categoryDao.getAll();

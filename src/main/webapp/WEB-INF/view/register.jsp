@@ -37,10 +37,11 @@
                                     <label>Nom d'utilisateur<span>*</span></label><br>
                                     <input type="text" name="username" placeholder="Nom d'utilisateur"><br>
                                     <label>Mot de passe<span>*</span></label><br>
-                                    <input type="password" name="password" placeholder="Mot de passe"><br>
+                                    <input type="password" id="password" name="password" placeholder="Mot de passe"><br>
                                     <label>Confirmer le mot de passe<span>*</span></label><br>
-                                    <input type="password" name="confirm_password" placeholder="Mot de passe"><br>
-                                    <button type="submit" value="Register" class="aa-browse-btn">S'enregistrer</button>
+                                    <input type="password" name="confirm_password" id="confirm_password" onkeyup='check_pass();' placeholder="Mot de passe"><br>
+                                    <div><span id="message_confirm_pwd"></span></div>
+                                    <button type="submit" id="register_btn" value="Register" class="aa-disabled-btn-register">S'enregistrer</button>
                                 </form>
                             </div>
                         </div>
@@ -51,6 +52,27 @@
     </div>
 </section>
 <!-- / Cart view section -->
+
+<script>
+    function check_pass() {
+        if (document.getElementById('password').value ==
+            document.getElementById('confirm_password').value) {
+            document.getElementById('message_confirm_pwd').style.color = 'green';
+            document.getElementById('message_confirm_pwd').innerHTML = 'Passwords are matching';
+            document.getElementById('register_btn').disabled = false;
+            document.getElementById('register_btn').classList.remove('aa-disabled-btn-register');
+            document.getElementById('register_btn').classList.add('aa-browse-btn');
+        } else {
+            document.getElementById('message_confirm_pwd').style.color = 'red';
+            document.getElementById('message_confirm_pwd').innerHTML = 'Passwords are not matching';
+            document.getElementById('register_btn').disabled = true;
+            document.getElementById('register_btn').classList.add('aa-disabled-btn-register');
+            document.getElementById('register_btn').classList.remove('aa-browse-btn');
+
+        }
+    }
+
+</script>
 
 <jsp:include page="../includes/footer.jsp"/>
 

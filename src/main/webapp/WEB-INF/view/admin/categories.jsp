@@ -75,9 +75,6 @@
                                 </div>
                             </div>
                         </c:forEach>
-                        <script>
-                            alert(request.getAttribute("messageError").toString())
-                        </script>
                     </div>
                 </div>
             </div>
@@ -107,30 +104,11 @@
 <script src="/shop/assets/js/jquery.scrollTo.min.js"></script>
 <script src="/shop/assets/js/jquery.sparkline.js"></script>
 
-<!--common script for all pages-->
+<!--common script for all pages TODO remove-->
 <script src="/shop/assets/js/common-scripts.js"></script>
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
-
-<script>
-    function errorDelete() {
-        if(${messageError == '2'}) {
-            var answer = confirm("Etes-vous sûrs de vouloir supprimer cette catégorie liée à des articles ?")
-            if (answer) {
-                alert("OK")
-            } else {
-                alert("NO")
-            }
-            return
-        }
-        /*if (${messageError == '2'}) {
-            alert("Une erreur est survenue lors de la suppression de la catégorie")
-            return
-        }*/
-        document.onload(errorDelete())
-    }
-</script>
 
 </body>
 </html>

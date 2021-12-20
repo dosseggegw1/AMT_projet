@@ -76,6 +76,14 @@ public class ArticleDao implements Dao<Article>{
         return true;
     }
 
+    public List getAllNames() {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List stringList = session.getNamedQuery("selectAllArticlesName").getResultList();
+        session.close();
+        return stringList;
+    }
+
     public List getNameFromName(String name) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();

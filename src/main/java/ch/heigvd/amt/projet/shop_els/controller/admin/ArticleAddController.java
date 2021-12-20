@@ -6,6 +6,7 @@ import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -32,6 +33,9 @@ public class ArticleAddController extends HttpServlet {
         List<Category> results = categoryDao.getAll();
         request.setAttribute("error", "");
         request.setAttribute("categories", results);
+        List articles = articleDao.getAllNames();
+        Gson g = new Gson();
+        request.setAttribute("articles",g.toJson(articles));
         request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
     }
 
@@ -84,6 +88,9 @@ public class ArticleAddController extends HttpServlet {
             request.setAttribute("categories", results);
             //TODO mettre la bonne erreur
             request.setAttribute("error", "Afficher l'erreur e du try");
+            List articles = articleDao.getAllNames();
+            Gson g = new Gson();
+            request.setAttribute("articles",g.toJson(articles));
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
 
         } else if (!articleDao.checkIfNameExists(name)) {

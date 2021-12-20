@@ -121,11 +121,16 @@
     const cate = new Set(${categories});
     let name = document.addForm.name.value;
     if(cate.has(name)){
-      error.textContent = "la catégorie existe deja"
-      error.style.color = "red"
+      error.textContent = "La catégorie existe deja. Impossible de la créer"
+      error.classList.add('alert-danger');
+      error.classList.add('alert');
+      error.classList.add('alertError');
       isOk = false;
     } else {
       error.textContent = ""
+      error.classList.remove('alert-danger');
+      error.classList.remove('alert');
+      error.classList.remove('alertError')
       isOk = true;
     }
   }
@@ -134,17 +139,6 @@
   function validateform(){
     return isOk;
   }
-</script>
-
-<script>
-  // A supprimer pour l'affichage d'une erreur
-  /*document.onload(errorDuplicateData())
-  function errorDuplicateData() {
-    const error = ${error};
-    if(error) {
-      alert("La catégorie existe déjà")
-    }
-  }*/
 </script>
 
 </body>

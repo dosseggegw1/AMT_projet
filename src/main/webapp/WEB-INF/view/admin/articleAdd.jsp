@@ -68,12 +68,12 @@
                     <c:out value="${error}"/>
                 </div>
             </c:if>
-            <!--<span id="errorMessage"></span> -->
+            <span id="errorMessage"></span>
 
-            <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm">
+            <form action="/shop/admin/articleAdd" method="POST" enctype="multipart/form-data" name="addForm" onsubmit="return validateform()">
                 <div class="form-group">
                     <label for="name">Nom d'article*</label>
-                    <input type="text" class="form-control" name="name" id="name" maxlength="50" aria-describedby="nameHelp" placeholder="Chaussette" required>
+                    <input type="text" class="form-control" name="name" id="name" maxlength="50" aria-describedby="nameHelp" placeholder="Chaussette" onchange="updateInput()" required>
                 </div>
 
                 <div class="form-group">
@@ -144,20 +144,33 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-    /*function errorDuplicateData() {
-        let error = "${error}";
-        const article ="${article}"
-        if(error === "1") {
-            alert("Une erreur est survenue dans le formulaire.\nVeuillez resaisir les informations.")
-            return
-        }
-        if (error === "2") {
-            alert("Un autre article avec le même nom existe déjà - " + article)
-            return
+    var error = document.getElementById("errorMessage")
+    var isOk = false;
+
+    // Vérifie que l'article a créée est unique
+    function updateInput(){
+        const articles = new Set(${articles});
+        let name = document.addForm.name.value;
+        if(articles.has(name)){
+            error.textContent = "L'article existe déjà. Impossible de le créer."
+            error.classList.add('alert-danger');
+            error.classList.add('alert');
+            error.classList.add('alertError');
+
+            isOk = false;
+        } else {
+            error.textContent = ""
+            error.classList.remove('alert-danger');
+            error.classList.remove('alert');
+            error.classList.remove('alertError')
+            isOk = true;
         }
     }
-    document.onload(errorDuplicateData())*/
-</script>
 
+    // Vérifie qu'il n'y a pas eu d'erreur
+    function validateform(){
+        return isOk;
+    }
+</script>
 </body>
 </html>

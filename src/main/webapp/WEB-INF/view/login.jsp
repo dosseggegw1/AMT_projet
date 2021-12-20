@@ -29,16 +29,16 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="aa-myaccount-login">
-                <h4>Login</h4>
+                <h4>Connexion</h4>
                 <c:if test="${not empty errorMessage}">
                     <c:out value="${errorMessage}"/>
                 </c:if>
                  <form action="" method="post" class="aa-login-form">
-                  <label>Username<span>*</span></label><br>
-                  <input type="text" name="username" placeholder="Username"><br>
-                  <label>Password<span>*</span></label><br>
-                  <input type="password" name="password" placeholder="Password"><br>
-                  <button type="submit" value="Login" class="aa-browse-btn">Login</button>
+                  <label>Nom d'utilisateur<span>*</span></label><br>
+                  <input type="text" name="username" placeholder="Nom d'utilisateur"><br>
+                  <label>Mot de passe<span>*</span></label><br>
+                  <input type="password" name="password" placeholder="Mot de passe"><br>
+                  <button type="submit" value="Login" class="aa-browse-btn">S'identifier</button>
                   </form>
                 </div>
               </div>

@@ -29,16 +29,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="aa-myaccount-register">
-                                <h4>Register</h4>
+                                <h4>Enregistrement</h4>
                                 <c:if test="${not empty errorMessage}">
                                     <c:out value="${errorMessage}"/>
                                 </c:if>
                                 <form action="" method="post" class="aa-login-form">
-                                    <label>Username<span>*</span></label><br>
-                                    <input type="text" name="username" placeholder="Username"><br>
-                                    <label>Password<span>*</span></label><br>
-                                    <input type="password" name="password" placeholder="Password"><br>
-                                    <button type="submit" value="Register" class="aa-browse-btn">Register</button>
+                                    <label>Nom d'utilisateur<span>*</span></label><br>
+                                    <input type="text" name="username" placeholder="Nom d'utilisateur"><br>
+                                    <label>Mot de passe<span>*</span></label><br>
+                                    <input type="password" name="password" placeholder="Mot de passe"><br>
+                                    <label>Confirmer le mot de passe<span>*</span></label><br>
+                                    <input type="password" name="confirm_password" placeholder="Mot de passe"><br>
+                                    <button type="submit" value="Register" class="aa-browse-btn">S'enregistrer</button>
                                 </form>
                             </div>
                         </div>

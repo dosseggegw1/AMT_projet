@@ -7,10 +7,7 @@ import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
-<<<<<<< HEAD
 import ch.heigvd.amt.projet.shop_els.model.ModelException;
-=======
->>>>>>> 0d804d8e12bf0ac118c858178fd69ce7260c0d39
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;

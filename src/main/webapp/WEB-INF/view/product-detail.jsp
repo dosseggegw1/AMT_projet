@@ -66,8 +66,7 @@
                         <div class="aa-price-block">
                           <span>CHF ${article[3]}</span>
                           <input class="aa-product-view-price" name="price" value="${article[3]}" readonly hidden>
-                          <p class="aa-product-avilability">Disponibilité: <span> ${article[5]} pièces en stock</span>
-                          </p>
+                          <p class="aa-product-avilability">Disponibilité: <span> ${article[5]} pièces en stock</span></p>
                         </div>
                         <p>${article[2]}</p>
                         <div class="aa-prod-category"> Catégorie(s):
@@ -86,12 +85,10 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                           </select>
+                          <div class="aa-prod-view-bottom">
+                            <button type="submit" id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</button>
+                          </div>
                         </c:if>
-                        <div class="aa-prod-view-bottom">
-                          <c:if test="${article[3] != 0 && article[5] != 0}">
-                          <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
-                          </c:if>
-                        </div>
                       </form>
 
                     </div>

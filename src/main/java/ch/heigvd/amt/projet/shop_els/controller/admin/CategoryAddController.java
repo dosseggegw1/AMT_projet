@@ -46,13 +46,13 @@ public class CategoryAddController extends HttpServlet {
             Category newCategory = new Category();
             newCategory.setName(category);
             categoryDao.save(newCategory);
+            request.setAttribute("error", "");
+            // Redirection to the main page of all categories
+            response.sendRedirect("/shop/admin/categories");
         } catch (DaoException | ModelException error) {
             request.setAttribute("categories", g.toJson(results));
             request.setAttribute("error", error.toString());
             request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
         }
-        request.setAttribute("error", "");
-        // Redirection to the main page of all categories
-        response.sendRedirect("/shop/admin/categories");
     }
 }

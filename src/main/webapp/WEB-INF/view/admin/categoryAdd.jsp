@@ -121,7 +121,7 @@
     const cate = new Set(${categories});
     let name = document.addForm.name.value;
     if(cate.has(name)){
-      error.textContent = "La catégorie existe deja. Impossible de la créer"
+      error.textContent = "La catégorie existe déjà. Impossible de la créer"
       error.classList.add('alert-danger');
       error.classList.add('alert');
       error.classList.add('alertError');

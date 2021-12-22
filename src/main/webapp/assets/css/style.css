@@ -1033,6 +1033,7 @@ img {
   display: inline;
   float: left;
   width: 100%;
+  min-height: 503px;
 }
 
 #aa-product .aa-product-area .aa-product-inner .aa-product-catg .filterDiv {

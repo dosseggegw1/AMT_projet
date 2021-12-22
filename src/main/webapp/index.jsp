@@ -97,7 +97,9 @@
                   </ul>
               </div>
               <div id="tmp" style="display:none">
+                <h3>
                 Désolés, aucun article ne fait actuellement partie de cette catégorie !
+                </h3>
               </div>
 
             </div>

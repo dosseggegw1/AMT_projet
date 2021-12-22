@@ -33,13 +33,16 @@ public class CartDao implements Dao<Cart> {
     }
 
     @Override
-    public Cart get(int id) {
+    public Cart get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Cart cart = session.get(Cart.class, id);
 
         session.close();
+        if(cart == null) {
+            throw new DaoException("L'id n'existe pas");
+        }
         return cart;
     }
 

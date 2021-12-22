@@ -34,13 +34,16 @@ public class UserDao implements Dao<User>{
     }
 
     @Override
-    public User get(int id) {
+    public User get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         User user = session.get(User.class, id);
 
         session.close();
+        if(user == null) {
+            throw new DaoException("L'id n'existe pas");
+        }
         return user;
     }
 

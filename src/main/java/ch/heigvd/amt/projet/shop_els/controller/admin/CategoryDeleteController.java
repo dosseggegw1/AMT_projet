@@ -26,14 +26,16 @@ public class CategoryDeleteController extends HttpServlet {
 
         // TODO vérifier que l'id voulu existe sinon erreur
         int idCategory = Integer.parseInt(request.getParameter("id"));
-        Category category = categoryDao.get(idCategory);
-
-        List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
-        request.setAttribute("articles", articles);
-        request.setAttribute("category", category);
-        request.setAttribute("error", "");
-
-        request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
+        try {
+            Category category = categoryDao.get(idCategory);
+            List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
+            request.setAttribute("articles", articles);
+            request.setAttribute("category", category);
+            request.setAttribute("error", "");
+            request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
+        } catch (DaoException e) {
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+        }
     }
 
 

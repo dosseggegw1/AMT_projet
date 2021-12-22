@@ -29,18 +29,21 @@ public class ArticleModifyController extends HttpServlet{
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        // TODO vérifier que l'id voulu existe sinon erreur
-        Article article = articleDao.get(id);
+        try {
+            Article article = articleDao.get(id);
+            List<Category> categories = categoryDao.getAll();
+            List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
 
-        List<Category> categories = categoryDao.getAll();
-        List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
+            request.setAttribute("article", article);
+            request.setAttribute("categories", categories);
+            request.setAttribute("error", "");
+            request.setAttribute("categoriesArticle", categoriesArticle);
 
-        request.setAttribute("article", article);
-        request.setAttribute("categories", categories);
-        request.setAttribute("error", "");
-        request.setAttribute("categoriesArticle", categoriesArticle);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
+        } catch (DaoException e) {
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+        }
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
     }
 
     @Override
@@ -79,12 +82,16 @@ public class ArticleModifyController extends HttpServlet{
             // If there is a new category, we add it to our DB
             for(int idCategory : categoriesNew) {
                 if (!categoriesOldConf.contains(idCategory)) {
-                    Category category = categoryDao.get(idCategory);
-                    Article article = articleDao.get(id);
-                    Article_Category ac = new Article_Category();
-                    ac.setCategory(category);
-                    ac.setArticle(article);
-                    articleCategoryDao.save(ac);
+                    try {
+                        Category category = categoryDao.get(idCategory);
+                        Article article = articleDao.get(id);
+                        Article_Category ac = new Article_Category();
+                        ac.setCategory(category);
+                        ac.setArticle(article);
+                        articleCategoryDao.save(ac);
+                    } catch (DaoException e) {
+                        request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+                    }
                 }
             }
             // If we uncheck a category already set, we delete the category in the DB

@@ -35,13 +35,16 @@ public class CategoryDao implements Dao<Category> {
     }
 
     @Override
-    public Category get(int id) {
+    public Category get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Category category = session.get(Category.class, id);
 
         session.close();
+        if(category == null) {
+            throw new DaoException("L'id n'existe pas");
+        }
         return category;
     }
 

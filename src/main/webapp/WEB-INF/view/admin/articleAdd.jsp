@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label ml-3" > Catégorie(s)* : </label><br>
+                    <label class="form-check-label ml-3" > Catégorie(s) : </label><br>
                     <c:forEach var="cat" items="${categories}">
                         <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
                         <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
@@ -102,6 +102,7 @@
                     <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
                 </div>
                 <button type="submit" class="btn btn-primary">Valider</button>
+                <a href="/shop/admin/articles" class="btn btn-danger">Annuler</a>
             </form>
             <small id="help" class="form-text text-muted">* doivent impérativement être renseignés.</small>
 
@@ -141,16 +142,12 @@
         let description = document.addForm.description.value;
         let price = document.addForm.price.value;
         let stock = document.addForm.stock.value;
-        var checkCategories = $("input[name='categories']:checked").length;
 
         if (name == null || name === "" || name.length > 50) {
             alert("Le nom doit être compris entre 1 et 50 caractères");
             return false;
         }else if (description == null || description === "" || description.length > 255){
             alert("La description doit être compris entre 1 et 255 caractères");
-            return false;
-        }else if (!checkCategories) {
-            alert("Au minimum une catégorie doit être choisie");
             return false;
         }else if (price < 0){
             alert("Le prix ne peut être inférieur à 0");

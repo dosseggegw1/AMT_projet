@@ -24,10 +24,10 @@ public class RegisterController extends HttpServlet{
     private final UserDao userDao = new UserDao();
 
     //url application server
-    //private final String url = "http://10.0.1.92:8080/accounts/register";
+    private final String url = "http://10.0.1.92:8080/accounts/register";
 
     //url with ssh tunnel
-    private final String url = "http://localhost:3000/accounts/register";
+    //private final String url = "http://localhost:3000/accounts/register";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,53 +43,52 @@ public class RegisterController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("username").isEmpty() || request.getParameter("password").isEmpty()){
-            request.setAttribute("errorMessage", "Il faut remplir les deux champs pour se connecter.");
+        if(request.getParameter("username").isEmpty() || request.getParameter("password").isEmpty() || request.getParameter("confirm_password").isEmpty()){
+            request.setAttribute("errorMessage", "Il faut remplir tous les champs pour se créer un compte.");
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
 
-        //define the parameter for the POST request
-        HttpClient httpclient = HttpClientBuilder.create().build();
+        if(request.getParameter("password").equals(request.getParameter("confirm_password"))) {
+            //define the parameter for the POST request
+            HttpClient httpclient = HttpClientBuilder.create().build();
 
-        //create the POST request
-        HttpPost httppost = new HttpPost(url);
-        JSONObject Json = new JSONObject();
-        Json.put("username", request.getParameter("username"));
-        Json.put("password", request.getParameter("password"));
-        StringEntity params = new StringEntity(Json.toString());
-        params.setContentType("application/json");
-        httppost.addHeader("content-type", "application/json");
-        httppost.setEntity(params);
+            //create the POST request
+            HttpPost httppost = new HttpPost(url);
+            JSONObject Json = new JSONObject();
+            Json.put("username", request.getParameter("username"));
+            Json.put("password", request.getParameter("password"));
+            StringEntity params = new StringEntity(Json.toString());
+            params.setContentType("application/json");
+            httppost.addHeader("content-type", "application/json");
+            httppost.setEntity(params);
 
-        //Execute and get the response.
-        HttpResponse resp = httpclient.execute(httppost);
-        HttpEntity entity = resp.getEntity();
+            //Execute and get the response.
+            HttpResponse resp = httpclient.execute(httppost);
+            HttpEntity entity = resp.getEntity();
 
+            if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED){
+                //convert String to JSON Object
+                JSONObject result = new JSONObject(EntityUtils.toString(entity));
 
-        if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_CREATED){
+                //add the id of the user in the database with the id of the authentication server
+                int id = result.getInt("id");
+                User newUser = new User();
+                newUser.setIdUser(id);
+                userDao.save(newUser);
 
-            //convert String to JSON Object
-            JSONObject result = new JSONObject(EntityUtils.toString(entity));
-
-            //add the id of the user in the database with the id of the authentification server
-            int id = result.getInt("id");
-            User newUser = new User();
-            newUser.setIdUser(id);
-            userDao.save(newUser);
-
-            response.sendRedirect("/shop/login");
-        }
-        else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_CONFLICT){
-            request.setAttribute("errorMessage", "L'utilisateur existe déjà.");
-            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
-        }
-        else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY){
-            request.setAttribute("errorMessage", "Il faut 8 caractères dont une lettre, une majuscule, un chiffre et un caractère spécial.");
-            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
-        }
-        else {
-            request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+                response.sendRedirect("/shop/login");
+            }
+            else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_CONFLICT){
+                request.setAttribute("errorMessage", "L'utilisateur existe déjà.");
+                request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+            }
+            else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_UNPROCESSABLE_ENTITY){
+                request.setAttribute("errorMessage", "Il faut 8 caractères dont au moins une lettre, une majuscule, un chiffre et un caractère spécial.");
+                request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+            }
+            else {
+                request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+            }
         }
     }
-
 }

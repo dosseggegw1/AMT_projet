@@ -40,7 +40,7 @@
        <div class="col-md-12">
          <div class="cart-view-area">
            <div class="cart-view-table">
-             <form action="">
+             <form action="/shop/cart" method="get">
                <div class="table-responsive">
                   <table class="table">
                     <thead>

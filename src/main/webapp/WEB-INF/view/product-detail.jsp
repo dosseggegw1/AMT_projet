@@ -76,7 +76,7 @@
                         </select>
                         <div class="aa-prod-view-bottom">
                           <c:if test="${article[3] != 0 && article[5] != 0}">
-                            <a id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</a>
+                            <input type="submit" class="aa-add-to-cart-btn" value="Ajouter au panier">
                           </c:if>
                         </div>
                       </form>

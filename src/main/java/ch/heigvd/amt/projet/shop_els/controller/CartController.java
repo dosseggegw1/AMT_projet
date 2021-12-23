@@ -1,6 +1,12 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.access.CartDao;
+import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.model.Cart;
+import ch.heigvd.amt.projet.shop_els.model.User;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -23,35 +29,106 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         ArrayList<ArrayList<String>> cart = read_cookie(request);
         ArrayList<ArrayList<String>> cartShort = read_cookie(request);
-        request.setAttribute("cartShort", cartShort);
 
-        for(ArrayList<String> item : cart) {
+        if(cart.size() == 0){
+            if(checkIfLoggedIn(request)){
+                clearCart(request);
+            }
+        }
+        else{
+            request.setAttribute("cartShort", cartShort);
 
-            List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
+            for(ArrayList<String> item : cart) {
 
-            item.add((String) resultArticle.get(0)[1]);
-            item.add(String.valueOf(resultArticle.get(0)[3]));
-            item.add((String) resultArticle.get(0)[4]);
+                List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
+
+                item.add((String) resultArticle.get(0)[1]);
+                item.add(String.valueOf(resultArticle.get(0)[3]));
+                item.add((String) resultArticle.get(0)[4]);
+            }
+            if(checkIfLoggedIn(request)){
+                pushCartInDB(request, cart);
+            }
         }
         request.setAttribute("cart", cart);
-
         request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response){
-        update_cookie(response, (ArrayList<ArrayList<String>>) request.getAttribute("cart"));
-    }
+    private void clearCart(HttpServletRequest request){
+        UserDao userDao = new UserDao();
+        CartDao cartDao = new CartDao();
+        ArticleCartDao articleCartDao = new ArticleCartDao();
 
-    private void update_cookie(HttpServletResponse response, ArrayList<ArrayList<String>> cart){
-        String cartAsString = "";
+        int idUser = (int) request.getSession().getAttribute("idUser");
+        User user = userDao.get(idUser);
+        Cart cart = user.getFk_cart();
+        int idCart;
 
-        for(ArrayList<String> item : cart){
-            cartAsString += item.get(0) + "&" + item.get(1) + "&" + item.get(2) + "#";
+        if(cart == null)
+        {
+            cart = new Cart();
+            cartDao.save(cart);
+            user.setFk_cart(cartDao.get(cart.getIdCart()));
+            userDao.update(user);
         }
 
-        javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
-        response.addCookie(cook);
+        idCart = cart.getIdCart();
+
+        for(Article_Cart articleCart : articleCartDao.getAll()){
+            if(articleCart.getCart().getIdCart() == idCart){
+                articleCartDao.delete(articleCart.getArticle_cart_id());
+            }
+        }
+    }
+
+    private void pushCartInDB(HttpServletRequest request, ArrayList<ArrayList<String>> parsedCart){
+        UserDao userDao = new UserDao();
+        CartDao cartDao = new CartDao();
+        ArticleCartDao articleCartDao = new ArticleCartDao();
+        ArticleDao articleDao = new ArticleDao();
+
+        int idUser = (int) request.getSession().getAttribute("idUser");
+        User user = userDao.get(idUser);
+        Cart cart = user.getFk_cart();
+        int idCart;
+
+        if(cart == null)
+        {
+            cart = new Cart();
+            cartDao.save(cart);
+            user.setFk_cart(cartDao.get(cart.getIdCart()));
+            userDao.update(user);
+        }
+
+        idCart = cart.getIdCart();
+
+        for(Article_Cart articleCart : articleCartDao.getAll()){
+            if(articleCart.getCart().getIdCart() == idCart){
+                articleCartDao.delete(articleCart.getArticle_cart_id());
+            }
+        }
+
+        for (ArrayList<String> item : parsedCart) {
+            Article_Cart articleCart = new Article_Cart();
+
+            int idArticle = Integer.parseInt(item.get(0));
+            int quantity = Integer.parseInt(item.get(1));
+
+            articleCart.setCart(cart);
+            articleCart.setArticle(articleDao.get(idArticle));
+            articleCart.setQuantity(quantity);
+
+            articleCartDao.save(articleCart);
+        }
+    }
+
+    private boolean checkIfLoggedIn(HttpServletRequest request) {
+        if (request.getSession().getAttribute("idUser") == null) {
+            return false;
+        }
+        return true;
     }
 }

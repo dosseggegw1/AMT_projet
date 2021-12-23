@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
+import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CartDao;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
 import ch.heigvd.amt.projet.shop_els.model.Article;
@@ -54,8 +55,6 @@ public class CookieController extends HttpServlet {
                             quantityZero = true;
                         }
                         item.set(1, String.valueOf(quantity));
-                        float newPrice = (priceByUnit * (quantity));
-                        item.set(2, String.valueOf(newPrice));
                     }
                     if (!quantityZero) {
                         cartAsString += updateCookie(item);
@@ -86,6 +85,8 @@ public class CookieController extends HttpServlet {
     private void pushCartInDB(HttpServletRequest request, String cartAsString){
         UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
+        ArticleCartDao articleCartDao = new ArticleCartDao();
+        ArticleDao articleDao = new ArticleDao();
 
         int idUser = (int) request.getSession().getAttribute("idUser");
         User user = userDao.get(idUser);
@@ -105,25 +106,23 @@ public class CookieController extends HttpServlet {
         ArrayList<ArrayList<String>> parsedCart = parseCookie(cartAsString);
 
         for (ArrayList<String> item : parsedCart) {
-            Article article = new Article();
             Article_Cart articleCart = new Article_Cart();
-            ArticleCartDao articleCartDao = new ArticleCartDao();
 
             int idArticle = Integer.parseInt(item.get(0));
             int quantity = Integer.parseInt(item.get(1));
             int idArticleCart = findArticleCartID(idCart, idArticle);
 
             articleCart.setCart(cart);
-            articleCart.setArticle(article);
+            articleCart.setArticle(articleDao.get(idArticle));
             articleCart.setQuantity(quantity);
 
             if(idArticleCart < 0){
                 articleCartDao.save(articleCart);
             }
-
-            articleCart.setArticle_cart_id(idArticleCart);
-
-            articleCartDao.update(articleCart);
+            else{
+                articleCart.setArticle_cart_id(idArticleCart);
+                articleCartDao.update(articleCart);
+            }
         }
     }
 

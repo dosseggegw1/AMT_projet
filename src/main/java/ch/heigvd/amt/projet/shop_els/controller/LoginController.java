@@ -89,9 +89,12 @@ public class LoginController extends HttpServlet{
 
             //creating cookie depending on the user's cart in DB
             String cartAsString = readCart(request);
-            javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
-            cook.setPath("/shop");
-            response.addCookie(cook);
+
+            if(!cartAsString.equals("")){
+                javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
+                cook.setPath("/shop");
+                response.addCookie(cook);
+            }
 
             response.sendRedirect("/shop");
         }

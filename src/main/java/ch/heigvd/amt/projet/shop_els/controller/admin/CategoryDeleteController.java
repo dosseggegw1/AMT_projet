@@ -21,15 +21,21 @@ public class CategoryDeleteController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        int idCategory = Integer.parseInt(request.getParameter("id"));
-        Category category = categoryDao.get(idCategory);
+        if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.setContentType("text/html");
+            int idCategory = Integer.parseInt(request.getParameter("id"));
+            Category category = categoryDao.get(idCategory);
 
-        List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
-        request.setAttribute("articles", articles);
-        request.setAttribute("category", category);
+            List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
+            request.setAttribute("articles", articles);
+            request.setAttribute("category", category);
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop");
+        }
+
     }
 
 

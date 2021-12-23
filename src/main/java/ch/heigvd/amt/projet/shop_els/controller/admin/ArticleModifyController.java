@@ -41,7 +41,8 @@ public class ArticleModifyController extends HttpServlet{
 
             request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
         } catch (DaoException e) {
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            //response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
         }
 
     }
@@ -90,7 +91,7 @@ public class ArticleModifyController extends HttpServlet{
                         ac.setArticle(article);
                         articleCategoryDao.save(ac);
                     } catch (DaoException e) {
-                        request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+                        request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
                     }
                 }
             }

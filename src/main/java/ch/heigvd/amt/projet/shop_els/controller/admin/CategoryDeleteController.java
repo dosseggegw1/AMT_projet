@@ -34,7 +34,7 @@ public class CategoryDeleteController extends HttpServlet {
             request.setAttribute("error", "");
             request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
         } catch (DaoException e) {
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
         }
     }
 

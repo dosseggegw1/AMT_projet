@@ -103,7 +103,7 @@ public class ArticleDao implements Dao<Article>{
         }
     }
 
-    public List<Object[]> getArticleAndCategoryById(int id) {
+    public List<Object[]> getArticleAndCategoryById(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -111,6 +111,9 @@ public class ArticleDao implements Dao<Article>{
                 .getResultList();
 
         session.close();
+        if(list.isEmpty()) {
+            throw new DaoException("L'article n'a pas été trouvé avec cet id");
+        }
         return list;
     }
 }

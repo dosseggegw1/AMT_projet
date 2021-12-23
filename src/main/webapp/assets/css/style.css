@@ -1163,6 +1163,8 @@ img {
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+  min-height: 150px;
+  min-width: 150px;
 }
 
 .aa-product-catg li figure .aa-product-img img {

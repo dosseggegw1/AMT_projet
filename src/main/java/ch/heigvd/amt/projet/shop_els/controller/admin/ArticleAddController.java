@@ -22,7 +22,10 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @WebServlet("/admin/articleAdd")
-@MultipartConfig
+@MultipartConfig(
+        fileSizeThreshold=1024*1024,
+        maxFileSize=1024*1024*5,
+        maxRequestSize=1024*1024*5*5)
 public class ArticleAddController extends HttpServlet {
     private final ArticleDao articleDao = new ArticleDao();
     private final CategoryDao categoryDao = new CategoryDao();
@@ -48,13 +51,23 @@ public class ArticleAddController extends HttpServlet {
         response.setContentType("text/html");
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
-        // Get all inputs
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String[] categories = request.getParameterValues("categories");
-        String price = request.getParameter("price");
-        String stock = request.getParameter("stock");
+        String name;
+        String description;
+        String[] categories;
+        String price;
+        String stock;
+        try {
+            // Get all inputs
+            name = request.getParameter("name");
+            description = request.getParameter("description");
+            categories = request.getParameterValues("categories");
+            price = request.getParameter("price");
+            stock = request.getParameter("stock");
+        } catch (IllegalStateException exception) {
+            // If size of picture exceed 5MB
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
+            return;
+        }
 
         // Gets absolute path of the web application
         String appPath = request.getServletContext().getRealPath("");
@@ -68,6 +81,7 @@ public class ArticleAddController extends HttpServlet {
 
         String fileName = "";
         String newFileName = "";
+
         for (Part part : request.getParts()) {
             fileName = extractFileName(part);
             // Refines the fileName in case it is an absolute path

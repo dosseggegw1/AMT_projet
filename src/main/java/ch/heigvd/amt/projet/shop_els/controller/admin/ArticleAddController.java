@@ -65,7 +65,10 @@ public class ArticleAddController extends HttpServlet {
             stock = request.getParameter("stock");
         } catch (IllegalStateException exception) {
             // If size of picture exceed 5MB
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
+            List<Category> results = categoryDao.getAll();
+            request.setAttribute("categories", results);
+            request.setAttribute("error", exception.toString());
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
             return;
         }
 
@@ -73,7 +76,6 @@ public class ArticleAddController extends HttpServlet {
         String appPath = request.getServletContext().getRealPath("");
         // Constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
-
         File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();

@@ -1,5 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.model;
 
+import org.apache.commons.io.FilenameUtils;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -112,8 +114,14 @@ public class Article {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURL(String imageURL) throws ModelException {
+        if(FilenameUtils.getExtension(imageURL).equals("jpg") ||
+        FilenameUtils.getExtension(imageURL).equals("jpeg") ||
+        FilenameUtils.getExtension(imageURL).equals("png")) {
+            this.imageURL = imageURL;
+       } else {
+            throw new ModelException("L'extension n'est pas supportée. Nous acceptons seulement jpg, jpeg et png");
+        }
     }
 
     public int getStock() {

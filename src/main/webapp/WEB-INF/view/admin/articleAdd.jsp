@@ -106,7 +106,7 @@
                 <div class="form-group">
                     <label for="imageURL">Image de l'article</label>
                     <input type="file" class="form-control-file" name="imageURL" aria-describedby="imageHelp" id="imageURL">
-                    <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser ... Nous acceptions uniquement les formats : png, jpeg, </small>
+                    <small id="imageHelp" class="form-text text-muted">La taille de l'image ne doit pas dépasser 5 MB. Nous acceptions uniquement les formats : png, jpeg, jpg</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Valider</button>
                 <a href="/shop/admin/articles" class="btn btn-danger">Annuler</a>

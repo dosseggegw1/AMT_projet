@@ -20,15 +20,21 @@ public class ArticleController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.setContentType("text/html");
 
-        List<Article> results = articleDao.getAll();
-        List<Object[]> categories = articleCategoryDao.getAllArticlesCategories();
+            List<Article> results = articleDao.getAll();
+            List<Object[]> categories = articleCategoryDao.getAllArticlesCategories();
 
-        request.setAttribute("articles", results);
-        request.setAttribute("categories", categories);
+            request.setAttribute("articles", results);
+            request.setAttribute("categories", categories);
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articles.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop");
+        }
+
 
     }
 }

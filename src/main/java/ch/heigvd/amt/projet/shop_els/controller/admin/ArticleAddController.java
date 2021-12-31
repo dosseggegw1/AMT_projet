@@ -28,12 +28,17 @@ public class ArticleAddController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.setContentType("text/html");
 
-        List<Category> results = categoryDao.getAll();
+            List<Category> results = categoryDao.getAll();
 
-        request.setAttribute("categories", results);
-        request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
+            request.setAttribute("categories", results);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop");
+        }
     }
 
     private static final String SAVE_DIR = "/assets/img/ELS";

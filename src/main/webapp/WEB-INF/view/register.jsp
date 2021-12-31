@@ -31,7 +31,9 @@
                             <div class="aa-myaccount-register">
                                 <h4>Enregistrement</h4>
                                 <c:if test="${not empty errorMessage}">
-                                    <c:out value="${errorMessage}"/>
+                                    <span style="color: red; ">
+                                        <c:out value="${errorMessage}"/>
+                                    </span>
                                 </c:if>
                                 <form action="" method="post" class="aa-login-form">
                                     <label>Nom d'utilisateur<span>*</span></label><br>

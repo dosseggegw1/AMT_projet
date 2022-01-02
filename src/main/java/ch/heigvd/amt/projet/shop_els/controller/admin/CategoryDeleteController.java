@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 
@@ -21,16 +22,22 @@ public class CategoryDeleteController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+
+        // TODO vérifier que l'id voulu existe sinon erreur
+        int idCategory = Integer.parseInt(request.getParameter("id"));
+        
         if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
-            response.setContentType("text/html");
-            int idCategory = Integer.parseInt(request.getParameter("id"));
-            Category category = categoryDao.get(idCategory);
-
-            List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
-            request.setAttribute("articles", articles);
-            request.setAttribute("category", category);
-
-            request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
+            try {
+                Category category = categoryDao.get(idCategory);
+                List<Article> articles = articleCategoryDao.getArticlesById(idCategory);
+                request.setAttribute("articles", articles);
+                request.setAttribute("category", category);
+                request.setAttribute("error", "");
+                request.getRequestDispatcher("/WEB-INF/view/admin/categoryDelete.jsp").forward(request, response);
+            } catch (DaoException e) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
+            }
         }
         else{
             response.sendRedirect("/shop");
@@ -45,9 +52,11 @@ public class CategoryDeleteController extends HttpServlet {
 
         int idCategory =  Integer.parseInt(request.getParameter("idCategory"));
 
-        // Check if the deletion was successful, if not, we show an alert
-        if(!categoryDao.delete(idCategory)) {
-            request.setAttribute("error", true);
+        // Check if the deletion was successful, if not, we show an error
+        try {
+            categoryDao.delete(idCategory);
+        } catch (DaoException e) {
+            request.setAttribute("error", e.toString());
         }
 
         List<Category> results = categoryDao.getAll();

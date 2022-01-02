@@ -34,13 +34,16 @@ public class UserDao implements Dao<User>{
     }
 
     @Override
-    public User get(int id) {
+    public User get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         User user = session.get(User.class, id);
 
         session.close();
+        if(user == null) {
+            throw new DaoException("L'id n'existe pas");
+        }
         return user;
     }
 
@@ -56,7 +59,7 @@ public class UserDao implements Dao<User>{
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -66,6 +69,9 @@ public class UserDao implements Dao<User>{
 
         session.getTransaction().commit();
         session.close();
-        return list.isEmpty();
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression de l'utilisateur");
+        }
     }
 }

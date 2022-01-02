@@ -62,6 +62,11 @@
         <section class="wrapper site-min-height">
             <h3><i class="fa fa-angle-right"></i>  Suppression d'une catégorie</h3>
             <br>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert">
+                    <c:out value="${error}"/>
+                </div>
+            </c:if>
             <p class="categoryDeleteText">La catégorie < ${category['name']} > sera supprimée en cas de validation.</p>
             <form action="/shop/admin/categoryDelete" method="POST" name="deleteForm">
                 <input type="hidden" id="idCategory" name="idCategory" value="${category['idCategory']}">
@@ -110,16 +115,5 @@
 
 <!--script for this page-->
 <script src="/shop/assets/js/sparkline-chart.js"></script>
-
-<script>
-    function checkError() {
-        const error = ${error}
-        if(error) {
-            alert("Une erreur est survenue lors de la suppression de la catégorie")
-        }
-    }
-    document.onload(checkError())
-</script>
-
 </body>
 </html>

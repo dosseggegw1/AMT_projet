@@ -61,10 +61,18 @@
   <section id="main-content">
     <section class="wrapper site-min-height">
       <h3><i class="fa fa-angle-right"></i>  Ajout d'une catégorie </h3>
+      <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert">
+          <c:out value="${error}"/>
+        </div>
+      </c:if>
+
+      <span id="errorMessage"></span>
+
       <form action="/shop/admin/categoryAdd" method="POST" name="addForm" onsubmit="return validateform()">
         <div class="form-group col-sm5">
           <label for="name">Nom d'article</label>
-          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" required>
+          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" maxlength="100"  onchange="updateInput()" required>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>
         <a href="/shop/admin/categories" class="btn btn-danger">Annuler</a>
@@ -105,28 +113,31 @@
 <script src="/shop/assets/js/sparkline-chart.js"></script>
 
 <script>
-  function validateform() {
-    let name = document.addForm.name.value;
-    const cate = new Set(${categories});
-    if (name == null || name === "" || name.length > 50) {
-        alert("Le nombre de caractères doit être compris entre 1 et 50");
-      return false;
-  }else if (cate.has(name)){
-      //Vérifier si le nom est présent dans la liste des catégories
-        alert("La catégorie " + name + " existe déjà");
-        return false;
-      }
-  return true;
-}
-</script>
+  var error = document.getElementById("errorMessage")
+  var isOk = false;
 
-<script>
-  document.onload(errorDuplicateData())
-  function errorDuplicateData() {
-    const error = ${error};
-    if(error) {
-      alert("La catégorie existe déjà")
+  // Vérifie que la catégorie a créée est unique
+  function updateInput(){
+    const cate = new Set(${categories});
+    let name = document.addForm.name.value;
+    if(cate.has(name)){
+      error.textContent = "La catégorie existe déjà. Impossible de la créer"
+      error.classList.add('alert-danger');
+      error.classList.add('alert');
+      error.classList.add('alertError');
+      isOk = false;
+    } else {
+      error.textContent = ""
+      error.classList.remove('alert-danger');
+      error.classList.remove('alert');
+      error.classList.remove('alertError')
+      isOk = true;
     }
+  }
+
+  // Vérifie qu'il n'y a pas eu d'erreur
+  function validateform(){
+    return isOk;
   }
 </script>
 

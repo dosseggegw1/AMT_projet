@@ -23,7 +23,7 @@
     <link href="assets/css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
 
     <!-- Main style sheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="http://localhost:8080/shop/assets/css/style.css" rel="stylesheet">
 
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>

@@ -2372,3 +2372,7 @@ label {
     font-size: 16px;
 }
 
+.alertError{
+    display: block;
+}
+

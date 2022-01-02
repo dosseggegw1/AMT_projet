@@ -23,14 +23,20 @@ public class CategoryAddController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.setContentType("text/html");
 
-        List results = categoryDao.getAllNames();
-        Gson g = new Gson();
-        request.setAttribute("error", "");
-        request.setAttribute("categories",g.toJson(results));
 
-        request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
+
+            List results = categoryDao.getAllNames();
+            Gson g = new Gson();
+            request.setAttribute("error", "");
+            request.setAttribute("categories",g.toJson(results));
+            request.getRequestDispatcher("/WEB-INF/view/admin/categoryAdd.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop");
+        }
     }
 
     @Override

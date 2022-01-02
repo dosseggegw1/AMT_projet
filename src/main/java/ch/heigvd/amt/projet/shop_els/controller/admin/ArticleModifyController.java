@@ -25,24 +25,29 @@ public class ArticleModifyController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
+        if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.setContentType("text/html");
 
-        int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter("id"));
 
-        try {
-            Article article = articleDao.get(id);
-            List<Category> categories = categoryDao.getAll();
-            List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
+            try {
+                Article article = articleDao.get(id);
+                List<Category> categories = categoryDao.getAll();
+                List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
 
-            request.setAttribute("article", article);
-            request.setAttribute("categories", categories);
-            request.setAttribute("error", "");
-            request.setAttribute("categoriesArticle", categoriesArticle);
+                request.setAttribute("article", article);
+                request.setAttribute("categories", categories);
+                request.setAttribute("error", "");
+                request.setAttribute("categoriesArticle", categoriesArticle);
 
-            request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
-        } catch (DaoException e) {
-            //response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
+            } catch (DaoException e) {
+                //response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
+            }
+        }
+        else{
+            response.sendRedirect("/shop");
         }
 
     }

@@ -41,7 +41,13 @@
                           <figure>
                             <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a>
                             <c:choose>
-                              <c:when test="${article[3] != 0 && article[5] != 0}">
+                              <c:when test="${article[3] == 0}">
+                                <span class="btn-indisp">Bientôt disponible!</span>
+                              </c:when>
+                              <c:when test="${article[5] == 0}">
+                                <span class="btn-indisp">Rupture de stock</span>
+                              </c:when>
+                              <c:otherwise>
                                 <form method="post" action="/shop/cookie" target="hiddenFrame">
                                   <input name="id" value="${article[0]}" readonly hidden>
                                   <input name="price" value="${article[3]}" readonly hidden>
@@ -50,9 +56,6 @@
                                     Ajouter au panier
                                   </button>
                                 </form>
-                              </c:when>
-                              <c:otherwise>
-                                <a class="btn-indisp">Indisponible</a>
                               </c:otherwise>
                             </c:choose>
                             <figcaption>
@@ -66,21 +69,24 @@
                       <li class="filterDiv ${article[7]}">
                       <figure>
                         <a class="aa-product-img" href="#"><img src="${article[4]}" alt="${article[1]}"></a>
-                          <c:choose>
-                            <c:when test="${article[3] != 0 && article[5] != 0}">
-                              <form method="post" action="/shop/cookie" target="hiddenFrame">
-                                <input name="id" value="${article[0]}" readonly hidden>
-                                <input name="price" value="${article[3]}" readonly hidden>
-                                <input name="quantity" value="1" readonly hidden>
-                                <button type="submit" class="aa-add-card-btn addtocart">
-                                  Ajouter au panier
-                                </button>
-                              </form>
-                            </c:when>
-                            <c:otherwise>
-                              <a class="btn-indisp">Indisponible</a>
-                            </c:otherwise>
-                          </c:choose>
+                        <c:choose>
+                          <c:when test="${article[3] == 0}">
+                            <span class="btn-indisp">Bientôt disponible!</span>
+                          </c:when>
+                          <c:when test="${article[5] == 0}">
+                            <span class="btn-indisp">Rupture de stock</span>
+                          </c:when>
+                          <c:otherwise>
+                            <form method="post" action="/shop/cookie" target="hiddenFrame">
+                              <input name="id" value="${article[0]}" readonly hidden>
+                              <input name="price" value="${article[3]}" readonly hidden>
+                              <input name="quantity" value="1" readonly hidden>
+                              <button type="submit" class="aa-add-card-btn addtocart">
+                                Ajouter au panier
+                              </button>
+                            </form>
+                          </c:otherwise>
+                        </c:choose>
                         <figcaption>
                           <h4 class="aa-product-title"><a href="/shop/productDetail?id=${article[0]}"><c:out value="${article[1]}"/></a></h4>
                           <span class="aa-product-price"><c:out value="${article[3]}"/> CHF</span><span class="aa-product-price"></span>
@@ -91,7 +97,9 @@
                   </ul>
               </div>
               <div id="tmp" style="display:none">
+                <h3>
                 Désolés, aucun article ne fait actuellement partie de cette catégorie !
+                </h3>
               </div>
 
             </div>

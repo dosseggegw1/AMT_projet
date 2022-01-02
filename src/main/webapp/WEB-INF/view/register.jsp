@@ -7,14 +7,12 @@
 <jsp:include page="../includes/header.jsp"/>
 <!-- catg header banner section -->
 <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
-                <h2>Account Page</h2>
+                <h2>Profil utilisateur</h2>
                 <ol class="breadcrumb">
-                    <li><a href="index.jsp">Home</a></li>
-                    <li class="active">Account</li>
+                    <li><a href="index.jsp">Accueil</a></li>
                 </ol>
             </div>
         </div>
@@ -31,16 +29,21 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="aa-myaccount-register">
-                                <h4>Register</h4>
+                                <h4>Enregistrement</h4>
                                 <c:if test="${not empty errorMessage}">
-                                    <c:out value="${errorMessage}"/>
+                                    <span style="color: red; ">
+                                        <c:out value="${errorMessage}"/>
+                                    </span>
                                 </c:if>
                                 <form action="" method="post" class="aa-login-form">
-                                    <label>Username<span>*</span>
-                                    <input type="text" name="username" placeholder="Username"></label>
-                                    <label>Password<span>*</span>
-                                    <input type="password" name="password" placeholder="Password"></label>
-                                    <button type="submit" value="Register" class="aa-browse-btn">Register</button>
+                                    <label>Nom d'utilisateur<span>*</span></label><br>
+                                    <input type="text" name="username" placeholder="Nom d'utilisateur"><br>
+                                    <label>Mot de passe<span>*</span></label><br>
+                                    <input type="password" id="password" name="password" placeholder="Mot de passe"><br>
+                                    <label>Confirmer le mot de passe<span>*</span></label><br>
+                                    <input type="password" name="confirm_password" id="confirm_password" onkeyup='check_pass();' placeholder="Mot de passe"><br>
+                                    <div><span id="message_confirm_pwd"></span></div>
+                                    <button type="submit" id="register_btn" value="Register" class="aa-disabled-btn-register">S'enregistrer</button>
                                 </form>
                             </div>
                         </div>
@@ -52,8 +55,28 @@
 </section>
 <!-- / Cart view section -->
 
-<jsp:include page="../includes/footer.jsp"/>
+<script>
+    function check_pass() {
+        if (document.getElementById('password').value ==
+            document.getElementById('confirm_password').value) {
+            document.getElementById('message_confirm_pwd').style.color = 'green';
+            document.getElementById('message_confirm_pwd').innerHTML = 'Passwords are matching';
+            document.getElementById('register_btn').disabled = false;
+            document.getElementById('register_btn').classList.remove('aa-disabled-btn-register');
+            document.getElementById('register_btn').classList.add('aa-browse-btn');
+        } else {
+            document.getElementById('message_confirm_pwd').style.color = 'red';
+            document.getElementById('message_confirm_pwd').innerHTML = 'Passwords are not matching';
+            document.getElementById('register_btn').disabled = true;
+            document.getElementById('register_btn').classList.add('aa-disabled-btn-register');
+            document.getElementById('register_btn').classList.remove('aa-browse-btn');
 
+        }
+    }
+
+</script>
+
+<jsp:include page="../includes/footer.jsp"/>
 <jsp:include page="../includes/plugins.jsp"/>
 </body>
 </html>

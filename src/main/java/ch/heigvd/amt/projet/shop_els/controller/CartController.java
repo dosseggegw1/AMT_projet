@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
@@ -29,11 +30,15 @@ public class CartController extends HttpServlet {
 
         for(ArrayList<String> item : cart) {
 
-            List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
-
-            item.add((String) resultArticle.get(0)[1]);
-            item.add(String.valueOf(resultArticle.get(0)[3]));
-            item.add((String) resultArticle.get(0)[4]);
+            try {
+                List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
+                item.add((String) resultArticle.get(0)[1]);
+                item.add(String.valueOf(resultArticle.get(0)[3]));
+                item.add((String) resultArticle.get(0)[4]);
+            } catch (DaoException e) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+                return;
+            }
         }
         request.setAttribute("cart", cart);
 

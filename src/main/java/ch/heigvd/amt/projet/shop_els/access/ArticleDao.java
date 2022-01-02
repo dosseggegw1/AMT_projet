@@ -1,10 +1,12 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
 import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.ModelException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class ArticleDao implements Dao<Article>{
@@ -23,7 +25,7 @@ public class ArticleDao implements Dao<Article>{
     }
 
     @Override
-    public void update(Article article) {
+    public void update(Article article) throws ModelException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -40,13 +42,16 @@ public class ArticleDao implements Dao<Article>{
     }
 
     @Override
-    public Article get(int id) {
+    public Article get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Article article = session.get(Article.class, id);
 
         session.close();
+        if(article == null) {
+            throw new DaoException("L'id n'existe pas");
+        }
         return article;
     }
 
@@ -62,7 +67,7 @@ public class ArticleDao implements Dao<Article>{
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -72,31 +77,34 @@ public class ArticleDao implements Dao<Article>{
 
         session.getTransaction().commit();
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression de l'article");
+        }
     }
 
-    public List getNameFromName(String name) {
+
+    public List getAllNames() {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        List stringList = session.getNamedQuery("selectAllArticlesName").getResultList();
+        session.close();
+        return stringList;
+    }
+
+    public void checkIfNameExists(String name) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
-        List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
+        List list = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
 
         session.close();
-        return listName;
+        if(!list.isEmpty()) {
+            throw new DaoException("Le nom d'article existe déjà, " + name);
+        }
     }
 
-    public boolean checkIfNameExists(String name) {
-        session = HibUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-
-        List listName = session.getNamedQuery("selectArticleName").setParameter("art", name).getResultList();
-
-        session.close();
-        return listName.isEmpty();
-    }
-
-    public List<Object[]> getArticleAndCategoryById(int id) {
+    public List<Object[]> getArticleAndCategoryById(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -104,6 +112,9 @@ public class ArticleDao implements Dao<Article>{
                 .getResultList();
 
         session.close();
+        if(list.isEmpty()) {
+            throw new DaoException("L'article n'a pas été trouvé avec cet id");
+        }
         return list;
     }
 }

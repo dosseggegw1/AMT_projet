@@ -33,13 +33,16 @@ public class CartDao implements Dao<Cart> {
     }
 
     @Override
-    public Cart get(int id) {
+    public Cart get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
         Cart cart = session.get(Cart.class, id);
 
         session.close();
+        if(cart == null) {
+            throw new DaoException("L'id n'existe pas");
+        }
         return cart;
     }
 
@@ -55,7 +58,7 @@ public class CartDao implements Dao<Cart> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -65,6 +68,9 @@ public class CartDao implements Dao<Cart> {
 
         session.getTransaction().commit();
         session.close();
-        return list.isEmpty();
+
+        if(!list.isEmpty()) {
+            throw new DaoException("Il y a eu une erreur lors de la suppression du panier");
+        }
     }
 }

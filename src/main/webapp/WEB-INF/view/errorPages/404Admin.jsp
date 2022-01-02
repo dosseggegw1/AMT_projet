@@ -63,7 +63,7 @@
                         <h2>404</h2>
                         <span>Sorry! Page Not Found</span>
                         <p>La page à laquelle vous tentez d'accéder n'existe pas.</p>
-                        <a href="/shop">Retourner sur la page d'accueil</a>
+                        <a href="/shop/admin">Retourner sur la page d'accueil</a>
                     </div>
                 </div>
             </div>

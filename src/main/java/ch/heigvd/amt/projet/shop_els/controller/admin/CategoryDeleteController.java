@@ -24,7 +24,7 @@ public class CategoryDeleteController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        // TODO vérifier que l'id voulu existe sinon erreur
+
         int idCategory = Integer.parseInt(request.getParameter("id"));
         
         if(request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){

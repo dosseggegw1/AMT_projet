@@ -1,5 +1,12 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
+import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
+import ch.heigvd.amt.projet.shop_els.access.CartDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
+import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.model.Cart;
+import ch.heigvd.amt.projet.shop_els.model.User;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -17,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet{
@@ -78,6 +86,21 @@ public class LoginController extends HttpServlet{
             if(role.equals("admin")){
                 response.sendRedirect("/shop/admin");
             }
+
+            String cartAsString = "";
+            try {
+                //creating cookie depending on the user's cart in DB
+                cartAsString = readCart(request);
+            } catch (DaoException error) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            }
+
+            if(!cartAsString.equals("")){
+                javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
+                cook.setPath("/shop");
+                response.addCookie(cook);
+            }
+
             response.sendRedirect("/shop");
         }
         else if (resp.getStatusLine().getStatusCode() == HttpStatus.SC_FORBIDDEN){
@@ -87,6 +110,40 @@ public class LoginController extends HttpServlet{
         else{
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
+    }
+
+    private String readCart(HttpServletRequest request) throws DaoException {
+        UserDao userDao = new UserDao();
+        CartDao cartDao = new CartDao();
+        ArticleCartDao articleCartDao = new ArticleCartDao();
+
+        String result = "";
+        int idUser = (int) request.getSession().getAttribute("idUser");
+        User user = userDao.get(idUser);
+        Cart cart = user.getFk_cart();
+        int idCart;
+
+        if(cart == null)
+        {
+            cart = new Cart();
+            cartDao.save(cart);
+            user.setFk_cart(cartDao.get(cart.getIdCart()));
+            userDao.update(user);
+        }
+
+        idCart = cart.getIdCart();
+
+        List<Article_Cart> allArticleCarts = articleCartDao.getAll();
+
+        for(Article_Cart articleCart : allArticleCarts){
+            if(articleCart.getCart().getIdCart() == idCart){
+                result += articleCart.getArticle().getIdArticle() + "&";
+                result += articleCart.getQuantity() + "&";
+                result += articleCart.getArticle().getPrice() + "#";
+            }
+        }
+
+        return result;
     }
 
 }

@@ -34,6 +34,7 @@ public class CartController extends HttpServlet {
         ArrayList<ArrayList<String>> cart = read_cookie(request);
         ArrayList<ArrayList<String>> cartShort = read_cookie(request);
 
+        try {
         if(cart.size() == 0){
             if(checkIfLoggedIn(request)){
                 clearCart(request);
@@ -43,7 +44,6 @@ public class CartController extends HttpServlet {
             request.setAttribute("cartShort", cartShort);
 
             for(ArrayList<String> item : cart) {
-              try {
                   List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
                   item.add((String) resultArticle.get(0)[1]);
                   item.add(String.valueOf(resultArticle.get(0)[3]));
@@ -51,17 +51,17 @@ public class CartController extends HttpServlet {
                   if(checkIfLoggedIn(request)){
                     pushCartInDB(request, cart);
                   }
-              } catch (DaoException e) {
-                  request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
-                  return;
               }
             }
+        } catch (DaoException e) {
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            return;
         }
         request.setAttribute("cart", cart);
         request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
     }
 
-    private void clearCart(HttpServletRequest request){
+    private void clearCart(HttpServletRequest request) throws DaoException {
         UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
@@ -88,7 +88,7 @@ public class CartController extends HttpServlet {
         }
     }
 
-    private void pushCartInDB(HttpServletRequest request, ArrayList<ArrayList<String>> parsedCart){
+    private void pushCartInDB(HttpServletRequest request, ArrayList<ArrayList<String>> parsedCart) throws DaoException {
         UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();

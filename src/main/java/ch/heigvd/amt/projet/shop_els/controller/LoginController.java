@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
 import ch.heigvd.amt.projet.shop_els.access.CartDao;
+import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
@@ -86,9 +87,13 @@ public class LoginController extends HttpServlet{
                 response.sendRedirect("/shop/admin");
             }
 
-
-            //creating cookie depending on the user's cart in DB
-            String cartAsString = readCart(request);
+            String cartAsString = "";
+            try {
+                //creating cookie depending on the user's cart in DB
+                cartAsString = readCart(request);
+            } catch (DaoException error) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            }
 
             if(!cartAsString.equals("")){
                 javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
@@ -107,7 +112,7 @@ public class LoginController extends HttpServlet{
         }
     }
 
-    private String readCart(HttpServletRequest request){
+    private String readCart(HttpServletRequest request) throws DaoException {
         UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();

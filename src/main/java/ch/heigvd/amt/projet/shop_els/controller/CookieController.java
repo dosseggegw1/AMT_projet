@@ -1,9 +1,6 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
-import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
-import ch.heigvd.amt.projet.shop_els.access.CartDao;
-import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.access.*;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
@@ -30,7 +27,7 @@ public class CookieController extends HttpServlet {
         create_cookie(request, response);
     }
 
-    private void create_cookie(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void create_cookie(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         checkIfCookiesExist(request);
 
@@ -69,8 +66,13 @@ public class CookieController extends HttpServlet {
             cartAsString += productCode + "&" + quantity + "&" + priceByUnit + "#";
         }
 
-        if(checkIfLoggedIn(request)){
-            pushCartInDB(request, cartAsString);
+        try {
+            if (checkIfLoggedIn(request)) {
+                pushCartInDB(request, cartAsString);
+            }
+        } catch (DaoException error) {
+            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            return;
         }
 
         javax.servlet.http.Cookie cook = new javax.servlet.http.Cookie("cartItems", cartAsString);
@@ -82,7 +84,7 @@ public class CookieController extends HttpServlet {
     }
 
 
-    private void pushCartInDB(HttpServletRequest request, String cartAsString){
+    private void pushCartInDB(HttpServletRequest request, String cartAsString) throws DaoException {
         UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();

@@ -69,18 +69,6 @@
                           <p class="aa-product-avilability">Disponibilité: <span> ${article[5]} pièces en stock</span></p>
                         </div>
                         <p>${article[2]}</p>
-                        <select id="quantity" name="quantity">
-                          <option selected="1" value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                        </select>
-                        <div class="aa-prod-view-bottom">
-                          <c:if test="${article[3] != 0 && article[5] != 0}">
-                            <input type="submit" class="aa-add-to-cart-btn" value="Ajouter au panier">
-                          </c:if>
                         <div class="aa-prod-category"> Catégorie(s):
                           <c:forEach var="categorie" items="${categories}">
                             ${categorie}

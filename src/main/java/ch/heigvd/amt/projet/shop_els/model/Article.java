@@ -1,9 +1,13 @@
 package ch.heigvd.amt.projet.shop_els.model;
 
+import org.apache.commons.io.FilenameUtils;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static ch.heigvd.amt.projet.shop_els.util.Constants.*;
 
 @NamedQueries({
         @NamedQuery(name="selectArticleIdName", query = "SELECT a.idArticle, a.name FROM Article a"),
@@ -13,7 +17,8 @@ import java.util.Set;
         @NamedQuery(name="selectArticleNameDescription", query="SELECT a.name, a.description FROM Article a WHERE a.description in :descr"),
         @NamedQuery(name="selectArticleAndCategory", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle"),
         @NamedQuery(name="selectArticleAndCategoryById", query="SELECT a.idArticle, a.name, a.description, a.price, a.imageURL, a.stock, acat.category.idCategory, acat.category.name FROM Article a LEFT JOIN Article_Category acat ON acat.article.idArticle = a.idArticle WHERE acat.article.idArticle = :articleID"),
-        @NamedQuery(name="selectArticleId", query="SELECT a.idArticle FROM Article a WHERE a.idArticle in :id")
+        @NamedQuery(name="selectArticleId", query="SELECT a.idArticle FROM Article a WHERE a.idArticle in :id"),
+        @NamedQuery(name="selectAllArticlesName", query="SELECT a.name FROM Article a"),
 })
 
 @Entity
@@ -67,40 +72,68 @@ public class Article {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws ModelException {
+        if(name.equals("")) {
+            throw new ModelException("Le nom de l'article est vide");
+        } else if(name.length() > MAXIMUM_NAME_LENGTH) {
+            throw new ModelException("Le nom de l'article est trop grand ! (50 caractères maximum)");
+        }
+        else {
+            this.name = name;
+        }
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) throws ModelException {
+        if(description.equals("")) {
+            throw new ModelException("La description de l'article est vide");
+        } else if(description.length() > MAXIMUM_DESCRIPTION_LENGTH) {
+            throw new ModelException("La description de l'article est trop grand ! (255 caractères maximum)");
+        }
+        else {
+            this.description = description;
+        }
     }
 
     public float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setPrice(float price) throws ModelException {
+        if(price < MINIMUM_QUANTITY) {
+            throw new ModelException("Le prix ne peut pas être négatif");
+        } else {
+            this.price = price;
+        }
     }
 
     public String getImageURL() {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURL(String imageURL) throws ModelException {
+        if(FilenameUtils.getExtension(imageURL).equals("jpg") ||
+        FilenameUtils.getExtension(imageURL).equals("jpeg") ||
+        FilenameUtils.getExtension(imageURL).equals("png")) {
+            this.imageURL = imageURL;
+       } else {
+            throw new ModelException("L'extension n'est pas supportée. Nous acceptons seulement jpg, jpeg et png");
+        }
     }
 
     public int getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStock(int stock) throws ModelException {
+        if(stock < MINIMUM_QUANTITY) {
+            throw new ModelException("Le stock ne peut pas être négatif");
+        } else {
+            this.stock = stock;
+        }
     }
 
     public Set<Article_Cart> getArticle_carts() {

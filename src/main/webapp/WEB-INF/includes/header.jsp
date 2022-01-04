@@ -58,15 +58,17 @@
                 <!-- / header top left -->
                 <div class="aa-header-top-right">
                   <ul class="aa-head-top-nav-right">
+                    <c:if test="${!empty sessionScope.idUser}">
                     <li><a href="account">Mon compte</a></li>
+                    </c:if>
                     <li class="hidden-xs"><a href="cart">Mon panier</a></li>
-                    <li class="hidden-xs"><a href="checkout">Passer a la caisse</a></li>
+                    <li class="hidden-xs"><a href="checkout">Passer à la caisse</a></li>
                     <c:if test="${empty sessionScope.idUser}">
                       <li class="hidden-xs"><a href="login">S'identifier</a></li>
-                      <li class="hidden-xs"><a href="register">Se creer un compte</a></li>
+                      <li class="hidden-xs"><a href="register">Se créer un compte</a></li>
                     </c:if>
                     <c:if test="${!empty sessionScope.idUser}">
-                      <li class="hidden-xs"><a href="logout">Se deconnecter</a></li>
+                      <li class="hidden-xs"><a href="logout">Se déconnecter</a></li>
                     </c:if>
                   </ul>
                 </div>

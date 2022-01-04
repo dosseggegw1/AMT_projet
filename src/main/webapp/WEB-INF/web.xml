@@ -5,6 +5,13 @@
          version="4.0">
     <display-name>Shop eLS | AMT Project</display-name>
 
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
     <servlet>
         <servlet-name>Accueil</servlet-name>
         <servlet-class>ch.heigvd.amt.projet.shop_els.controller.IndexController</servlet-class>
@@ -165,4 +172,11 @@
         <servlet-name>CategoryDelete</servlet-name>
         <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.CategoryDeleteController</servlet-class>
     </servlet>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/view/errorPages/404.jsp</location>
+    </error-page>
+
+
 </web-app>

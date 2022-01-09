@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet{
     //url application server
     private final String url = "http://10.0.1.92:8080/auth/login";
 
+    //TODO NGY to remove
     //url with ssh tunnel
     //private final String url = "http://localhost:3000/auth/login";
 
@@ -54,7 +55,7 @@ public class LoginController extends HttpServlet{
         }
 
         //define the parameter for the POST request
-        HttpClient httpclient = HttpClientBuilder.create().build();
+        HttpClient httpclient = HttpClientBuilder.create().build();//TODO NGY duplicate code fragment
 
         //create the POST request
         HttpPost httppost = new HttpPost(url);

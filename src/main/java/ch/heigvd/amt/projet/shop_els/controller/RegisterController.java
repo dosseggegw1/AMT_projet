@@ -26,6 +26,7 @@ public class RegisterController extends HttpServlet{
     //url application server
     private final String url = "http://10.0.1.92:8080/accounts/register";
 
+    //TODO NGY To be removed
     //url with ssh tunnel
     //private final String url = "http://localhost:3000/accounts/register";
 
@@ -50,7 +51,7 @@ public class RegisterController extends HttpServlet{
 
         if(request.getParameter("password").equals(request.getParameter("confirm_password"))) {
             //define the parameter for the POST request
-            HttpClient httpclient = HttpClientBuilder.create().build();
+            HttpClient httpclient = HttpClientBuilder.create().build();//TODO NGY duplicate code fragment
 
             //create the POST request
             HttpPost httppost = new HttpPost(url);

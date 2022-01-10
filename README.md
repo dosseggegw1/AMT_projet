@@ -75,6 +75,27 @@ Après cette dernière manipulation, l'application est atteignable via l'URL `ht
 
 ## Usage
 
+![](img/AMT_screenshot_index.png)
+
+Sur la capture d'écran ci-dessus, nous trouvons dans l'en-tête plusieurs onglets. 
+
+Pour un nouvel utilisateur, la première étape est de créer un compte, ce qui peut être fait en cliquant sur le lien tout en haut à droite de la page `Se créer un compte`. 
+
+Pour un utilisateur déjà connu, il faut se connecter en cliquant sur le lien juste à gauche du lien mentionné précédemment `S'identifier`. 
+
+Il existe deux possibilités pour atteindre son panier : soit le lien `Mon panier` tout en haut de la page, soit l'icône en dessous du lien `Se créer un compte`. 
+
+On peut consulter différentes catégories de produits directement sur l'écran d'accueil de l'application, ainsi que tous les produits, pas triés par catégorie. En cliquant sur le nom de l'article, une nouvelle page est chargée pour afficher les détails concernant cet article. On peut ajouter un article à notre panier depuis la page `index` de base (ajout d'une quantité de 1) ou alors, depuis la page de détails sur l'article (ajout d'une quantité de 1 ou plus). 
+
+| Activité             | Capture d'écran                  | Notes                                                        |
+| -------------------- | -------------------------------- | ------------------------------------------------------------ |
+| Création de compte   | ![](img/AMT_creation-compte.png) | L'utilisateur doit entre un nom, un mot de passe et il doit taper une seconde fois le mot de passe. S'il est correct, le bouton `S'enregistrer` devient cliquable |
+| Identification       | ![](img/AMT_identification.png)  | L'utilisateur doit entrer un nom et un mot de passe corrects et correspondants entre eux. |
+| Détails d'un article | ![](img/AMT_product-detail.png)  | Des détails sont disponibles sur l'article (nom, photo, prix, quantité, descriptif, catégorie) et il est possible de choisir une quantité à ajouter au panier. |
+| Panier               | ![](img/AMT_panier.png)          | Il est possible de modifier la quantité des articles dans le panier directement depuis le panier, on peut le mettre à jour ou le vider complétement. |
+
+
+
 ## Support
 
 ## Roadmap

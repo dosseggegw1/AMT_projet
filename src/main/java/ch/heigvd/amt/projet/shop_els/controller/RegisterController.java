@@ -23,7 +23,7 @@ public class RegisterController extends HttpServlet{
     private final UserDao userDao = new UserDao();
 
     private static String url = "";
-    private String urlSecretPath = "/opt/wildfly/Secret/URL_register";
+    private String urlSecretPath = "/home/admin/Secret/URL_register";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

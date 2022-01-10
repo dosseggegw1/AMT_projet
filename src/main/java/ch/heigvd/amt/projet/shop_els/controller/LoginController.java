@@ -7,13 +7,11 @@ import ch.heigvd.amt.projet.shop_els.access.UserDao;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
 import ch.heigvd.amt.projet.shop_els.model.User;
-import org.apache.http.HttpEntity;
+import ch.heigvd.amt.projet.shop_els.util.HttpUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
@@ -23,17 +21,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet{
     //url application server
-    private final String url = "http://10.0.1.92:8080/auth/login";
+    private final String url = "";
+    private String tokenSecret = "";
 
-    //TODO NGY to remove
-    //url with ssh tunnel
-    //private final String url = "http://localhost:3000/auth/login";
+    private String jwtSecretPath = "/home/admin/Secret/SecretJWT";
+    private String urlSecretPath = "/home/admin/Secret/URL_login";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,28 +58,20 @@ public class LoginController extends HttpServlet{
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
 
-        //define the parameter for the POST request
-        HttpClient httpclient = HttpClientBuilder.create().build();//TODO NGY duplicate code fragment
+        //read the url file
+        File fileUrl = new File(urlSecretPath);
+        BufferedReader brURL = new BufferedReader(new FileReader(fileUrl));
+        String url = brURL.readLine();
 
-        //create the POST request
-        HttpPost httppost = new HttpPost(url);
-        JSONObject Json = new JSONObject();
-        Json.put("username", request.getParameter("username"));
-        Json.put("password", request.getParameter("password"));
-        StringEntity params = new StringEntity(Json.toString());
-        params.setContentType("application/json");
-        httppost.addHeader("Content-Type", "application/json");
-        httppost.setEntity(params);
-
-        //Execute and get the response.
-        HttpResponse resp = httpclient.execute(httppost);
-        HttpEntity entity = resp.getEntity();
+        //execute the http post request
+        HttpResponse resp = HttpUtil.httpPost(request, response, url);
 
         if(resp.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
 
             //convert String to JSON Object
-            JSONObject result = new JSONObject(EntityUtils.toString(entity));
+            JSONObject result = new JSONObject(EntityUtils.toString(resp.getEntity()));
             JSONObject accountInfoDTO = result.getJSONObject("account");
+            String token = result.getString("token");
 
             //create the session with the id and the role of the authentification server
             int idUser = accountInfoDTO.getInt("id");
@@ -83,6 +79,28 @@ public class LoginController extends HttpServlet{
             HttpSession session = request.getSession();
             session.setAttribute("idUser", idUser);
             session.setAttribute("role", role);
+
+            //read th jwt file
+            File fileJWT = new File(jwtSecretPath);
+            BufferedReader brJWT = new BufferedReader(new FileReader(fileJWT));
+            String tokenSecret = brJWT.readLine();
+
+            //test the jwt signature and add the expiration date to the session
+            try{
+                Claims claims = Jwts.parser()
+                        .setSigningKey(tokenSecret
+                                .getBytes(Charset.forName("UTF-8")))
+                        .parseClaimsJws(token.replace("{", "")
+                                .replace("}",""))
+                        .getBody();
+
+                String exp = LocalDateTime.ofInstant(claims.getExpiration().toInstant(), ZoneId.systemDefault()).toString();
+                session.setAttribute("exp", exp);
+            }
+            catch(Exception errorMessage){
+                request.setAttribute("errorMessage", "la signature numérique a été modifié");
+                request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+            }
 
             if(role.equals("admin")){
                 response.sendRedirect("/shop/admin");

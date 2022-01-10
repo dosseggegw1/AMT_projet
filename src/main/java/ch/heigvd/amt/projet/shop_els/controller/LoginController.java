@@ -36,8 +36,8 @@ public class LoginController extends HttpServlet{
     private final String url = "";
     private String tokenSecret = "";
 
-    private String jwtSecretPath = "/opt/wildfly/Secret/SecretJWT";
-    private String urlSecretPath = "/opt/wildfly/Secret/URL_login";
+    private String jwtSecretPath = "/home/admin/Secret/SecretJWT";
+    private String urlSecretPath = "/home/admin/Secret/URL_login";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

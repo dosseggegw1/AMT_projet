@@ -26,6 +26,8 @@ public class HibUtil {
     }
 
 }
+
+//TODO NGY remove commented code before review
 /*
 -> /!\ Config supposée permettre l'utilisation de "GROUP_CONCAT()" dans une requête HQL
 -> Empêche la connexion à la BD ...

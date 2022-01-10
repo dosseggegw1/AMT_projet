@@ -8,10 +8,10 @@ import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
 import ch.heigvd.amt.projet.shop_els.model.User;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
+import ch.heigvd.amt.projet.shop_els.util.HibUtil;//TODO NGY Remove import statement unused
+import org.hibernate.Session;//TODO NGY Remove import statement unused
 
-import javax.persistence.Query;
+import javax.persistence.Query;//TODO NGY Remove import statement unused
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,7 +66,7 @@ public class CartController extends HttpServlet {
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
 
-        int idUser = (int) request.getSession().getAttribute("idUser");
+        int idUser = (int) request.getSession().getAttribute("idUser");//TODO NGY duplicate code fragment
         User user = userDao.get(idUser);
         Cart cart = user.getFk_cart();
         int idCart;
@@ -89,7 +89,7 @@ public class CartController extends HttpServlet {
     }
 
     private void pushCartInDB(HttpServletRequest request, ArrayList<ArrayList<String>> parsedCart) throws DaoException {
-        UserDao userDao = new UserDao();
+        UserDao userDao = new UserDao();//TODO NGY duplicate code fragment
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
         ArticleDao articleDao = new ArticleDao();

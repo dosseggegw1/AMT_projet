@@ -45,7 +45,7 @@ public class RegisterController extends HttpServlet{
         }
 
         if(request.getParameter("password").equals(request.getParameter("confirm_password"))) {
-
+          
             //read the url file
             File fileUrl = new File(urlSecretPath);
             BufferedReader brURL = new BufferedReader(new FileReader(fileUrl));

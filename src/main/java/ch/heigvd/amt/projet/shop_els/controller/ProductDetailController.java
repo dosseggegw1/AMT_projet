@@ -3,7 +3,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.model.Article;
+import ch.heigvd.amt.projet.shop_els.model.Article;//TODO NGY Remove import statement unused
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -6,7 +6,6 @@ import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
-import ch.heigvd.amt.projet.shop_els.model.User;
 import ch.heigvd.amt.projet.shop_els.util.HttpUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -137,25 +136,13 @@ public class LoginController extends HttpServlet{
         ArticleCartDao articleCartDao = new ArticleCartDao();
 
         String result = "";
-        int idUser = (int) request.getSession().getAttribute("idUser");
-        User user = userDao.get(idUser);
-        Cart cart = user.getFk_cart();
-        int idCart;
 
-        if(cart == null)
-        {
-            cart = new Cart();
-            cartDao.save(cart);
-            user.setFk_cart(cartDao.get(cart.getIdCart()));
-            userDao.update(user);
-        }
-
-        idCart = cart.getIdCart();
+        Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
 
         List<Article_Cart> allArticleCarts = articleCartDao.getAll();
 
         for(Article_Cart articleCart : allArticleCarts){
-            if(articleCart.getCart().getIdCart() == idCart){
+            if(articleCart.getCart().getIdCart() == cart.getIdCart()){
                 result += articleCart.getArticle().getIdArticle() + "&";
                 result += articleCart.getQuantity() + "&";
                 result += articleCart.getArticle().getPrice() + "#";

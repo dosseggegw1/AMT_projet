@@ -59,58 +59,20 @@ public class CartController extends HttpServlet {
     }
 
     private void clearCart(HttpServletRequest request) throws DaoException {
-        UserDao userDao = new UserDao();
-        CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
 
-        int idUser = (int) request.getSession().getAttribute("idUser");//TODO NGY duplicate code fragment
-        User user = userDao.get(idUser);
-        Cart cart = user.getFk_cart();
-        int idCart;
+        Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
 
-        if(cart == null)
-        {
-            cart = new Cart();
-            cartDao.save(cart);
-            user.setFk_cart(cartDao.get(cart.getIdCart()));
-            userDao.update(user);
-        }
-
-        idCart = cart.getIdCart();
-
-        for(Article_Cart articleCart : articleCartDao.getAll()){
-            if(articleCart.getCart().getIdCart() == idCart){
-                articleCartDao.delete(articleCart.getArticle_cart_id());
-            }
-        }
+        emptyCart(cart, articleCartDao);
     }
 
     private void pushCartInDB(HttpServletRequest request, ArrayList<ArrayList<String>> parsedCart) throws DaoException {
-        UserDao userDao = new UserDao();//TODO NGY duplicate code fragment
-        CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
         ArticleDao articleDao = new ArticleDao();
 
-        int idUser = (int) request.getSession().getAttribute("idUser");
-        User user = userDao.get(idUser);
-        Cart cart = user.getFk_cart();
-        int idCart;
+        Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
 
-        if(cart == null)
-        {
-            cart = new Cart();
-            cartDao.save(cart);
-            user.setFk_cart(cartDao.get(cart.getIdCart()));
-            userDao.update(user);
-        }
-
-        idCart = cart.getIdCart();
-
-        for(Article_Cart articleCart : articleCartDao.getAll()){
-            if(articleCart.getCart().getIdCart() == idCart){
-                articleCartDao.delete(articleCart.getArticle_cart_id());
-            }
-        }
+        emptyCart(cart, articleCartDao);
 
         for (ArrayList<String> item : parsedCart) {
             Article_Cart articleCart = new Article_Cart();
@@ -131,5 +93,31 @@ public class CartController extends HttpServlet {
             return false;
         }
         return true;
+    }
+
+    public static Cart getCart(int idUser) throws DaoException {
+        UserDao userDao = new UserDao();
+        CartDao cartDao = new CartDao();
+
+        User user = userDao.get(idUser);
+        Cart cart = user.getFk_cart();
+
+        if(cart == null)
+        {
+            cart = new Cart();
+            cartDao.save(cart);
+            user.setFk_cart(cartDao.get(cart.getIdCart()));
+            userDao.update(user);
+        }
+
+        return cart;
+    }
+
+    public static void emptyCart(Cart cart, ArticleCartDao articleCartDao) throws DaoException {
+        for(Article_Cart articleCart : articleCartDao.getAll()){
+            if(articleCart.getCart().getIdCart() == cart.getIdCart()){
+                articleCartDao.delete(articleCart.getArticle_cart_id());
+            }
+        }
     }
 }

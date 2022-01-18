@@ -3,7 +3,6 @@ package ch.heigvd.amt.projet.shop_els.controller;
 import ch.heigvd.amt.projet.shop_els.access.*;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
-import ch.heigvd.amt.projet.shop_els.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,25 +80,10 @@ public class CookieController extends HttpServlet {
 
 
     private void pushCartInDB(HttpServletRequest request, String cartAsString) throws DaoException {
-        UserDao userDao = new UserDao();
-        CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
         ArticleDao articleDao = new ArticleDao();
 
-        int idUser = (int) request.getSession().getAttribute("idUser");
-        User user = userDao.get(idUser);
-        Cart cart = user.getFk_cart();
-        int idCart;
-
-        if(cart == null)
-        {
-            cart = new Cart();
-            cartDao.save(cart);
-            user.setFk_cart(cartDao.get(cart.getIdCart()));
-            userDao.update(user);
-        }
-
-        idCart = cart.getIdCart();
+        Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
 
         ArrayList<ArrayList<String>> parsedCart = parseCookie(cartAsString);
 
@@ -108,7 +92,7 @@ public class CookieController extends HttpServlet {
 
             int idArticle = Integer.parseInt(item.get(0));
             int quantity = Integer.parseInt(item.get(1));
-            int idArticleCart = findArticleCartID(idCart, idArticle);
+            int idArticleCart = findArticleCartID(cart.getIdCart(), idArticle);
 
             articleCart.setCart(cart);
             articleCart.setArticle(articleDao.get(idArticle));

@@ -51,8 +51,6 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
 
     @Override
     public List<Article_Category> getAll() {
-        //TODO : Implémenter
-        //TODO NGY no more TODO in the reviewed code please !
         return null;
     }
 

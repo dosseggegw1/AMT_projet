@@ -8,10 +8,7 @@ import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
 import ch.heigvd.amt.projet.shop_els.model.User;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;//TODO NGY Remove import statement unused
-import org.hibernate.Session;//TODO NGY Remove import statement unused
 
-import javax.persistence.Query;//TODO NGY Remove import statement unused
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

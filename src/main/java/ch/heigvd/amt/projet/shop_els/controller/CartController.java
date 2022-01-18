@@ -89,10 +89,7 @@ public class CartController extends HttpServlet {
     }
 
     private boolean checkIfLoggedIn(HttpServletRequest request) {
-        if (request.getSession().getAttribute("idUser") == null) {
-            return false;
-        }
-        return true;
+        return request.getSession().getAttribute("idUser") != null;
     }
 
     public static Cart getCart(int idUser) throws DaoException {

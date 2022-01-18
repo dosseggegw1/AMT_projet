@@ -24,19 +24,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet{
-    //url application server
-    private final String url = "";
-    private String tokenSecret = "";
-
-    private String jwtSecretPath = "/home/admin/Secret/SecretJWT";
-    private String urlSecretPath = "/home/admin/Secret/URL_login";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,6 +52,7 @@ public class LoginController extends HttpServlet{
         }
 
         //read the url file
+        String urlSecretPath = "/home/admin/Secret/URL_login";
         File fileUrl = new File(urlSecretPath);
         BufferedReader brURL = new BufferedReader(new FileReader(fileUrl));
         String url = brURL.readLine();
@@ -80,6 +75,7 @@ public class LoginController extends HttpServlet{
             session.setAttribute("role", role);
 
             //read th jwt file
+            String jwtSecretPath = "/home/admin/Secret/SecretJWT";
             File fileJWT = new File(jwtSecretPath);
             BufferedReader brJWT = new BufferedReader(new FileReader(fileJWT));
             String tokenSecret = brJWT.readLine();
@@ -88,7 +84,7 @@ public class LoginController extends HttpServlet{
             try{
                 Claims claims = Jwts.parser()
                         .setSigningKey(tokenSecret
-                                .getBytes(Charset.forName("UTF-8")))
+                                .getBytes(StandardCharsets.UTF_8))
                         .parseClaimsJws(token.replace("{", "")
                                 .replace("}",""))
                         .getBody();
@@ -131,8 +127,6 @@ public class LoginController extends HttpServlet{
     }
 
     private String readCart(HttpServletRequest request) throws DaoException {
-        UserDao userDao = new UserDao();
-        CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
 
         String result = "";

@@ -31,7 +31,6 @@ public class CookieController extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         float priceByUnit = Float.parseFloat(request.getParameter("price"));
         boolean itemInCart = false;
-        boolean firstParam = true;
         boolean quantityZero = false;
         ArrayList<ArrayList<String>> cart;
         String cartAsString = "";
@@ -120,10 +119,7 @@ public class CookieController extends HttpServlet {
     }
 
     private boolean checkIfLoggedIn(HttpServletRequest request) {
-        if (request.getSession().getAttribute("idUser") == null) {
-            return false;
-        }
-        return true;
+        return request.getSession().getAttribute("idUser") != null;
     }
     
     private String updateCookie(ArrayList<String> item) {

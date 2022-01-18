@@ -22,9 +22,6 @@ import java.io.IOException;
 public class RegisterController extends HttpServlet{
     private final UserDao userDao = new UserDao();
 
-    private static String url = "";
-    private String urlSecretPath = "/home/admin/Secret/URL_register";
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //send to index if already connected
@@ -47,6 +44,7 @@ public class RegisterController extends HttpServlet{
         if(request.getParameter("password").equals(request.getParameter("confirm_password"))) {
           
             //read the url file
+            String urlSecretPath = "/home/admin/Secret/URL_register";
             File fileUrl = new File(urlSecretPath);
             BufferedReader brURL = new BufferedReader(new FileReader(fileUrl));
             String url = brURL.readLine();

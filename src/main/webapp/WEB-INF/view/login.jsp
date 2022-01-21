@@ -5,7 +5,6 @@
 <jsp:include page="../includes/head.jsp"/>
 <body>
   <jsp:include page="../includes/header.jsp"/>
-  <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
     <div class="aa-catg-head-banner-area">
      <div class="container">
@@ -18,9 +17,7 @@
      </div>
    </div>
   </section>
-  <!-- / catg header banner section -->
 
- <!-- Cart view section -->
  <section id="aa-myaccount">
    <div class="container">
      <div class="row">
@@ -37,9 +34,9 @@
                 </c:if>
                  <form action="" method="post" class="aa-login-form">
                   <label>Nom d'utilisateur<span>*</span></label><br>
-                  <input type="text" name="username" onkeyup="check_filled()" placeholder="Nom d'utilisateur"><br>
+                  <input type="text" id="username" name="username" placeholder="Nom d'utilisateur" onkeyup="check_filled()"><br>
                   <label>Mot de passe<span>*</span></label><br>
-                  <input type="password" name="password" onkeyup="check_filled()" placeholder="Mot de passe"><br>
+                  <input type="password" id="password" name="password" placeholder="Mot de passe" onkeyup="check_filled()"><br>
                   <button type="submit" id="login_btn" value="Login" class="aa-disabled-btn">S'identifier</button>
                   </form>
                 </div>
@@ -50,11 +47,10 @@
      </div>
    </div>
  </section>
- <!-- / Cart view section -->
 
   <script>
       function check_filled() {
-          if (document.getElementById("username").value !== "" || document.getElementById("password").value !== "") {
+          if (document.getElementById("username").value !== '' && document.getElementById("password").value !== '') {
               document.getElementById('login_btn').disabled = false;
               document.getElementById('login_btn').classList.remove('aa-disabled-btn');
               document.getElementById('login_btn').classList.add('aa-browse-btn');
@@ -64,7 +60,6 @@
               document.getElementById('login_btn').classList.remove('aa-browse-btn');
           }
       }
-
   </script>
 
   <jsp:include page="../includes/footer.jsp"/>

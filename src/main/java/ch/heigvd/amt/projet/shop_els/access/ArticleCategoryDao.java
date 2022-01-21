@@ -35,6 +35,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session.close();
     }
 
+
     @Override
     public Article_Category get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();

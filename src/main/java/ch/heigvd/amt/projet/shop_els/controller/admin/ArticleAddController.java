@@ -7,6 +7,7 @@ import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
+import ch.heigvd.amt.projet.shop_els.service.AwsS3;
 import com.google.gson.Gson;
 import ch.heigvd.amt.projet.shop_els.model.ModelException;
 
@@ -30,6 +31,7 @@ public class ArticleAddController extends HttpServlet {
     private final ArticleDao articleDao = new ArticleDao();
     private final CategoryDao categoryDao = new CategoryDao();
     private final ArticleCategoryDao articleCategoryDao = new ArticleCategoryDao();
+    private AwsS3 aws = new AwsS3();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,6 +119,13 @@ public class ArticleAddController extends HttpServlet {
             if (!price.equals("")) article.setPrice(Float.parseFloat(price));
             if (!stock.equals("")) article.setStock(Integer.parseInt(stock));
             articleDao.save(article);
+
+            ///////////// CONNEXION AWS ///////////////////////////
+            aws.connection();
+            //////////// UPLOAD IMAGE ////////////////////////////
+            /// premier paramètre: path sur AWS, ici je mets juste le nom de l'image par exemple: cassandre.jpg
+            // second paramètre: chemin vers l'image à upload sur AWS
+            aws.uploadImage(newFileName, new File(savePath + File.separator + newFileName));
 
             // Search for all categories selected and create an associate object with article
             if (categories != null) {

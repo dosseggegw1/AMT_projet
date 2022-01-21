@@ -13,6 +13,9 @@
 <!-- Products section -->
 <section id="aa-product">
   <div class="container">
+    <div id="add-article-success" class="alert alert-success" role="alert">
+      <c:out value="L'article a été ajouté au panier !"/>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <div class="row">
@@ -52,7 +55,7 @@
                                   <input name="id" value="${article[0]}" readonly hidden>
                                   <input name="price" value="${article[3]}" readonly hidden>
                                   <input name="quantity" value="1" readonly hidden>
-                                  <button type="submit" class="aa-add-card-btn addtocart">
+                                  <button type="submit" id="btn-addtocart" class="aa-add-card-btn addtocart">
                                     Ajouter au panier
                                   </button>
                                 </form>
@@ -81,7 +84,7 @@
                               <input name="id" value="${article[0]}" readonly hidden>
                               <input name="price" value="${article[3]}" readonly hidden>
                               <input name="quantity" value="1" readonly hidden>
-                              <button type="submit" class="aa-add-card-btn addtocart">
+                              <button type="submit" id="btn-addtocart2" class="aa-add-card-btn addtocart"">
                                 Ajouter au panier
                               </button>
                             </form>
@@ -113,6 +116,18 @@
 <!-- / Products section -->
 
 <script>
+  $(document).ready(function() {
+    $("#add-article-success").hide();
+    $("#btn-addtocart, #btn-addtocart2").click(function showAlert() {
+      $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
+    });
+  });
+
+  $('#add-article-success .close').click(function() {
+    $(this).parent().hide();
+  });
+
+
   filterSelection("cat-all")
   function filterSelection(c) {
     var x, i;

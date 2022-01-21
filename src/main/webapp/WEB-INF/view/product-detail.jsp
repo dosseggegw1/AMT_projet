@@ -27,6 +27,9 @@
   <!-- product category -->
   <section id="aa-product-details">
     <div class="container">
+      <div id="add-article-success" class="alert alert-success" role="alert">
+        <c:out value="L'article a été ajouté au panier !"/>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="aa-product-details-area">
@@ -95,6 +98,19 @@
     </div>
   </section>
   <!-- / product category -->
+
+  <script>
+    $(document).ready(function() {
+      $("#add-article-success").hide();
+      $("#addToCart").click(function showAlert() {
+        $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
+      });
+    });
+
+    $('#add-article-success .close').click(function() {
+      $(this).parent().hide();
+    });
+  </script>
 
   <jsp:include page="../includes/footer.jsp"/>
   <jsp:include page="../includes/plugins.jsp"/>

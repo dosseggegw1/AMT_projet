@@ -37,10 +37,10 @@
                 </c:if>
                  <form action="" method="post" class="aa-login-form">
                   <label>Nom d'utilisateur<span>*</span></label><br>
-                  <input type="text" name="username" placeholder="Nom d'utilisateur"><br>
+                  <input type="text" name="username" onkeyup="check_filled()" placeholder="Nom d'utilisateur"><br>
                   <label>Mot de passe<span>*</span></label><br>
-                  <input type="password" name="password" placeholder="Mot de passe"><br>
-                  <button type="submit" value="Login" class="aa-browse-btn">S'identifier</button>
+                  <input type="password" name="password" onkeyup="check_filled()" placeholder="Mot de passe"><br>
+                  <button type="submit" id="login_btn" value="Login" class="aa-disabled-btn">S'identifier</button>
                   </form>
                 </div>
               </div>
@@ -52,8 +52,22 @@
  </section>
  <!-- / Cart view section -->
 
-  <jsp:include page="../includes/footer.jsp"/>
+  <script>
+      function check_filled() {
+          if (document.getElementById("username").value !== "" || document.getElementById("password").value !== "") {
+              document.getElementById('login_btn').disabled = false;
+              document.getElementById('login_btn').classList.remove('aa-disabled-btn');
+              document.getElementById('login_btn').classList.add('aa-browse-btn');
+          } else {
+              document.getElementById('login_btn').disabled = true;
+              document.getElementById('login_btn').classList.add('aa-disabled-btn');
+              document.getElementById('login_btn').classList.remove('aa-browse-btn');
+          }
+      }
 
-   <jsp:include page="../includes/plugins.jsp"/>
+  </script>
+
+  <jsp:include page="../includes/footer.jsp"/>
+  <jsp:include page="../includes/plugins.jsp"/>
   </body>
 </html>

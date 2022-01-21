@@ -43,7 +43,7 @@
                                     <label>Confirmer le mot de passe<span>*</span></label><br>
                                     <input type="password" name="confirm_password" id="confirm_password" onkeyup='check_pass();' placeholder="Mot de passe"><br>
                                     <div><span id="message_confirm_pwd"></span></div>
-                                    <button type="submit" id="register_btn" value="Register" class="aa-disabled-btn-register">S'enregistrer</button>
+                                    <button type="submit" id="register_btn" value="Register" class="aa-disabled-btn">S'enregistrer</button>
                                 </form>
                             </div>
                         </div>
@@ -57,18 +57,18 @@
 
 <script>
     function check_pass() {
-        if (document.getElementById('password').value ==
+        if (document.getElementById('password').value ===
             document.getElementById('confirm_password').value) {
             document.getElementById('message_confirm_pwd').style.color = 'green';
             document.getElementById('message_confirm_pwd').innerHTML = 'Passwords are matching';
             document.getElementById('register_btn').disabled = false;
-            document.getElementById('register_btn').classList.remove('aa-disabled-btn-register');
+            document.getElementById('register_btn').classList.remove('aa-disabled-btn');
             document.getElementById('register_btn').classList.add('aa-browse-btn');
         } else {
             document.getElementById('message_confirm_pwd').style.color = 'red';
             document.getElementById('message_confirm_pwd').innerHTML = 'Passwords are not matching';
             document.getElementById('register_btn').disabled = true;
-            document.getElementById('register_btn').classList.add('aa-disabled-btn-register');
+            document.getElementById('register_btn').classList.add('aa-disabled-btn');
             document.getElementById('register_btn').classList.remove('aa-browse-btn');
 
         }

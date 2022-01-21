@@ -80,13 +80,12 @@
                       </br>
                       </br>
                         <c:if test="${article[3] != 0 && article[5] != 0}">
-                          <input id="quantity" name="quantity" class="quantity-addtocart" type="number" value="1">
+                          <input id="quantity" name="quantity" class="quantity-addtocart" type="number" value="1" max="${article[5]}">
                           <div class="aa-prod-view-bottom">
                             <button type="submit" id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</button>
                           </div>
                         </c:if>
                       </form>
-
                     </div>
                   </div>
                 </div>
@@ -100,11 +99,16 @@
   <!-- / product category -->
 
   <script>
+    var stock = parseInt(${article[5]});
     $(document).ready(function() {
       $("#add-article-success").hide();
-      $("#addToCart").click(function showAlert() {
-        $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
-      });
+      var quantity = parseInt(document.getElementById("quantity").value);
+      if (stock >= quantity)
+      {
+        $("#addToCart").click(function showAlert() {
+          $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
+        });
+      }
     });
 
     $('#add-article-success .close').click(function() {

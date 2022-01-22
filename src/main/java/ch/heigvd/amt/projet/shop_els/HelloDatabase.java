@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "helloDatabase", value = "/hello-database")
@@ -21,10 +22,13 @@ public class HelloDatabase extends HttpServlet {
         response.setContentType("text/html");
 
             aws.connection();
+            byte[] i = aws.downloadImage("hell");
+
 
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
             out.println("<h1>" + "Client " + aws.getClient() + "</h1>");
+            out.println("<img src="+ Arrays.toString(i) + "/>");
             out.println("</body></html>");
 
     }

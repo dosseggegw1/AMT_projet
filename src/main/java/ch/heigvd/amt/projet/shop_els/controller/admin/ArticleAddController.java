@@ -115,7 +115,7 @@ public class ArticleAddController extends HttpServlet {
             Article article = new Article();
             article.setName(name);
             article.setDescription(description);
-            article.setImageURL("/shop" + SAVE_DIR + "/" + newFileName);
+            article.setImageURL("/shop" + SAVE_DIR + "/" + newFileName);        //TODO a modifier le nom qu'on stock dans la DB pour -> aws
             if (!price.equals("")) article.setPrice(Float.parseFloat(price));
             if (!stock.equals("")) article.setStock(Integer.parseInt(stock));
             articleDao.save(article);

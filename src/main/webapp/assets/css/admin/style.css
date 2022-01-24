@@ -425,6 +425,8 @@ ul.sidebar-menu li a.active i {
     padding-bottom: 15px;
     padding-top: 0px;
     width: 100%;
+    overflow: scroll;
+    height: 100%;
 }
 
 a.logo {
@@ -996,7 +998,7 @@ PANELS CONFIGURATIONS
 
 .pnArticle, .pnArticleModify {
     padding-top: 10px;
-    height: 350px;
+    min-height: 400px;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 .pnArticleModify p{
@@ -2194,8 +2196,8 @@ label {
     /* Safari and Chrome */
     .panel-footer.revenue-foot {
         margin-bottom: -4px;
-    };
     }
+}
 
 
 .panel-footer.revenue-foot ul  {
@@ -2335,7 +2337,7 @@ label {
 
 .pnArticle, .pnArticleModify {
     padding-top: 10px;
-    height: 350px;
+    min-height: 380px;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 .pnArticleModify p{
@@ -2375,4 +2377,3 @@ label {
 .alertError{
     display: block;
 }
-

@@ -62,40 +62,80 @@
     <!--main content start-->
     <section id="main-content">
         <section class="wrapper site-min-height">
-            <h3><i class="fa fa-angle-right"></i> Modifier la catégorie de l'article n°<c:out value="${article['idArticle']}"/></h3>
+            <h3><i class="fa fa-angle-right"></i> Modifier l'article n°<c:out value="${article['idArticle']}"/></h3>
             <div class="col-lg-4 col-md-4 col-sm-4 mb">
                 <div class="panel pn pnArticleModify text-center">
+                    <h4>Ancienne version</h4>
                     <img src="${article['imageURL']}" alt="${article['imageURL']}" width="100">
                     <h3><c:out value="${article['name']}"/> </h3>
-                    <p>Description : <c:out value="${article['description']}"/></p>
+                    <p><c:out value="${article['description']}"/></p>
                     <p>Prix : <c:out value="${article['price']}"/> CHF</p>
                     <p>Stock : <c:out value="${article['stock']}"/> pièces</p>
                 </div>
             </div>
 
-            <form action="/shop/admin/articleModify" method="POST" name="addForm">
+            <div class="col-lg-6 col-md-6 col-sm-6 mb">
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger" role="alert">
+                        <c:out value="${error}"/>
+                    </div>
+                </c:if>
+                <span id="errorMessage"></span>
 
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label ml-3" > Cocher les catégories souhaitées : </label><br>
-                    <c:forEach var="cat" items="${categories}">
-                        <c:choose>
-                            <c:when test="${fn:contains(categoriesArticle, cat[1])}">
-                               <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}"
-                                        checked="checked">
-                            </c:when>
-                            <c:otherwise>
-                                <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
-                            </c:otherwise>
-                        </c:choose>
-                       <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
-                    </c:forEach>
-                </div>
-                <input type="hidden" name="id" value="${article['idArticle']}" />
-                <br>
-                <button type="submit" class="btn btn-primary">Valider</button>
-                <a href="/shop/admin/articles" class="btn btn-danger">Annuler</a>
-            </form>
+                <form action="/shop/admin/articleModify" method="POST" enctype="multipart/form-data" name="addForm" onsubmit="return validateform()">
+                    <input type="hidden" name="id" value="${article['idArticle']}" />
+                    <div class="form-group">
+                        <label for="name">Nom d'article*</label>
+                        <input type="text" class="form-control" name="name" id="name" maxlength="50" aria-describedby="nameHelp" value="${article['name']}" onchange="updateInput()" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="description">Description de l'article*</label>
+                        <textarea type="text-area" class="form-control" name="description" id="description" maxlength="500" required><c:out value="${article['description']}"/></textarea>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <label class="form-check-label ml-3" > Catégorie(s) : </label><br>
+                        <c:forEach var="cat" items="${categories}">
+                            <c:choose>
+                                <c:when test="${fn:contains(categoriesArticle, cat[1])}">
+                                    <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}"
+                                           checked="checked">
+                                </c:when>
+                                <c:otherwise>
+                                    <input class="form-check-input" type="checkbox" name="categories" value="${cat[0]}">
+                                </c:otherwise>
+                            </c:choose>
+                            <label class="form-check-label ml-3" ><c:out value="${cat[1]}"/></label>
+                        </c:forEach>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="price" >Prix de l'article (en CHF)</label>
+                            <input type="number" step="0.05" class="form-control" value="${article['price']}" min="0" name="price" aria-describedby="priceHelp" id="price">
+                            <small id="priceHelp" class="form-text text-muted">Si rien n'est renseigné, mis à 0 par défaut</small>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="stock">Nombre de pièces en stock</label>
+                            <input type="number" class="form-control" name="stock"  value="${article['stock']}" aria-describedby="stockHelp" id="stock" min="0">
+                            <small id="stockHelp" class="form-text text-muted">Si rien n'est renseigné, mis à 0 par défaut</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="imageURL">Image de l'article</label>
+                        <input type="file" class="form-control-file" name="imageURL" aria-describedby="imageHelp heelp" id="imageURL" value="${article['imageURL']}">
+                        <small id="imageHelp" class="form-text text-muted">> La taille de l'image ne doit pas dépasser 5 MB. Nous acceptions uniquement les formats : png, jpeg, jpg</small></br>
+                        <small id="heelp" class="form-text text-muted">> Si aucune image n'est ajoutée, nous gardons la dernière existante pour cet article.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                    <a href="/shop/admin/articles" class="btn btn-danger">Annuler</a>
+                </form>
+                <small id="help" class="form-text text-muted">* doivent impérativement être renseignés.</small>
+
+            </div>
         </section>
     </section><!-- /MAIN CONTENT -->
 

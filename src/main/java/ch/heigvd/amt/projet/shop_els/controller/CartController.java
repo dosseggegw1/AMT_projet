@@ -4,14 +4,11 @@ import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CartDao;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
 import ch.heigvd.amt.projet.shop_els.model.User;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;//TODO NGY Remove import statement unused
-import org.hibernate.Session;//TODO NGY Remove import statement unused
-
-import javax.persistence.Query;//TODO NGY Remove import statement unused
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ch.heigvd.amt.projet.shop_els.controller.CookieController.read_cookie;
-
 
 @WebServlet("/cart")
 public class CartController extends HttpServlet {
@@ -69,7 +65,7 @@ public class CartController extends HttpServlet {
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
 
-        int idUser = (int) request.getSession().getAttribute("idUser");//TODO NGY duplicate code fragment
+        int idUser = (int) request.getSession().getAttribute("idUser"); //TODO NGY duplicate code fragment
         User user = userDao.get(idUser);
         Cart cart = user.getFk_cart();
         int idCart;
@@ -92,7 +88,7 @@ public class CartController extends HttpServlet {
     }
 
     private void pushCartInDB(HttpServletRequest request, ArrayList<ArrayList<String>> parsedCart) throws DaoException {
-        UserDao userDao = new UserDao();//TODO NGY duplicate code fragment
+        UserDao userDao = new UserDao(); //TODO NGY duplicate code fragment
         CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
         ArticleDao articleDao = new ArticleDao();
@@ -128,7 +124,12 @@ public class CartController extends HttpServlet {
             articleCart.setArticle(articleDao.get(idArticle));
             articleCart.setQuantity(quantity);
 
-            articleCartDao.save(articleCart);
+            Article art = articleDao.get(idArticle);
+            int stock = art.getStock();
+
+            if(stock > quantity) {
+                articleCartDao.save(articleCart);
+            }
         }
     }
 

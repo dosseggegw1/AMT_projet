@@ -11,7 +11,11 @@ import java.io.IOException;
 public class ProductController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/product.jsp").forward(request, response);
-
+        if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("user")) {
+            request.getRequestDispatcher("/WEB-INF/view/product.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop/admin");
+        }
     }
 }

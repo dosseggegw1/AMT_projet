@@ -31,6 +31,9 @@ public class RegisterController extends HttpServlet{
         if(request.getSession().getAttribute("idUser") == null && request.getSession().getAttribute("role") == null){
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         }
+        else if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.sendRedirect("/shop/admin");
+        }
         else{
             response.sendRedirect("/shop");
         }

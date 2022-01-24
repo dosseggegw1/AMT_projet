@@ -30,35 +30,38 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("user")) {
+            ArrayList<ArrayList<String>> cart = read_cookie(request);
+            ArrayList<ArrayList<String>> cartShort = read_cookie(request);
 
-        ArrayList<ArrayList<String>> cart = read_cookie(request);
-        ArrayList<ArrayList<String>> cartShort = read_cookie(request);
+            try {
+                if (cart.size() == 0) {
+                    if (checkIfLoggedIn(request)) {
+                        clearCart(request);
+                    }
+                } else {
+                    request.setAttribute("cartShort", cartShort);
 
-        try {
-        if(cart.size() == 0){
-            if(checkIfLoggedIn(request)){
-                clearCart(request);
+                    for (ArrayList<String> item : cart) {
+                        List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
+                        item.add((String) resultArticle.get(0)[1]);
+                        item.add(String.valueOf(resultArticle.get(0)[3]));
+                        item.add((String) resultArticle.get(0)[4]);
+                        if (checkIfLoggedIn(request)) {
+                            pushCartInDB(request, cart);
+                        }
+                    }
+                }
+            } catch (DaoException e) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+                return;
             }
+            request.setAttribute("cart", cart);
+            request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
         }
         else{
-            request.setAttribute("cartShort", cartShort);
-
-            for(ArrayList<String> item : cart) {
-                  List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
-                  item.add((String) resultArticle.get(0)[1]);
-                  item.add(String.valueOf(resultArticle.get(0)[3]));
-                  item.add((String) resultArticle.get(0)[4]);
-                  if(checkIfLoggedIn(request)){
-                    pushCartInDB(request, cart);
-                  }
-              }
-            }
-        } catch (DaoException e) {
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
-            return;
+            response.sendRedirect("/shop/admin");
         }
-        request.setAttribute("cart", cart);
-        request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
     }
 
     private void clearCart(HttpServletRequest request) throws DaoException {

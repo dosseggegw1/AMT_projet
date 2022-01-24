@@ -99,16 +99,17 @@
   <!-- / product category -->
 
   <script>
-    var stock = parseInt(${article[5]});
     $(document).ready(function() {
       $("#add-article-success").hide();
-      var quantity = parseInt(document.getElementById("quantity").value);
-      if (stock >= quantity)
-      {
-        $("#addToCart").click(function showAlert() {
-          $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
-        });
-      }
+      var stock = parseInt(${article[5]});
+
+      $("#addToCart").click(function showAlert() {
+        var quantity = parseInt(document.getElementById("quantity").value);
+        if (stock > quantity) {
+            $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
+        }
+      });
+
     });
 
     $('#add-article-success .close').click(function() {

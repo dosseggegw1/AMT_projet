@@ -22,7 +22,7 @@ public class HelloDatabase extends HttpServlet {
         response.setContentType("text/html");
 
             aws.connection();
-            byte[] i = aws.downloadImage("hell");
+            byte[] i = aws.downloadImage("/shop/assets/img/ELS/index-1643030342587.jpeg", "/tmp/index-1643030342587.jpeg");
 
 
             PrintWriter out = response.getWriter();

@@ -57,7 +57,6 @@ public class ArticleAddController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String name;
         String description;
         String[] categories;
@@ -84,12 +83,13 @@ public class ArticleAddController extends HttpServlet {
         // Constructs path of the directory to save uploaded file
         String savePath = appPath + File.separator + SAVE_DIR;
         File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {
+        if (!fileSaveDir.exists())
             fileSaveDir.mkdir();
-        }
+
 
         String fileName = "";
         String newFileName = "";
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         for (Part part : request.getParts()) {
             fileName = extractFileName(part);
@@ -110,12 +110,13 @@ public class ArticleAddController extends HttpServlet {
             if (newFileName.equals("")) {
                 newFileName = "default.jpg";
             }
+
             articleDao.checkIfNameExists(name);
             // Add article to database
             Article article = new Article();
             article.setName(name);
             article.setDescription(description);
-            article.setImageURL("/shop" + SAVE_DIR + "/" + newFileName);        //TODO a modifier le nom qu'on stock dans la DB pour -> aws
+            article.setImageURL("/shop" + SAVE_DIR + "/" + newFileName);
             if (!price.equals("")) article.setPrice(Float.parseFloat(price));
             if (!stock.equals("")) article.setStock(Integer.parseInt(stock));
             articleDao.save(article);
@@ -125,7 +126,7 @@ public class ArticleAddController extends HttpServlet {
             //////////// UPLOAD IMAGE ////////////////////////////
             /// premier paramètre: path sur AWS, ici je mets juste le nom de l'image par exemple: cassandre.jpg
             // second paramètre: chemin vers l'image à upload sur AWS
-            aws.uploadImage(newFileName, new File(savePath + File.separator + newFileName));
+            aws.uploadImage("/shop" + SAVE_DIR + "/" + newFileName, new File(savePath + File.separator + newFileName));
 
             // Search for all categories selected and create an associate object with article
             if (categories != null) {

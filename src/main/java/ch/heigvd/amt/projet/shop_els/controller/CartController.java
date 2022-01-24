@@ -30,7 +30,7 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("user")) {
+        if (request.getSession().getAttribute("role") == null || !request.getSession().getAttribute("role").equals("admin")) {
             ArrayList<ArrayList<String>> cart = read_cookie(request);
             ArrayList<ArrayList<String>> cartShort = read_cookie(request);
 

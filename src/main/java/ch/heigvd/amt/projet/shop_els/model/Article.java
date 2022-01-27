@@ -50,28 +50,37 @@ public class Article {
     @OneToMany(mappedBy = "article")
     private Set<Article_Category> articleCategories = new HashSet<>();
 
-    public Article() {
-    }
+    public Article() {}
+
+    /**
+     * Récupère l'id d'un article
+     * @return l'id
+     */
     public int getIdArticle() {
         return idArticle;
     }
 
+    /**
+     * Assigne un id à un article
+     * @param idArticle
+     */
     public void setIdArticle(int idArticle) {
         this.idArticle = idArticle;
     }
 
-    public Set<Article_Category> getArticleCategories() {
-        return articleCategories;
-    }
-
-    public void setArticleCategories(Set<Article_Category> articleCategories) {
-        this.articleCategories = articleCategories;
-    }
-
+    /**
+     * Retourne le nom de l'article
+     * @return nom de l'article en string
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Assigne un nom à l'article
+     * @param name Futur nom de l'article
+     * @throws ModelException
+     */
     public void setName(String name) throws ModelException {
         if(name.equals("")) {
             throw new ModelException("Le nom de l'article est vide");
@@ -83,10 +92,19 @@ public class Article {
         }
     }
 
+    /**
+     * Ajoute une description à l'article
+     * @return description de l'article en string
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Assigne une description à l'article
+     * @param description
+     * @throws ModelException
+     */
     public void setDescription(String description) throws ModelException {
         if(description.equals("")) {
             throw new ModelException("La description de l'article est vide");
@@ -98,10 +116,19 @@ public class Article {
         }
     }
 
+    /**
+     * Retourne le prix de l'article
+     * @return prix en float
+     */
     public float getPrice() {
         return price;
     }
 
+    /**
+     * Assigne un prix à l'article
+     * @param price
+     * @throws ModelException
+     */
     public void setPrice(float price) throws ModelException {
         if(price < MINIMUM_QUANTITY) {
             throw new ModelException("Le prix ne peut pas être négatif");
@@ -110,10 +137,19 @@ public class Article {
         }
     }
 
+    /**
+     * Retourne l'url de l'image de l'article
+     * @return url de l'image en string
+     */
     public String getImageURL() {
         return imageURL;
     }
 
+    /**
+     * Assigne l'url de l'image à l'article
+     * @param imageURL
+     * @throws ModelException
+     */
     public void setImageURL(String imageURL) throws ModelException {
         if(FilenameUtils.getExtension(imageURL).equals("jpg") ||
         FilenameUtils.getExtension(imageURL).equals("jpeg") ||
@@ -124,10 +160,19 @@ public class Article {
         }
     }
 
+    /**
+     * Retourne le stock de l'article
+     * @return stock en int
+     */
     public int getStock() {
         return stock;
     }
 
+    /**
+     * Assigne le stock à l'article
+     * @param stock
+     * @throws ModelException
+     */
     public void setStock(int stock) throws ModelException {
         if(stock < MINIMUM_QUANTITY) {
             throw new ModelException("Le stock ne peut pas être négatif");
@@ -136,11 +181,4 @@ public class Article {
         }
     }
 
-    public Set<Article_Cart> getArticle_carts() {
-        return article_carts;
-    }
-
-    public void setArticle_carts(Set<Article_Cart> article_carts) {
-        this.article_carts = article_carts;
-    }
 }

@@ -7,6 +7,7 @@ import ch.heigvd.amt.projet.shop_els.access.DaoException;
 import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
+import ch.heigvd.amt.projet.shop_els.model.ModelException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,8 +57,35 @@ public class ArticleModifyController extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
+        String price = request.getParameter("price");
+        String stock = request.getParameter("stock");
+        String imageURL = request.getParameter("imageURL");
+
         int id = Integer.parseInt(request.getParameter("id"));
+        Article article = null;
+        try {
+            article = articleDao.get(id);
+            // Check if name has changed
+            if(name != article.getName())
+                articleDao.updateName(article, name);
+            // Check if description has changed
+            if(description != article.getDescription())
+                articleDao.updateDescription(article, description);
+            // Check if price has changed
+            if(Float.parseFloat(price) != article.getPrice())
+                articleDao.updatePrice(article, Float.parseFloat(price));
+            // Check if stock has changed
+            if(Integer.parseInt(stock) != article.getStock())
+                articleDao.updateStock(article, Integer.parseInt(stock));
+            // Check if image has changed
+            if(imageURL != article.getImageURL())
+                articleDao.updateImageUrl(article, imageURL);
+        } catch (DaoException | ModelException exception) {
+          //
+        }
 
         List<Integer> categoriesOldConf = articleCategoryDao.getCategoriesIdByArticleId(id);
         List<Integer> categoriesNew = new ArrayList<>();
@@ -90,7 +118,6 @@ public class ArticleModifyController extends HttpServlet{
                 if (!categoriesOldConf.contains(idCategory)) {
                     try {
                         Category category = categoryDao.get(idCategory);
-                        Article article = articleDao.get(id);
                         Article_Category ac = new Article_Category();
                         ac.setCategory(category);
                         ac.setArticle(article);

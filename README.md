@@ -75,7 +75,7 @@ Après cette dernière manipulation, l'application est atteignable via l'URL `ht
 
 ## Usage
 
-![](img/AMT_screenshot_index.png)
+![](documentation/img/AMT_screenshot_index.png)
 
 Sur la capture d'écran ci-dessus, nous trouvons dans l'en-tête plusieurs onglets. 
 
@@ -89,10 +89,10 @@ On peut consulter différentes catégories de produits directement sur l'écran 
 
 | Activité             | Capture d'écran                  | Notes                                                        |
 | -------------------- | -------------------------------- | ------------------------------------------------------------ |
-| Création de compte   | ![](img/AMT_creation-compte.png) | L'utilisateur doit entre un nom, un mot de passe et il doit taper une seconde fois le mot de passe. S'il est correct, le bouton `S'enregistrer` devient cliquable |
-| Identification       | ![](img/AMT_identification.png)  | L'utilisateur doit entrer un nom et un mot de passe corrects et correspondants entre eux. |
-| Détails d'un article | ![](img/AMT_product-detail.png)  | Des détails sont disponibles sur l'article (nom, photo, prix, quantité, descriptif, catégorie) et il est possible de choisir une quantité à ajouter au panier. |
-| Panier               | ![](img/AMT_panier.png)          | Il est possible de modifier la quantité des articles dans le panier directement depuis le panier, on peut le mettre à jour ou le vider complétement. |
+| Création de compte   | ![](documentation/img/AMT_creation-compte.png) | L'utilisateur doit entre un nom, un mot de passe et il doit taper une seconde fois le mot de passe. S'il est correct, le bouton `S'enregistrer` devient cliquable |
+| Identification       | ![](documentation/img/AMT_identification.png)  | L'utilisateur doit entrer un nom et un mot de passe corrects et correspondants entre eux. |
+| Détails d'un article | ![](documentation/img/AMT_product-detail.png)  | Des détails sont disponibles sur l'article (nom, photo, prix, quantité, descriptif, catégorie) et il est possible de choisir une quantité à ajouter au panier. |
+| Panier               | ![](documentation/img/AMT_panier.png)          | Il est possible de modifier la quantité des articles dans le panier directement depuis le panier, on peut le mettre à jour ou le vider complétement. |
 
 
 ## L'authentification

@@ -2,12 +2,10 @@ package ch.heigvd.amt.projet.shop_els.model;
 
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import javax.persistence.Query;
 import java.util.List;
-import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -44,7 +42,7 @@ public class ArticleTest {
 
     @Test
     @Order(2)
-    void shouldDeleteArticleData() throws Exception {
+    void shouldDeleteArticleData() {
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 

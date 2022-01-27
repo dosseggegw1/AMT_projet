@@ -51,8 +51,6 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
 
     @Override
     public List<Article_Category> getAll() {
-        //TODO : Implémenter
-        //TODO NGY no more TODO in the reviewed code please !
         return null;
     }
 
@@ -81,8 +79,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         List list = session.getNamedQuery("selectArticleByCategory").setParameter("cat", category).getResultList();
 
         session.close();
-        if(list.isEmpty()) return false;
-        return true;
+        return !list.isEmpty();
     }
 
     public List<Article> getArticlesById(int idCategory) {

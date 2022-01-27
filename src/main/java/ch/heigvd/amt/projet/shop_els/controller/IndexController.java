@@ -3,10 +3,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.model.Category;
-import ch.heigvd.amt.projet.shop_els.util.HibUtil;
-import org.hibernate.Session;
 
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

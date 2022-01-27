@@ -6,7 +6,6 @@ import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 
 import java.util.List;
-import java.util.regex.Pattern;//TODO NGY
 
 
 public class ArticleDao implements Dao<Article>{

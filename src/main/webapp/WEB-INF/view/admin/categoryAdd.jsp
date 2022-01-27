@@ -71,7 +71,7 @@
 
       <form action="/shop/admin/categoryAdd" method="POST" name="addForm" onsubmit="return validateform()">
         <div class="form-group col-sm5">
-          <label for="name">Nom d'article</label>
+          <label for="name">Nom de catégorie</label>
           <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" maxlength="100"  onchange="updateInput()" required>
         </div>
         <button type="submit" class="btn btn-primary">Valider</button>

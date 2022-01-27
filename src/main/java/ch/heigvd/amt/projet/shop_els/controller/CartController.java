@@ -4,6 +4,7 @@ import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CartDao;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
 import ch.heigvd.amt.projet.shop_els.model.User;
@@ -20,49 +21,49 @@ import java.util.List;
 
 import static ch.heigvd.amt.projet.shop_els.controller.CookieController.read_cookie;
 
-
 @WebServlet("/cart")
 public class CartController extends HttpServlet {
     private final ArticleDao articleDao = new ArticleDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("role") == null || !request.getSession().getAttribute("role").equals("admin")) {
+            ArrayList<ArrayList<String>> cart = read_cookie(request);
+            ArrayList<ArrayList<String>> cartShort = read_cookie(request);
 
-        ArrayList<ArrayList<String>> cart = read_cookie(request);
-        ArrayList<ArrayList<String>> cartShort = read_cookie(request);
+            try {
+                if (cart.size() == 0) {
+                    if (checkIfLoggedIn(request)) {
+                        clearCart(request);
+                    }
+                } else {
+                    request.setAttribute("cartShort", cartShort);
 
-        try {
-        if(cart.size() == 0){
-            if(checkIfLoggedIn(request)){
-                clearCart(request);
+                    for (ArrayList<String> item : cart) {
+                        List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
+                        item.add((String) resultArticle.get(0)[1]);
+                        item.add(String.valueOf(resultArticle.get(0)[3]));
+                        item.add((String) resultArticle.get(0)[4]);
+                        if (checkIfLoggedIn(request)) {
+                            pushCartInDB(request, cart);
+                        }
+                    }
+                }
+            } catch (DaoException e) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+                return;
             }
+            request.setAttribute("cart", cart);
+            request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
         }
         else{
-            request.setAttribute("cartShort", cartShort);
-
-            for(ArrayList<String> item : cart) {
-                  List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(Integer.parseInt(item.get(0)));
-                  item.add((String) resultArticle.get(0)[1]);
-                  item.add(String.valueOf(resultArticle.get(0)[3]));
-                  item.add((String) resultArticle.get(0)[4]);
-                  if(checkIfLoggedIn(request)){
-                    pushCartInDB(request, cart);
-                  }
-              }
-            }
-        } catch (DaoException e) {
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
-            return;
+            response.sendRedirect("/shop/admin");
         }
-        request.setAttribute("cart", cart);
-        request.getRequestDispatcher("/WEB-INF/view/cart.jsp").forward(request, response);
     }
 
     private void clearCart(HttpServletRequest request) throws DaoException {
         ArticleCartDao articleCartDao = new ArticleCartDao();
-
         Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
-
         emptyCart(cart, articleCartDao);
     }
 
@@ -71,7 +72,6 @@ public class CartController extends HttpServlet {
         ArticleDao articleDao = new ArticleDao();
 
         Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
-
         emptyCart(cart, articleCartDao);
 
         for (ArrayList<String> item : parsedCart) {
@@ -84,7 +84,12 @@ public class CartController extends HttpServlet {
             articleCart.setArticle(articleDao.get(idArticle));
             articleCart.setQuantity(quantity);
 
-            articleCartDao.save(articleCart);
+            Article art = articleDao.get(idArticle);
+            int stock = art.getStock();
+
+            if(stock > quantity) {
+                articleCartDao.save(articleCart);
+            }
         }
     }
 

@@ -97,6 +97,12 @@ public class CartController extends HttpServlet {
         return request.getSession().getAttribute("idUser") != null;
     }
 
+    /**
+     * Description : Récupère le panier correspondant à l'id dans la base de données
+     * @param idUser : id de l'utilisateur dont on souhaite récupérer le panier
+     * @return le panier de l'utilisateur
+     * @throws DaoException
+     */
     public static Cart getCart(int idUser) throws DaoException {
         UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
@@ -115,6 +121,12 @@ public class CartController extends HttpServlet {
         return cart;
     }
 
+    /**
+     * Description : vide un panier sur la base de donnée
+     * @param cart Le panier qu'on souhaite vider
+     * @param articleCartDao le DAO contenant le contenu du panier à vider
+     * @throws DaoException
+     */
     public static void emptyCart(Cart cart, ArticleCartDao articleCartDao) throws DaoException {
         for(Article_Cart articleCart : articleCartDao.getAll()){
             if(articleCart.getCart().getIdCart() == cart.getIdCart()){

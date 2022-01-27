@@ -29,12 +29,29 @@ public class Category {
 
     public Category() {}
 
+    /**
+     * Retourne l'id de la catégorie
+     * @return id en int
+     */
     public int getIdCategory() { return idCategory; }
 
+    /**
+     * Assigne un id à la catégorie
+     * @param idCategory
+     */
     public void setIdCategory(int idCategory) { this.idCategory = idCategory; }
 
+    /**
+     * Retourne le nom de la catégorie
+     * @return nom en string
+     */
     public String getName() { return name; }
 
+    /**
+     * Assigne un nom à la categorie
+     * @param name
+     * @throws ModelException
+     */
     public void setName(String name) throws ModelException {
         if(name.length() > MAXIMUM_NAME_LENGTH) {
             throw new ModelException("Le nom de la catégorie est trop grand ! (50 caractères maximum)");
@@ -42,13 +59,4 @@ public class Category {
             this.name = name;
         }
     }
-
-    public Set<Article_Category> getArticleCategories() {
-        return articleCategories;
-    }
-
-    public void setArticleCategories(Set<Article_Category> articleCategories) {
-        this.articleCategories = articleCategories;
-    }
-
 }

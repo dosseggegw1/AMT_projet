@@ -21,16 +21,32 @@ public class User {
 
     public User() {}
 
+    /**
+     * Retourne l'id de l'utilisateur
+     * @return id en int
+     */
     public int getIdUser() {
         return idUser;
     }
 
+    /**
+     * Assigne l'id de l'utilisateur
+     * @param idUser
+     */
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 
+    /**
+     * Retourne le panier de l'utilisateur
+     * @return panier
+     */
     public Cart getFk_cart() { return fk_cart; }
 
+    /**
+     * Assigne un panier à l'utilisateur
+     * @param cart
+     */
     public void setFk_cart(Cart cart) { this.fk_cart = cart; }
 
 }

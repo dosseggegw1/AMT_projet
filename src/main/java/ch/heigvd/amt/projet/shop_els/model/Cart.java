@@ -26,30 +26,35 @@ public class Cart {
 
     public Cart() { }
 
+    /**
+     * Retourne l'id d'un panier
+     * @return id en int
+     */
     public int getIdCart() {
         return idCart;
     }
 
+    /**
+     * Assigne un id au panier
+     * @param idCart
+     */
     public void setIdCart(int idCart) {
         this.idCart = idCart;
     }
 
+    /**
+     * Retourne l'utilisateur du panier
+     * @return
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Assigne un utilisateur au panier
+     * @param user Utilisateur a assigné
+     */
     public void setUser(User user) {
         this.user = user;
     }
-
-    public Set<Article_Cart> getArticle_carts() {
-        return article_carts;
-    }
-
-    public void setArticle_carts(Set<Article_Cart> article_carts) {
-        this.article_carts = article_carts;
-    }
-
-
-
 }

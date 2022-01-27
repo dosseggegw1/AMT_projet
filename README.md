@@ -95,6 +95,11 @@ On peut consulter différentes catégories de produits directement sur l'écran 
 | Panier               | ![](img/AMT_panier.png)          | Il est possible de modifier la quantité des articles dans le panier directement depuis le panier, on peut le mettre à jour ou le vider complétement. |
 
 
+## L'authentification
+
+Pour le système de connexion et d'inscription, nous avons utilisé un microservice. Vous le trouverez à l'adresse suivante : https://github.com/Lindwing/AMT_Microservice
+
+
 
 ## Support
 

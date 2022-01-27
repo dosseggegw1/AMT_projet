@@ -145,6 +145,12 @@ public class CookieController extends HttpServlet {
 
     }
 
+    /**
+     * Description : Cette fonction permet de lire le contenu du cookie "cartItems" afin de récupérer le contenu du panier
+     * et de stocker ce contenu dans un tableau deux dimensions de strings
+     * @param request, la request contenant les cookies
+     * @return le tableau à deux dimensions avec le contenu du panier
+     */
     public static ArrayList<ArrayList<String>> read_cookie(HttpServletRequest request)  {
         javax.servlet.http.Cookie[] cookies = request.getCookies();
         ArrayList<ArrayList<String>> cart = new ArrayList<ArrayList<String>>();

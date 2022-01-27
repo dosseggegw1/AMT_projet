@@ -1,31 +1,35 @@
 package ch.heigvd.amt.projet.shop_els.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import com.amazonaws.services.s3.model.*;
 
 import java.io.*;
-import java.util.List;
 
 public class AwsS3 {
-    private AmazonS3 s3client;
-    private String bucketName = "shopels.diduno.education";
-    private String AWSaccessKey = "/home/admin/Secret/AWS_accessKey";
-    private String AWSsecretKey = "/home/admin/Secret/AWS_secretKey";
+    private AmazonS3 s3Client;
+    final private String bucketName = "shopels.diduno.education";
+    final private String AWSaccessKey = "/home/admin/Secret/AWS_accessKey";
+    final private String AWSsecretKey = "/home/admin/Secret/AWS_secretKey";
 
-    public void connection() throws IOException {
-        //read the url file
+    /**
+     * Constructeur qui permet de se connecter au bucket S3
+     * @throws IOException
+     */
+    public AwsS3() throws IOException {
+        connection();
+    }
+
+    /**
+     * Connexion au client S3
+     * @throws IOException
+     */
+    private void connection() throws IOException {
         File fileUrl = new File(AWSaccessKey);
         BufferedReader br = new BufferedReader(new FileReader(fileUrl));
         String accessKey = br.readLine();
@@ -36,45 +40,63 @@ public class AwsS3 {
 
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-        s3client = AmazonS3ClientBuilder
+        s3Client = AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(Regions.EU_NORTH_1)
                 .build();
     }
 
+    /**
+     * Récupération du client S3
+     * @return
+     */
     public AmazonS3 getClient() {
-        return s3client;
+        return s3Client;
     }
 
-    public void uploadImage(String key, File file) {
-        s3client.putObject("shopels.diduno.education",
-                key,
-               file
-        );
-        System.out.println("hi");
+    /**
+     * Récupération de l'URL de l'image afin d'ajouter dans la base de données
+     * @param fileKey Nom du fichier
+     * @return
+     */
+    public String getImageURL(String fileKey){
+        return "https://s3." + s3Client.getRegionName() + ".amazonaws.com/" + bucketName + "/" + fileKey;
     }
 
+    /**
+     * Méthode qui permet d'upload une image dans le bucket AWS
+     * @param file Image à insérer en format InputStream
+     * @param key Nom de l'image à upload
+     */
+    public void uploadImage(InputStream file, String key) {
+        if (!s3Client.doesObjectExist(bucketName, key))
+            s3Client.putObject(new PutObjectRequest(bucketName, key, file, new ObjectMetadata()));
+    }
 
-    //J'ai try qqch mais j'avais pas fini haha
-    public byte[] downloadImage(String name, String path) throws IOException {
-        byte[] image = null;
+    /**
+     * Permet de remplacer une image qui se trouve dans le bucket. En premier temps, on la supprime puis on en
+     * réupload une
+     * @param newFile Image à upload en format InputStream
+     * @param newKey Nom de l'image à upload
+     * @param oldKey Nom de l'image à supprimer
+     */
+    public void updateImg(InputStream newFile, String newKey, String oldKey) {
+        deleteImage(oldKey);
+        uploadImage(newFile, newKey);
+    }
 
-        GetObjectRequest getObjectRequest = new GetObjectRequest(bucketName, name);
-        S3Object s3object = s3client.getObject(getObjectRequest); //TODO add img repertory
-        S3ObjectInputStream inputStream = s3object.getObjectContent();
-        IOUtils.copy(inputStream, new FileOutputStream(path));
-        //FileUtils.copyInputStreamToFile(inputStream, new File(path));
-        //image = IOUtils.toByteArray(s3object.getObjectContent());
-        //s3object.close();
+    /**
+     * Méthode qui permet de supprimer une image sur le bucket
+     * @param fileKey Nom de l'image à supprimer
+     * @throws AmazonServiceException
+     */
+    public void deleteImage(String fileKey) throws AmazonServiceException {
+        s3Client.deleteObject(bucketName, fileKey);
+    }
 
-        //S3Object s3Object = amazonS3.getObject(getObjectRequest);
-
-
-        //S3ObjectInputStream stream = s3Object.getObjectContent();
-
-
-        return image;
+    public S3Object getObject(String key) {
+        return s3Client.getObject(bucketName, key);
     }
 }
 

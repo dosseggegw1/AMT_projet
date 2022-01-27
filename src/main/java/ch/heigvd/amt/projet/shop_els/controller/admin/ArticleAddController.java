@@ -8,6 +8,7 @@ import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.service.AwsS3;
+import ch.heigvd.amt.projet.shop_els.util.Util;
 import com.google.gson.Gson;
 import ch.heigvd.amt.projet.shop_els.model.ModelException;
 
@@ -17,9 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 @WebServlet("/admin/articleAdd")
@@ -31,7 +30,6 @@ public class ArticleAddController extends HttpServlet {
     private final ArticleDao articleDao = new ArticleDao();
     private final CategoryDao categoryDao = new CategoryDao();
     private final ArticleCategoryDao articleCategoryDao = new ArticleCategoryDao();
-    private AwsS3 aws = new AwsS3();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,8 +49,6 @@ public class ArticleAddController extends HttpServlet {
         }
     }
 
-    private static final String SAVE_DIR = "/assets/img/ELS";
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -70,7 +66,7 @@ public class ArticleAddController extends HttpServlet {
             price = request.getParameter("price");
             stock = request.getParameter("stock");
         } catch (IllegalStateException exception) {
-            // If size of picture exceed 5MB
+            // If size of picture exceed 5MB, we return an error
             List<Category> results = categoryDao.getAll();
             request.setAttribute("categories", results);
             request.setAttribute("error", exception.toString());
@@ -78,55 +74,45 @@ public class ArticleAddController extends HttpServlet {
             return;
         }
 
-        // Gets absolute path of the web application
-        String appPath = request.getServletContext().getRealPath("");
-        // Constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + SAVE_DIR;
-        File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists())
-            fileSaveDir.mkdir();
-
-
-        String fileName = "";
+        // Get filename of part with image
+        String fileName = Util.extractFileName(request.getPart("imageURL"));
         String newFileName = "";
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        InputStream inputStream;
 
-        for (Part part : request.getParts()) {
-            fileName = extractFileName(part);
-            // Refines the fileName in case it is an absolute path
-            fileName = new File(fileName).getName();
-            String[] fileNameArray = fileName.split("\\.");
-            // If the file name can be split in 2 (with the dot), we modify it to contain a unique timestamp
-            // this way, an image is unique and cannot be overwritten
-            if (fileNameArray.length > 1) {
-                newFileName = fileNameArray[0] + "-" + timestamp.getTime() + "." + fileNameArray[1];
-                part.write(savePath + File.separator + newFileName);
-            }
+        // Add timestamp
+        if(!fileName.equals("")) {
+           newFileName = Util.addTimestamp(fileName);
         }
 
         // Validation of the user's inputs
+        // TODO Gérer l'image default.jpg
         try {
+            ///////////// CONNEXION AWS ///////////////////////////
+            AwsS3 aws = new AwsS3();
+
             // Verify an image was set
-            if (newFileName.equals("")) {
+            if (fileName.equals("")) {
                 newFileName = "default.jpg";
+                inputStream = aws.getObject(newFileName).getObjectContent();
+            } else {
+                inputStream = request.getPart("imageURL").getInputStream();
             }
+
+            //////////// UPLOAD IMAGE ////////////////////////////
+            /// premier paramètre: path sur AWS, ici je mets juste le nom de l'image par exemple: cassandre.jpg
+            // second paramètre: chemin vers l'image à upload sur AWS
+            aws.uploadImage(inputStream, newFileName);
 
             articleDao.checkIfNameExists(name);
             // Add article to database
             Article article = new Article();
             article.setName(name);
             article.setDescription(description);
-            article.setImageURL("/shop" + SAVE_DIR + "/" + newFileName);
+            article.setImageURL(aws.getImageURL(newFileName));
             if (!price.equals("")) article.setPrice(Float.parseFloat(price));
             if (!stock.equals("")) article.setStock(Integer.parseInt(stock));
             articleDao.save(article);
 
-            ///////////// CONNEXION AWS ///////////////////////////
-            aws.connection();
-            //////////// UPLOAD IMAGE ////////////////////////////
-            /// premier paramètre: path sur AWS, ici je mets juste le nom de l'image par exemple: cassandre.jpg
-            // second paramètre: chemin vers l'image à upload sur AWS
-            aws.uploadImage("/shop" + SAVE_DIR + "/" + newFileName, new File(savePath + File.separator + newFileName));
 
             // Search for all categories selected and create an associate object with article
             if (categories != null) {
@@ -150,20 +136,5 @@ public class ArticleAddController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
         }
     }
-
-    /**
-     * Extracts file name from HTTP header content-disposition
-     */
-    private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length() - 1);
-            }
-        }
-        return "";
-    }
-
 }
 

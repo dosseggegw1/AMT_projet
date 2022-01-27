@@ -82,7 +82,7 @@
                 </c:if>
                 <span id="errorMessage"></span>
 
-                <form action="/shop/admin/articleModify" method="POST" enctype="multipart/form-data" name="addForm" onsubmit="return validateform()">
+                <form action="/shop/admin/articleModify" method="POST" enctype="multipart/form-data" name="addForm">
                     <input type="hidden" name="id" value="${article['idArticle']}" />
                     <div class="form-group">
                         <label for="name">Nom d'article*</label>

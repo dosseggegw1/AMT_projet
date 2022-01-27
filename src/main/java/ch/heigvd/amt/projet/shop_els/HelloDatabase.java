@@ -16,19 +16,18 @@ import java.util.List;
 
 @WebServlet(name = "helloDatabase", value = "/hello-database")
 public class HelloDatabase extends HttpServlet {
-    private AwsS3 aws = new AwsS3();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
 
-            aws.connection();
-            byte[] i = aws.downloadImage("/shop/assets/img/ELS/index-1643030342587.jpeg", "/tmp/index-1643030342587.jpeg");
+
+           // byte[] i = aws.downloadImage("/shop/assets/img/ELS/index-1643030342587.jpeg", "/tmp/index-1643030342587.jpeg");
 
 
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
-            out.println("<h1>" + "Client " + aws.getClient() + "</h1>");
-            out.println("<img src="+ Arrays.toString(i) + "/>");
+            //out.println("<h1>" + "Client " + aws.getClient() + "</h1>");
+           // out.println("<img src="+ Arrays.toString(i) + "/>");
             out.println("</body></html>");
 
     }

@@ -8,8 +8,11 @@ import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Category;
 import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.model.ModelException;
+import ch.heigvd.amt.projet.shop_els.service.AwsS3;
+import ch.heigvd.amt.projet.shop_els.util.Util;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/admin/articleModify")
-public class ArticleModifyController extends HttpServlet{
+@MultipartConfig(
+        fileSizeThreshold=1024*1024,
+        maxFileSize=1024*1024*5,
+        maxRequestSize=1024*1024*5*5)
+public class ArticleModifyController extends HttpServlet {
     private final ArticleDao articleDao = new ArticleDao();
     private final CategoryDao categoryDao = new CategoryDao();
     private final ArticleCategoryDao articleCategoryDao = new ArticleCategoryDao();
@@ -43,14 +51,12 @@ public class ArticleModifyController extends HttpServlet{
 
                 request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
             } catch (DaoException e) {
-                //response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 request.getRequestDispatcher("/WEB-INF/view/errorPages/404Admin.jsp").forward(request, response);
             }
         }
         else{
             response.sendRedirect("/shop");
         }
-
     }
 
     @Override
@@ -69,10 +75,12 @@ public class ArticleModifyController extends HttpServlet{
         try {
             article = articleDao.get(id);
             // Check if name has changed
-            if(name != article.getName())
+            if(!Objects.equals(name, article.getName())) {
+                articleDao.checkIfNameExists(name);
                 articleDao.updateName(article, name);
+            }
             // Check if description has changed
-            if(description != article.getDescription())
+            if(!Objects.equals(description, article.getDescription()))
                 articleDao.updateDescription(article, description);
             // Check if price has changed
             if(Float.parseFloat(price) != article.getPrice())
@@ -81,10 +89,35 @@ public class ArticleModifyController extends HttpServlet{
             if(Integer.parseInt(stock) != article.getStock())
                 articleDao.updateStock(article, Integer.parseInt(stock));
             // Check if image has changed
-            if(imageURL != article.getImageURL())
-                articleDao.updateImageUrl(article, imageURL);
-        } catch (DaoException | ModelException exception) {
-          //
+            if(!Objects.equals(imageURL, article.getImageURL())){
+                AwsS3 aws = new AwsS3();
+                String oldKey = getFileNameOfUrl(article.getImageURL());
+                // If we remove image already set
+                if(imageURL.equals("")){
+                    // First delete image on S3
+                    aws.deleteImage(getFileNameOfUrl(article.getImageURL()));
+                    // Then we add default image to S3
+                    aws.uploadImage(aws.getObject("default.jpg").getObjectContent(), "default.jpg");
+                    // And we update database
+                    articleDao.updateImageUrl(article, aws.getImageURL("default.jpg"));
+                } else {
+                    String fileName = Util.extractFileName(request.getPart("imageURL"));
+                    String newFileName = Util.addTimestamp(fileName);
+                    // Update image in S3
+                    aws.updateImg(request.getPart("imageURL").getInputStream(), newFileName, oldKey);
+                    // Update database
+                    articleDao.updateImageUrl(article, aws.getImageURL(newFileName));
+                }
+            }
+             //   articleDao.updateImageUrl(article, imageURL);
+        } catch (DaoException | ModelException error) {
+            List<Category> results = categoryDao.getAll();
+            List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
+            request.setAttribute("categories", results);
+            request.setAttribute("error", error.toString());
+            request.setAttribute("article", article);
+            request.setAttribute("categoriesArticle", categoriesArticle);
+            request.getRequestDispatcher("/WEB-INF/view/admin/articleModify.jsp").forward(request, response);
         }
 
         List<Integer> categoriesOldConf = articleCategoryDao.getCategoriesIdByArticleId(id);
@@ -141,4 +174,16 @@ public class ArticleModifyController extends HttpServlet{
             response.sendRedirect("/shop/admin/articles");
         }
     }
+
+    /**
+     * Permet de récupérer le nom de l'image d'une url
+     * @param url URL où il faut extraire le nom
+     * @return Nom de l'image
+     */
+    private String getFileNameOfUrl(String url) {
+        String parts[] = url.split("/");
+        return parts[parts.length - 1];
+    }
 }
+
+

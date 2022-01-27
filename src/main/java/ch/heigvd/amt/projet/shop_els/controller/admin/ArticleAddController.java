@@ -142,7 +142,9 @@ public class ArticleAddController extends HttpServlet {
     }
 
     /**
-     * Extracts file name from HTTP header content-disposition
+     * Permet d'extraire les noms de fichier depuis l'entête http
+     * @param part Fichier upload
+     * @return Le nom du fichier
      */
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");

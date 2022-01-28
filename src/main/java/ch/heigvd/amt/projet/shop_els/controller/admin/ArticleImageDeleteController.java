@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/admin/articleImageDelete")
 public class ArticleImageDeleteController extends HttpServlet {
@@ -30,10 +31,13 @@ public class ArticleImageDeleteController extends HttpServlet {
         try {
             article = articleDao.get(idArticle);
             AwsS3 aws = new AwsS3();
-            // Delete image on S3
-            aws.deleteImage(Util.getFileNameOfUrl(article.getImageURL()));
-            // And we update database
-            articleDao.updateImageUrl(article, aws.getImageURL("default.jpg"));
+            String fileName = Util.getFileNameOfUrl(article.getImageURL());
+            if(!Objects.equals(fileName, "default.jpg")) {
+                // Delete image on S3
+                aws.deleteImage(fileName);
+                // And we update database
+                articleDao.updateImageUrl(article, aws.getImageURL("default.jpg"));
+            }
         } catch (DaoException | ModelException error) {
             request.setAttribute("error", error.toString());
         }

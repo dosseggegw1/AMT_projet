@@ -82,6 +82,7 @@
                                     </c:forEach>
                                     </p>
                                     <a href="/shop/admin/articleModify?id=${article[0]}" class="btn btn-info"><i class="fa fa-pencil-square-o  fa-1x" aria-hidden="true"></i></a>
+                                    <a href="/shop/admin/articleImageDelete?id=${article[0]}" class="btn btn-danger"><i class="fa fa-pencil-square-o  fa-1x" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </c:forEach>

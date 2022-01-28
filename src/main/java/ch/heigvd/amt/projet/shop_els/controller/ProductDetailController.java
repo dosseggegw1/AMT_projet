@@ -3,7 +3,6 @@ package ch.heigvd.amt.projet.shop_els.controller;
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.model.Article;//TODO NGY Remove import statement unused
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,22 +19,26 @@ public class ProductDetailController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        int articleID = Integer.parseInt(request.getParameter("id"));
+        if (request.getSession().getAttribute("role") == null || !request.getSession().getAttribute("role").equals("admin")) {
+            response.setContentType("text/html");
+            int articleID = Integer.parseInt(request.getParameter("id"));
 
-        // We get all the articles & the categories they are in
-        try {
-            List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(articleID);
-            List<String> resultCategoriesForArticle = articleCategoryDao.getCategoriesNameByArticleId(articleID);
+            // We get all the articles & the categories they are in
+            try {
+                List<Object[]> resultArticle = articleDao.getArticleAndCategoryById(articleID);
+                List<String> resultCategoriesForArticle = articleCategoryDao.getCategoriesNameByArticleId(articleID);
 
-            request.setAttribute("id", resultArticle.get(0)[0]);
-            request.setAttribute("price", resultArticle.get(0)[3]);
-            request.setAttribute("article", resultArticle.get(0));
-            request.setAttribute("categories", resultCategoriesForArticle);
-            request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
-        } catch (DaoException e) {
-            request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+                request.setAttribute("id", resultArticle.get(0)[0]);
+                request.setAttribute("price", resultArticle.get(0)[3]);
+                request.setAttribute("article", resultArticle.get(0));
+                request.setAttribute("categories", resultCategoriesForArticle);
+                request.getRequestDispatcher("/WEB-INF/view/product-detail.jsp").forward(request, response);
+            } catch (DaoException e) {
+                request.getRequestDispatcher("/WEB-INF/view/errorPages/404.jsp").forward(request, response);
+            }
         }
-
+        else {
+            response.sendRedirect("/shop/admin");
+        }
     }
 }

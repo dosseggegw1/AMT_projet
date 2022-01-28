@@ -5,13 +5,16 @@ import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleCartDao implements Dao<Article_Cart> {
     private Session session;
 
+    /**
+     * Sauvegarde objet de type Article_Cart dans la base de données
+     * @param article_cart
+     */
     @Override
     public void save(Article_Cart article_cart) {
         session = HibUtil.getSessionFactory().openSession();
@@ -23,6 +26,10 @@ public class ArticleCartDao implements Dao<Article_Cart> {
         session.close();
     }
 
+    /**
+     * Mise à jour d'bjet de type Article_Cart dans la base de données
+     * @param article_cart
+     */
     @Override
     public void update(Article_Cart article_cart) {
         session = HibUtil.getSessionFactory().openSession();
@@ -37,6 +44,12 @@ public class ArticleCartDao implements Dao<Article_Cart> {
         session.close();
     }
 
+    /**
+     * Récupération d'un objet de type Article_Cart depuis la base de données
+     * @param id Identifiant de l'objet recherché
+     * @return objet de type Article_Cart
+     * @throws DaoException si l'objet n'est pas trouvé
+     */
     @Override
     public Article_Cart get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
@@ -51,6 +64,10 @@ public class ArticleCartDao implements Dao<Article_Cart> {
         return ac;
     }
 
+    /**
+     * Récupération de tous les objets de type Article_Cart depuis la base de données
+     * @return une liste d'objets de type Article_Cart
+     */
     @Override
     public List<Article_Cart> getAll(){
         List<Object[]> articlesCartReceived = getAllArticleCart();
@@ -65,7 +82,6 @@ public class ArticleCartDao implements Dao<Article_Cart> {
 
             articlesCart.add(article_cart);
         }
-
         return articlesCart;
     }
 
@@ -79,6 +95,11 @@ public class ArticleCartDao implements Dao<Article_Cart> {
         return articlesCart;
     }
 
+    /**
+     * Suppression d'un objet de type Article_Cart
+     * @param id Identifiant de l'objet à supprimer
+     * @throws DaoException si l'objet n'est pas trouvé
+     */
     @Override
     public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();

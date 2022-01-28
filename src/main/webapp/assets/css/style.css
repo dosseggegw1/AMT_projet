@@ -141,7 +141,7 @@ img {
   background-color: #fff;
 }
 
-.aa-disabled-btn-register{
+.aa-disabled-btn{
   display: inline-block;
   font-size: 16px;
   padding: 12px 18px;
@@ -149,7 +149,7 @@ img {
   border: 1px solid #808080;
 }
 
-.aa-disabled-btn-register:hover{
+.aa-disabled-btn:hover{
   background-color: #808080;
   cursor: not-allowed;
   pointer-events: none;
@@ -4259,3 +4259,6 @@ img {
   font-family: "Lato", sans-serif;
 }
 
+.quantity-addtocart {
+  width: 50px;
+}

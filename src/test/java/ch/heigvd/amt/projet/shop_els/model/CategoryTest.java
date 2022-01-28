@@ -40,7 +40,7 @@ public class CategoryTest {
 
     @Test
     @Order(2)
-    void shouldDeleteCategoryData() throws Exception {
+    void shouldDeleteCategoryData() {
         session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 

@@ -4,19 +4,19 @@ import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.ModelException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
-
 import java.util.List;
-import java.util.regex.Pattern;//TODO NGY
-
 
 public class ArticleDao implements Dao<Article>{
     private Session session;
 
+    /**
+     * Sauvegarde d'un article dans la base de données
+     * @param article objet de type Article à sauvegarder
+     */
     @Override
     public void save(Article article) {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
-
 
         session.save(article);
 
@@ -24,6 +24,11 @@ public class ArticleDao implements Dao<Article>{
         session.close();
     }
 
+    /**
+     * Mise à jour d'un article dans la base de données
+     * @param article objet de type Article à modifier dans la base de données
+     * @throws ModelException
+     */
     @Override
     public void update(Article article) throws ModelException {
         session = HibUtil.getSessionFactory().openSession();
@@ -41,6 +46,12 @@ public class ArticleDao implements Dao<Article>{
         session.close();
     }
 
+    /**
+     * Récupération d'un article selon son identifiant
+     * @param id identifiant de l'article à récupérer
+     * @return un objet de type Article
+     * @throws DaoException
+     */
     @Override
     public Article get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
@@ -55,6 +66,10 @@ public class ArticleDao implements Dao<Article>{
         return article;
     }
 
+    /**
+     * Récupération de tous les articles de la base de données
+     * @return une liste d'objets de type Article
+     */
     @Override
     public List<Article> getAll() {
         session = HibUtil.getSessionFactory().openSession();
@@ -66,6 +81,11 @@ public class ArticleDao implements Dao<Article>{
         return articles;
     }
 
+    /**
+     * Suppression d'un article dans la base de données selon son identifiant
+     * @param id identifiant de l'article à supprimer
+     * @throws DaoException
+     */
     @Override
     public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
@@ -84,6 +104,10 @@ public class ArticleDao implements Dao<Article>{
     }
 
 
+    /**
+     * Récupération de tous les noms d'articles de la base de données
+     * @return Une liste de noms d'articles
+     */
     public List getAllNames() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -92,6 +116,11 @@ public class ArticleDao implements Dao<Article>{
         return stringList;
     }
 
+    /**
+     * Vérification de l'existence d'un nom d'article dans la base de données
+     * @param name nom de l'article à vérifier
+     * @throws DaoException
+     */
     public void checkIfNameExists(String name) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -104,6 +133,12 @@ public class ArticleDao implements Dao<Article>{
         }
     }
 
+    /**
+     * Récupération des articles et des catégories selon l'identifiant d'un article
+     * @param id identifiant de l'article dont on veut récupérer les données et la catégorie
+     * @return une liste de tableaux d'objets avec les articles et les catégories
+     * @throws DaoException
+     */
     public List<Object[]> getArticleAndCategoryById(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();

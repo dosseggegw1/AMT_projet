@@ -4,12 +4,15 @@ import ch.heigvd.amt.projet.shop_els.model.Category;
 import ch.heigvd.amt.projet.shop_els.model.ModelException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
-
 import java.util.List;
 
 public class CategoryDao implements Dao<Category> {
     private Session session;
 
+    /**
+     * Sauvergarde d'une catégorie dans la base de données
+     * @param category catégorie à sauvegarder
+     */
     @Override
     public void save(Category category) {
         session = HibUtil.getSessionFactory().openSession();
@@ -21,6 +24,11 @@ public class CategoryDao implements Dao<Category> {
         session.close();
     }
 
+    /**
+     * Mise à jour d'une catégorie dans la base de données
+     * @param category catégorie à mettre à jour
+     * @throws ModelException
+     */
     @Override
     public void update(Category category) throws ModelException {
         session = HibUtil.getSessionFactory().openSession();
@@ -34,6 +42,12 @@ public class CategoryDao implements Dao<Category> {
         session.close();
     }
 
+    /**
+     * Récupération d'une catégorie selon son identifiant
+     * @param id identifiant de la catégorie à récupérer
+     * @return un objet de type Category
+     * @throws DaoException
+     */
     @Override
     public Category get(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
@@ -48,6 +62,10 @@ public class CategoryDao implements Dao<Category> {
         return category;
     }
 
+    /**
+     * Récupération de toutes les catégories de la base de données
+     * @return une liste d'objets Category
+     */
     @Override
     public List<Category> getAll() {
         session = HibUtil.getSessionFactory().openSession();
@@ -59,6 +77,11 @@ public class CategoryDao implements Dao<Category> {
         return categories;
     }
 
+    /**
+     * Suppression d'une catégorie selon son identifiant
+     * @param id identifiant de la catégorie à supprimer
+     * @throws DaoException
+     */
     @Override
     public void delete(int id) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
@@ -76,6 +99,10 @@ public class CategoryDao implements Dao<Category> {
         }
     }
 
+    /**
+     * Récupération des noms de toutes les catégories
+     * @return la liste des noms des catégories
+     */
     public List getAllNames() {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -86,6 +113,11 @@ public class CategoryDao implements Dao<Category> {
         return stringList;
     }
 
+    /**
+     * Vérification de l'existence du nom d'une catégorie dans la base de données
+     * @param name nom à rechercher
+     * @throws DaoException
+     */
     public void checkIfNameExists(String name) throws DaoException {
         session = HibUtil.getSessionFactory().openSession();
         session.beginTransaction();

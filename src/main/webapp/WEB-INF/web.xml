@@ -154,6 +154,16 @@
     </servlet>
 
     <servlet-mapping>
+        <servlet-name>ArticleImageDelete</servlet-name>
+        <url-pattern>/admin/articleImageDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ArticleImageDelete</servlet-name>
+        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.admin.ArticleImageDeleteController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
         <servlet-name>CategoryAdd</servlet-name>
         <url-pattern>/admin/categoryAdd</url-pattern>
     </servlet-mapping>

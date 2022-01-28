@@ -73,12 +73,6 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `User`
---
-INSERT INTO `User` (`idUser`, `fk_cart`) VALUES
-    (1, 1);
-
---
 -- Index pour la table `User`
 --
 ALTER TABLE `User`
@@ -93,12 +87,6 @@ CREATE TABLE `Cart` (
                         `idCart` int(11) NOT NULL AUTO_INCREMENT,
                         primary key (`idCart`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `Cart`
---
-INSERT INTO `Cart` (`idCart`) VALUES
-    (1);
 
 -- --------------------------------------------------------
 
@@ -123,13 +111,6 @@ ALTER TABLE `Article_Cart`
 ALTER TABLE `Article_Cart`
     ADD FOREIGN KEY (`article`)
         REFERENCES Article (`idArticle`);
-
---
--- Déchargement des données de la table `Article_Cart`
---
-INSERT INTO `Article_Cart` (`idArticleCart`, `article`, `cart`, `quantity`) VALUES
-                                                                                (1, 5, 1, 2),
-                                                                                (2, 2, 1, 1);
 
 -- --------------------------------------------------------
 

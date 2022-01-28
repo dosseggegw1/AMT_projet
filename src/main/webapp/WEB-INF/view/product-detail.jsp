@@ -80,7 +80,7 @@
                       </br>
                       </br>
                         <c:if test="${article[3] != 0 && article[5] != 0}">
-                          <input id="quantity" name="quantity" class="quantity-addtocart" type="number" value="1" max="${article[5]}">
+                          <input id="quantity" name="quantity" class="quantity-addtocart" type="number"  value="1" min="1" max="${article[5]}">
                           <div class="aa-prod-view-bottom">
                             <button type="submit" id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</button>
                           </div>
@@ -105,7 +105,7 @@
 
       $("#addToCart").click(function showAlert() {
         var quantity = parseInt(document.getElementById("quantity").value);
-        if (stock > quantity) {
+        if (stock > quantity && quantity > 0) {
             $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
         }
       });

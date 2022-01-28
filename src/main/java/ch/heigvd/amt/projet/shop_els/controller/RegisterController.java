@@ -1,7 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.access.UserDao;
-import ch.heigvd.amt.projet.shop_els.model.User;
+import ch.heigvd.amt.projet.shop_els.dao.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.dao.entities.User;
 import ch.heigvd.amt.projet.shop_els.util.HttpUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -22,14 +22,14 @@ import java.io.IOException;
 public class RegisterController extends HttpServlet{
     private final UserDao userDao = new UserDao();
 
-    private static String url = "";
-    private String urlSecretPath = "/home/admin/Secret/URL_register";
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //send to index if already connected
         if(request.getSession().getAttribute("idUser") == null && request.getSession().getAttribute("role") == null){
             request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        }
+        else if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")){
+            response.sendRedirect("/shop/admin");
         }
         else{
             response.sendRedirect("/shop");
@@ -47,6 +47,7 @@ public class RegisterController extends HttpServlet{
         if(request.getParameter("password").equals(request.getParameter("confirm_password"))) {
           
             //read the url file
+            String urlSecretPath = "/home/admin/Secret/URL_register";
             File fileUrl = new File(urlSecretPath);
             BufferedReader brURL = new BufferedReader(new FileReader(fileUrl));
             String url = brURL.readLine();

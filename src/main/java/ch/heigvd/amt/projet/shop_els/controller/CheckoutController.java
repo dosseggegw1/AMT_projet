@@ -11,7 +11,11 @@ import java.io.IOException;
 public class CheckoutController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/view/checkout.jsp").forward(request, response);
-
+        if (request.getSession().getAttribute("role") == null || !request.getSession().getAttribute("role").equals("admin")) {
+            request.getRequestDispatcher("/WEB-INF/view/checkout.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect("/shop/admin");
+        }
     }
 }

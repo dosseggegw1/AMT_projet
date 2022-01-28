@@ -4,12 +4,12 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- If you are running in a production environment, add a managed data source, the example data source is just for development and testing! -->
         <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
-        <class>ch.heigvd.amt.projet.shop_els.model.User</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Cart</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Category</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Article</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Article_Cart</class>
-        <class>ch.heigvd.amt.projet.shop_els.model.Article_Category</class>
+        <class>ch.heigvd.amt.projet.shop_els.dao.entities.User</class>
+        <class>ch.heigvd.amt.projet.shop_els.dao.entities.Cart</class>
+        <class>ch.heigvd.amt.projet.shop_els.dao.entities.Category</class>
+        <class>ch.heigvd.amt.projet.shop_els.dao.entities.Article</class>
+        <class>ch.heigvd.amt.projet.shop_els.dao.entities.Article_Cart</class>
+        <class>ch.heigvd.amt.projet.shop_els.dao.entities.Article_Category</class>
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

@@ -16,11 +16,11 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.metadata_builder_contributor">ch.heigvd.amt.projet.shop_els.util.MySQLCustomDialect</property>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.User"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Cart"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Category"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Cart"/>
-        <mapping class="ch.heigvd.amt.projet.shop_els.model.Article_Category"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.dao.entities.User"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.dao.entities.Cart"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.dao.entities.Category"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.dao.entities.Article"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.dao.entities.Article_Cart"/>
+        <mapping class="ch.heigvd.amt.projet.shop_els.dao.entities.Article_Category"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,7 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
-import ch.heigvd.amt.projet.shop_els.model.User;
+import ch.heigvd.amt.projet.shop_els.entities.User;
 import ch.heigvd.amt.projet.shop_els.util.HttpUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

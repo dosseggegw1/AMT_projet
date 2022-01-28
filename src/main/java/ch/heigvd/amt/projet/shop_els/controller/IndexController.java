@@ -2,7 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
-import ch.heigvd.amt.projet.shop_els.model.Category;
+import ch.heigvd.amt.projet.shop_els.entities.Category;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

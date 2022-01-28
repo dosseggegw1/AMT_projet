@@ -1,8 +1,8 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
-import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
-import ch.heigvd.amt.projet.shop_els.model.Cart;
+import ch.heigvd.amt.projet.shop_els.entities.Article;
+import ch.heigvd.amt.projet.shop_els.entities.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.entities.Cart;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 import java.util.ArrayList;

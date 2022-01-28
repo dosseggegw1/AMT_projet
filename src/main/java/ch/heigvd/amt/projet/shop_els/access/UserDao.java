@@ -1,6 +1,6 @@
 package ch.heigvd.amt.projet.shop_els.access;
 
-import ch.heigvd.amt.projet.shop_els.model.User;
+import ch.heigvd.amt.projet.shop_els.entities.User;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 import java.util.List;

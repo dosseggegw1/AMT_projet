@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.model;
+package ch.heigvd.amt.projet.shop_els.entities;
 
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
@@ -11,11 +11,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class UserTest {
+public class CartTest {
 
     @Test
     @Order(1)
-    public void shouldInsertUserData()  {
+    public void shouldInsertCartData()  {
         Session session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
@@ -43,7 +43,7 @@ public class UserTest {
 
     @Test
     @Order(2)
-    public void shouldDeleteUserData() {
+    public void shouldDeleteCartData() {
         Session session = HibUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 

@@ -1,5 +1,5 @@
 package ch.heigvd.amt.projet.shop_els.access;
-import ch.heigvd.amt.projet.shop_els.model.ModelException;
+import ch.heigvd.amt.projet.shop_els.entities.ModelException;
 
 import java.util.List;
 

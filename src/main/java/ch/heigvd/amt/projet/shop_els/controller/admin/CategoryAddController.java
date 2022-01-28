@@ -2,7 +2,7 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 
 import ch.heigvd.amt.projet.shop_els.access.CategoryDao;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.model.Category;
+import ch.heigvd.amt.projet.shop_els.entities.Category;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import ch.heigvd.amt.projet.shop_els.model.ModelException;
+import ch.heigvd.amt.projet.shop_els.entities.ModelException;
 import com.google.gson.Gson;
 
 import java.util.List;

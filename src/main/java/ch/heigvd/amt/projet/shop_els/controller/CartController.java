@@ -4,10 +4,10 @@ import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.CartDao;
 import ch.heigvd.amt.projet.shop_els.access.UserDao;
-import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
-import ch.heigvd.amt.projet.shop_els.model.Cart;
-import ch.heigvd.amt.projet.shop_els.model.User;
+import ch.heigvd.amt.projet.shop_els.entities.Article;
+import ch.heigvd.amt.projet.shop_els.entities.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.entities.Cart;
+import ch.heigvd.amt.projet.shop_els.entities.User;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
 
 import javax.servlet.ServletException;

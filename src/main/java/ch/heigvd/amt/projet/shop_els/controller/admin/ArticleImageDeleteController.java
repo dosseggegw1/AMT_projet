@@ -2,9 +2,8 @@ package ch.heigvd.amt.projet.shop_els.controller.admin;
 
 import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
 import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.model.Article;
-import ch.heigvd.amt.projet.shop_els.model.Category;
-import ch.heigvd.amt.projet.shop_els.model.ModelException;
+import ch.heigvd.amt.projet.shop_els.entities.Article;
+import ch.heigvd.amt.projet.shop_els.entities.ModelException;
 import ch.heigvd.amt.projet.shop_els.service.AwsS3;
 import ch.heigvd.amt.projet.shop_els.util.Util;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 @WebServlet("/admin/articleImageDelete")

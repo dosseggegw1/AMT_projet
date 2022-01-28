@@ -27,7 +27,7 @@ CREATE TABLE `Article` (
                            `name` varchar(50) NOT NULL UNIQUE,
                            `description` text NOT NULL,
                            `price` decimal(10,2) UNSIGNED DEFAULT NULL,
-                           `imageURL` varchar(255) DEFAULT 'default.jpg',
+                           `imageURL` varchar(255) DEFAULT 'https://s3.eu-north-1.amazonaws.com/shopels.diduno.education/default.jpg',
                            `stock` smallint(6) UNSIGNED DEFAULT NULL,
                            primary key (`idArticle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -36,11 +36,11 @@ CREATE TABLE `Article` (
 -- Déchargement des données de la table `Article`
 --
 INSERT INTO `Article` (`idArticle`, `name`, `description`, `price`, `imageURL`, `stock`) VALUES
-                                                                                             (1, 'T-Shirt', 'T-shirt avec le logo du club. Taille unique.', '15.50', '/shop/assets/img/ELS/ELS_tshirt_blanc.jpg', 15),
-                                                                                             (2, 'Jogging noir', 'Jogging de couleur noire avec le logo du club. Taille unique', '20.00', '/shop/assets/img/ELS/default.jpg', 15),
-                                                                                             (3, 'Porte-clés', 'Porte-clés en forme du logo du club. Dimension : 10 mm x 12 mm x 5 mm', '5.15', '/shop/assets/img/ELS/default.jpg', 5),
-                                                                                             (4, 'Bonnet', 'Bonnet noir avec le logo du club. Taille unique', '10.00', '/shop/assets/img/ELS/ELS_casquette.jpg', 10),
-                                                                                             (5, 'Gants', 'Gants bleus avec le logo du club. Taille unique', '7.00', '/shop/assets/img/ELS/default.jpg', 10);
+                                                                                             (1, 'T-Shirt', 'T-shirt avec le logo du club. Taille unique.', '15.50', 'https://s3.eu-north-1.amazonaws.com/shopels.diduno.education/ELS_tshirt_blanc.jpg', 15),
+                                                                                             (2, 'Jogging noir', 'Jogging de couleur noire avec le logo du club. Taille unique', '20.00', 'https://s3.eu-north-1.amazonaws.com/shopels.diduno.education/default.jpg', 15),
+                                                                                             (3, 'Porte-clés', 'Porte-clés en forme du logo du club. Dimension : 10 mm x 12 mm x 5 mm', '5.15', 'https://s3.eu-north-1.amazonaws.com/shopels.diduno.education/default.jpg', 5),
+                                                                                             (4, 'Bonnet', 'Bonnet noir avec le logo du club. Taille unique', '10.00', 'https://s3.eu-north-1.amazonaws.com/shopels.diduno.education/ELS_casquette.jpg', 10),
+                                                                                             (5, 'Gants', 'Gants bleus avec le logo du club. Taille unique', '7.00', 'https://s3.eu-north-1.amazonaws.com/shopels.diduno.education/default.jpg', 10);
 
 -- --------------------------------------------------------
 
@@ -57,6 +57,7 @@ CREATE TABLE `Category` (
 -- Déchargement des données de la table `Category`
 --
 INSERT INTO `Category` (`idCategory`, `name`) VALUES
+                                                  (3, 'Vestes'),
                                                   (2, 'Accessoires'),
                                                   (1, 'Vêtements');
 

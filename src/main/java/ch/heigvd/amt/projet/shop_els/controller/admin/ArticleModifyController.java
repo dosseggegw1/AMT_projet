@@ -68,7 +68,7 @@ public class ArticleModifyController extends HttpServlet {
         String[] categories = request.getParameterValues("categories");
         String price = request.getParameter("price");
         String stock = request.getParameter("stock");
-        String imageURL = request.getParameter("imageURL");
+       // String imageURL = request.getParameter("imageURL");
 
         int id = Integer.parseInt(request.getParameter("id"));
         Article article = null;
@@ -89,11 +89,12 @@ public class ArticleModifyController extends HttpServlet {
             if(Integer.parseInt(stock) != article.getStock())
                 articleDao.updateStock(article, Integer.parseInt(stock));
             // Check if image has changed
-            if(!Objects.equals(imageURL, article.getImageURL())){
+            String fileName = Util.extractFileName(request.getPart("imageURL"));
+            if(!Objects.equals(fileName, article.getImageURL())){
                 AwsS3 aws = new AwsS3();
                 String oldKey = getFileNameOfUrl(article.getImageURL());
                 // If we remove image already set
-                if(imageURL.equals("")){
+                if(fileName.equals("")){
                     // First delete image on S3
                     aws.deleteImage(getFileNameOfUrl(article.getImageURL()));
                     // Then we add default image to S3
@@ -101,7 +102,7 @@ public class ArticleModifyController extends HttpServlet {
                     // And we update database
                     articleDao.updateImageUrl(article, aws.getImageURL("default.jpg"));
                 } else {
-                    String fileName = Util.extractFileName(request.getPart("imageURL"));
+                   // String fileName = Util.extractFileName(request.getPart("imageURL"));
                     String newFileName = Util.addTimestamp(fileName);
                     // Update image in S3
                     aws.updateImg(request.getPart("imageURL").getInputStream(), newFileName, oldKey);

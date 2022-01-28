@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static ch.heigvd.amt.projet.shop_els.util.Constants.MAXIMUM_NAME_LENGTH;
+import static ch.heigvd.amt.projet.shop_els.util.Util.MAXIMUM_NAME_LENGTH;
 
 @NamedQueries({
         @NamedQuery(name= "selectAllCategories", query = "SELECT idCategory, name FROM Category "),

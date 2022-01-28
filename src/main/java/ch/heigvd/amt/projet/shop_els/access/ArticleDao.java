@@ -152,4 +152,64 @@ public class ArticleDao implements Dao<Article>{
         }
         return list;
     }
+
+    public void updateName(Article article, String name) throws ModelException {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        // Get object to update
+        Article updateArticle = session.get(Article.class, article.getIdArticle());
+        updateArticle.setName(name);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateDescription(Article article, String description) throws ModelException {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        // Get object to update
+        Article updateArticle = session.get(Article.class, article.getIdArticle());
+        updateArticle.setDescription(description);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updatePrice(Article article, float price) throws ModelException {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        // Get object to update
+        Article updateArticle = session.get(Article.class, article.getIdArticle());
+        updateArticle.setPrice(price);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateStock(Article article, int stock) throws ModelException {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        // Get object to update
+        Article updateArticle = session.get(Article.class, article.getIdArticle());
+        updateArticle.setStock(stock);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateImageUrl(Article article, String imageURL) throws ModelException {
+        session = HibUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        // Get object to update
+        Article updateArticle = session.get(Article.class, article.getIdArticle());
+        updateArticle.setImageURL(imageURL);
+
+        session.getTransaction().commit();
+        session.close();
+    }
 }

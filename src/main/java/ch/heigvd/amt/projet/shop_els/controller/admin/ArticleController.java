@@ -33,7 +33,5 @@ public class ArticleController extends HttpServlet{
         else{
             response.sendRedirect("/shop");
         }
-
-
     }
 }

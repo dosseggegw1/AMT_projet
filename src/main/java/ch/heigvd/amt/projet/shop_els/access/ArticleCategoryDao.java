@@ -43,6 +43,7 @@ public class ArticleCategoryDao implements Dao<Article_Category> {
         session.close();
     }
 
+
     /**
      * Récupération d'un objet de type Article_Category depuis la base de données
      * @param id Identifiant de l'objet à récupérer

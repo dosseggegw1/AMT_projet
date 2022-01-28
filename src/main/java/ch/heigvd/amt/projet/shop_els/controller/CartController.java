@@ -1,14 +1,14 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.access.ArticleCartDao;
-import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
-import ch.heigvd.amt.projet.shop_els.access.CartDao;
-import ch.heigvd.amt.projet.shop_els.access.UserDao;
-import ch.heigvd.amt.projet.shop_els.entities.Article;
-import ch.heigvd.amt.projet.shop_els.entities.Article_Cart;
-import ch.heigvd.amt.projet.shop_els.entities.Cart;
-import ch.heigvd.amt.projet.shop_els.entities.User;
-import ch.heigvd.amt.projet.shop_els.access.DaoException;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleCartDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.CartDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.UserDao;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Article;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Cart;
+import ch.heigvd.amt.projet.shop_els.dao.entities.User;
+import ch.heigvd.amt.projet.shop_els.dao.access.DaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

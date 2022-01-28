@@ -1,8 +1,10 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.access.*;
-import ch.heigvd.amt.projet.shop_els.entities.Article_Cart;
-import ch.heigvd.amt.projet.shop_els.entities.Cart;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleCartDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.DaoException;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Article_Cart;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Cart;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

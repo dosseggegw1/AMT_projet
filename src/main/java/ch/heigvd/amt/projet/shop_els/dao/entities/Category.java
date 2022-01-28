@@ -1,4 +1,4 @@
-package ch.heigvd.amt.projet.shop_els.entities;
+package ch.heigvd.amt.projet.shop_els.dao.entities;
 
 import javax.persistence.*;
 import java.util.HashSet;

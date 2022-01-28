@@ -1,8 +1,8 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
-import ch.heigvd.amt.projet.shop_els.access.ArticleCategoryDao;
-import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
-import ch.heigvd.amt.projet.shop_els.access.DaoException;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleCategoryDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.DaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

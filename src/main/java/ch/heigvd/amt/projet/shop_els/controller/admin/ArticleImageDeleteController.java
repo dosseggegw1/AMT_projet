@@ -1,9 +1,9 @@
 package ch.heigvd.amt.projet.shop_els.controller.admin;
 
-import ch.heigvd.amt.projet.shop_els.access.ArticleDao;
-import ch.heigvd.amt.projet.shop_els.access.DaoException;
-import ch.heigvd.amt.projet.shop_els.entities.Article;
-import ch.heigvd.amt.projet.shop_els.entities.ModelException;
+import ch.heigvd.amt.projet.shop_els.dao.access.ArticleDao;
+import ch.heigvd.amt.projet.shop_els.dao.access.DaoException;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Article;
+import ch.heigvd.amt.projet.shop_els.dao.entities.ModelException;
 import ch.heigvd.amt.projet.shop_els.service.AwsS3;
 import ch.heigvd.amt.projet.shop_els.util.Util;
 

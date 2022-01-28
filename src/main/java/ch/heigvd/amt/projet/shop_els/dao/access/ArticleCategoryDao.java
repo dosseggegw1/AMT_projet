@@ -1,8 +1,8 @@
-package ch.heigvd.amt.projet.shop_els.access;
+package ch.heigvd.amt.projet.shop_els.dao.access;
 
-import ch.heigvd.amt.projet.shop_els.entities.Article;
-import ch.heigvd.amt.projet.shop_els.entities.Article_Category;
-import ch.heigvd.amt.projet.shop_els.entities.Category;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Article;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Article_Category;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Category;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 

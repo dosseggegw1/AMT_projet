@@ -1,7 +1,7 @@
-package ch.heigvd.amt.projet.shop_els.access;
+package ch.heigvd.amt.projet.shop_els.dao.access;
 
-import ch.heigvd.amt.projet.shop_els.entities.Category;
-import ch.heigvd.amt.projet.shop_els.entities.ModelException;
+import ch.heigvd.amt.projet.shop_els.dao.entities.Category;
+import ch.heigvd.amt.projet.shop_els.dao.entities.ModelException;
 import ch.heigvd.amt.projet.shop_els.util.HibUtil;
 import org.hibernate.Session;
 import java.util.List;

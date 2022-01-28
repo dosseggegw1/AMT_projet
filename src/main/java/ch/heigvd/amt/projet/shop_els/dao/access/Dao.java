@@ -1,5 +1,5 @@
-package ch.heigvd.amt.projet.shop_els.access;
-import ch.heigvd.amt.projet.shop_els.entities.ModelException;
+package ch.heigvd.amt.projet.shop_els.dao.access;
+import ch.heigvd.amt.projet.shop_els.dao.entities.ModelException;
 
 import java.util.List;
 

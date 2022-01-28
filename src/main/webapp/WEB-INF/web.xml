@@ -83,15 +83,6 @@
         <url-pattern>/contact</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Product</servlet-name>
-        <servlet-class>ch.heigvd.amt.projet.shop_els.controller.ProductController</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Product</servlet-name>
-        <url-pattern>/product</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>ProductDetail</servlet-name>

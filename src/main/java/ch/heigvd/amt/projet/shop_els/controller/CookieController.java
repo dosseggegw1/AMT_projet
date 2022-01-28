@@ -1,10 +1,8 @@
 package ch.heigvd.amt.projet.shop_els.controller;
 
 import ch.heigvd.amt.projet.shop_els.access.*;
-import ch.heigvd.amt.projet.shop_els.model.Article;
 import ch.heigvd.amt.projet.shop_els.model.Article_Cart;
 import ch.heigvd.amt.projet.shop_els.model.Cart;
-import ch.heigvd.amt.projet.shop_els.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet("/cookie")
 public class CookieController extends HttpServlet {
@@ -36,7 +31,6 @@ public class CookieController extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         float priceByUnit = Float.parseFloat(request.getParameter("price"));
         boolean itemInCart = false;
-        boolean firstParam = true;
         boolean quantityZero = false;
         ArrayList<ArrayList<String>> cart;
         String cartAsString = "";
@@ -85,25 +79,10 @@ public class CookieController extends HttpServlet {
 
 
     private void pushCartInDB(HttpServletRequest request, String cartAsString) throws DaoException {
-        UserDao userDao = new UserDao();
-        CartDao cartDao = new CartDao();
         ArticleCartDao articleCartDao = new ArticleCartDao();
         ArticleDao articleDao = new ArticleDao();
 
-        int idUser = (int) request.getSession().getAttribute("idUser");
-        User user = userDao.get(idUser);
-        Cart cart = user.getFk_cart();
-        int idCart;
-
-        if(cart == null)
-        {
-            cart = new Cart();
-            cartDao.save(cart);
-            user.setFk_cart(cartDao.get(cart.getIdCart()));
-            userDao.update(user);
-        }
-
-        idCart = cart.getIdCart();
+        Cart cart =  CartController.getCart((int) request.getSession().getAttribute("idUser"));
 
         ArrayList<ArrayList<String>> parsedCart = parseCookie(cartAsString);
 
@@ -112,7 +91,7 @@ public class CookieController extends HttpServlet {
 
             int idArticle = Integer.parseInt(item.get(0));
             int quantity = Integer.parseInt(item.get(1));
-            int idArticleCart = findArticleCartID(idCart, idArticle);
+            int idArticleCart = findArticleCartID(cart.getIdCart(), idArticle);
 
             articleCart.setCart(cart);
             articleCart.setArticle(articleDao.get(idArticle));
@@ -140,10 +119,7 @@ public class CookieController extends HttpServlet {
     }
 
     private boolean checkIfLoggedIn(HttpServletRequest request) {
-        if (request.getSession().getAttribute("idUser") == null) {
-            return false;
-        }
-        return true;
+        return request.getSession().getAttribute("idUser") != null;
     }
     
     private String updateCookie(ArrayList<String> item) {
@@ -169,6 +145,12 @@ public class CookieController extends HttpServlet {
 
     }
 
+    /**
+     * Description : Cette fonction permet de lire le contenu du cookie "cartItems" afin de récupérer le contenu du panier
+     * et de stocker ce contenu dans un tableau deux dimensions de strings
+     * @param request, la request contenant les cookies
+     * @return le tableau à deux dimensions avec le contenu du panier
+     */
     public static ArrayList<ArrayList<String>> read_cookie(HttpServletRequest request)  {
         javax.servlet.http.Cookie[] cookies = request.getCookies();
         ArrayList<ArrayList<String>> cart = new ArrayList<ArrayList<String>>();

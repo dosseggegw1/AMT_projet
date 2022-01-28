@@ -27,6 +27,9 @@
   <!-- product category -->
   <section id="aa-product-details">
     <div class="container">
+      <div id="add-article-success" class="alert alert-success" role="alert">
+        <c:out value="L'article a été ajouté au panier !"/>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="aa-product-details-area">
@@ -39,13 +42,13 @@
                       <div class="simpleLens-container">
                         <div class="simpleLens-big-image-container">
                           <c:choose>
-                            <c:when test="${article[3] == 0}">
-                              <img src="${article[4]}" class="simpleLens-big-image">
-                              <span class="btn-indisp">Bientôt disponible!</span>
-                            </c:when>
                             <c:when test="${article[5] == 0}">
                               <img src="${article[4]}" class="simpleLens-big-image">
                               <span class="btn-indisp">Rupture de stock</span>
+                            </c:when>
+                            <c:when test="${article[3] == 0}">
+                              <img src="${article[4]}" class="simpleLens-big-image">
+                              <span class="btn-indisp">Bientôt disponible!</span>
                             </c:when>
                             <c:otherwise>
                               <span data-lens-image="${article[4]}" class="simpleLens-lens-image"><img src="${article[4]}" class="simpleLens-big-image"></span>
@@ -77,20 +80,12 @@
                       </br>
                       </br>
                         <c:if test="${article[3] != 0 && article[5] != 0}">
-                          <select id="quantity" name="quantity">
-                            <option selected="1" value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                          </select>
+                          <input id="quantity" name="quantity" class="quantity-addtocart" type="number" value="1" max="${article[5]}">
                           <div class="aa-prod-view-bottom">
                             <button type="submit" id="addToCart" class="aa-add-to-cart-btn" href="#">Ajouter au panier</button>
                           </div>
                         </c:if>
                       </form>
-
                     </div>
                   </div>
                 </div>
@@ -102,6 +97,25 @@
     </div>
   </section>
   <!-- / product category -->
+
+  <script>
+    $(document).ready(function() {
+      $("#add-article-success").hide();
+      var stock = parseInt(${article[5]});
+
+      $("#addToCart").click(function showAlert() {
+        var quantity = parseInt(document.getElementById("quantity").value);
+        if (stock > quantity) {
+            $("#add-article-success").slideDown(300).delay(2000).slideUp(400);
+        }
+      });
+
+    });
+
+    $('#add-article-success .close').click(function() {
+      $(this).parent().hide();
+    });
+  </script>
 
   <jsp:include page="../includes/footer.jsp"/>
   <jsp:include page="../includes/plugins.jsp"/>

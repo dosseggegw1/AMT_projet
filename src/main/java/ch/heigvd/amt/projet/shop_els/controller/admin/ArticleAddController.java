@@ -136,5 +136,23 @@ public class ArticleAddController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/view/admin/articleAdd.jsp").forward(request, response);
         }
     }
+
+
+    /**
+     * Permet d'extraire les noms de fichier depuis l'entête http
+     * @param part Fichier upload
+     * @return Le nom du fichier
+     */
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
+
 }
 

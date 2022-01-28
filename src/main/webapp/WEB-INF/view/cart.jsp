@@ -59,10 +59,10 @@
                       %>
                       <tr>
                         <td><a href="#"><img src="<%=item.get(5)%>" alt="img" style="max-width: 100px; max-height: 100px;"></a></td>
-                        <td><a class="aa-cart-title" href="#">"<%=item.get(3)%>"</a></td>
-                        <td>"<%=item.get(4)%>"</td>
-                        <td><input id="quantity<%=item.get(0)%>" class="aa-cart-quantity" type="number" value="<%=item.get(1)%>"></td>
-                        <td>"<%=Float.parseFloat(item.get(2)) * Integer.parseInt(item.get(1))%>"</td>
+                        <td><a class="aa-cart-title" href="#"><%=item.get(3)%></a></td>
+                        <td><%=item.get(4)%> CHF</td>
+                        <td><input id="quantity<%=item.get(0)%>" class="aa-cart-quantity" type="number" value=<%=item.get(1)%>></td>
+                        <td><%=Float.parseFloat(item.get(2)) * Integer.parseInt(item.get(1))%> CHF</td>
                       </tr>
                       <%
                         }
@@ -93,7 +93,7 @@
                            totalPrice += Float.parseFloat(item.get(2)) * Integer.parseInt(item.get(1));
                          }
                        %>
-                       <%=totalPrice%>
+                       <%=totalPrice%> CHF
                      </td>
                    </tr>
                  </tbody>

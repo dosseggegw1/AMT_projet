@@ -91,7 +91,7 @@ public class ArticleAddController extends HttpServlet {
 
             // Verify an image was set
             if (fileName.equals("")) {
-                newFileName = "default.jpg";
+                newFileName = "default.png";
                 inputStream = aws.getObject(newFileName).getObjectContent();
             } else {
                 inputStream = request.getPart("imageURL").getInputStream();

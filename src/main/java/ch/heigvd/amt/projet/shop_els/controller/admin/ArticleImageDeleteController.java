@@ -30,11 +30,11 @@ public class ArticleImageDeleteController extends HttpServlet {
             article = articleDao.get(idArticle);
             AwsS3 aws = new AwsS3();
             String fileName = Util.getFileNameOfUrl(article.getImageURL());
-            if(!Objects.equals(fileName, "default.jpg")) {
+            if(!Objects.equals(fileName, "default.png")) {
                 // Delete image on S3
                 aws.deleteImage(fileName);
                 // And we update database
-                articleDao.updateImageUrl(article, aws.getImageURL("default.jpg"));
+                articleDao.updateImageUrl(article, aws.getImageURL("default.png"));
             }
         } catch (DaoException | ModelException error) {
             request.setAttribute("error", error.toString());

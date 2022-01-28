@@ -33,4 +33,14 @@ public class Util {
         // Add timestamp to filename in case there are two same images in S3
         return fileNameArray[0] + "-" + timestamp.getTime() + "." + fileNameArray[1];
     }
+
+    /**
+     * Permet de récupérer le nom de l'image d'une url
+     * @param url URL où il faut extraire le nom
+     * @return Nom de l'image
+     */
+    public static String getFileNameOfUrl(String url) {
+        String parts[] = url.split("/");
+        return parts[parts.length - 1];
+    }
 }

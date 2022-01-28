@@ -90,19 +90,12 @@ public class ArticleModifyController extends HttpServlet {
                 articleDao.updateStock(article, Integer.parseInt(stock));
             // Check if image has changed
             String fileName = Util.extractFileName(request.getPart("imageURL"));
-            if(!Objects.equals(fileName, article.getImageURL())){
+            if(!Objects.equals(fileName, article.getImageURL())) {
                 AwsS3 aws = new AwsS3();
-                String oldKey = getFileNameOfUrl(article.getImageURL());
+                String oldKey = Util.getFileNameOfUrl(article.getImageURL());
                 // If we remove image already set
-                if(fileName.equals("")){
-                    // First delete image on S3
-                    aws.deleteImage(getFileNameOfUrl(article.getImageURL()));
-                    // Then we add default image to S3
-                    aws.uploadImage(aws.getObject("default.jpg").getObjectContent(), "default.jpg");
-                    // And we update database
-                    articleDao.updateImageUrl(article, aws.getImageURL("default.jpg"));
-                } else {
-                   // String fileName = Util.extractFileName(request.getPart("imageURL"));
+                if (!fileName.equals("")) {
+                    // Add timestamp
                     String newFileName = Util.addTimestamp(fileName);
                     // Update image in S3
                     aws.updateImg(request.getPart("imageURL").getInputStream(), newFileName, oldKey);
@@ -110,7 +103,6 @@ public class ArticleModifyController extends HttpServlet {
                     articleDao.updateImageUrl(article, aws.getImageURL(newFileName));
                 }
             }
-             //   articleDao.updateImageUrl(article, imageURL);
         } catch (DaoException | ModelException error) {
             List<Category> results = categoryDao.getAll();
             List<String> categoriesArticle = articleCategoryDao.getCategoriesNameByArticleId(id);
@@ -174,16 +166,6 @@ public class ArticleModifyController extends HttpServlet {
             }
             response.sendRedirect("/shop/admin/articles");
         }
-    }
-
-    /**
-     * Permet de récupérer le nom de l'image d'une url
-     * @param url URL où il faut extraire le nom
-     * @return Nom de l'image
-     */
-    private String getFileNameOfUrl(String url) {
-        String parts[] = url.split("/");
-        return parts[parts.length - 1];
     }
 }
 

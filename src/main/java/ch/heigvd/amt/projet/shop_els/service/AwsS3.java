@@ -10,6 +10,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 
 import java.io.*;
+import java.util.Objects;
 
 public class AwsS3 {
     private AmazonS3 s3Client;
@@ -82,7 +83,9 @@ public class AwsS3 {
      * @param oldKey Nom de l'image à supprimer
      */
     public void updateImg(InputStream newFile, String newKey, String oldKey) {
-        deleteImage(oldKey);
+        if(!Objects.equals(oldKey, "default.jpg")) {
+            deleteImage(oldKey);
+        }
         uploadImage(newFile, newKey);
     }
 

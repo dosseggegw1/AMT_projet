@@ -85,7 +85,6 @@ public class ArticleAddController extends HttpServlet {
         }
 
         // Validation of the user's inputs
-        // TODO Gérer l'image default.jpg
         try {
             ///////////// CONNEXION AWS ///////////////////////////
             AwsS3 aws = new AwsS3();
